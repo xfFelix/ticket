@@ -98,9 +98,9 @@ export default {
     },
     jumpOrder(){
       if(this.pathC.query==0){
-        this.$router.push({name:this.pathC.name})
+        this.$router.replace({name:this.pathC.name})
       }else{
-        this.$router.push({name:this.pathC.name,query:{cardId:this.pathC.query}})
+        this.$router.replace({name:this.pathC.name,query:{cardId:this.pathC.query}})
       }
     }
   },
@@ -109,7 +109,7 @@ export default {
       this.countDown--
       if (this.countDown == 0) {
         clearInterval(this.timer);
-        // this.$router.push({ name: this.pathHomeC })
+        this.$router.push({ name: this.pathHomeC })
       }
     }, 1000)
   },

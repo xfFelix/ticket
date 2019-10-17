@@ -2,7 +2,7 @@
     <div class="oilRecord">
         <div class="headFixed">
             <header>
-                <i class="cubeic-back" @click="$router.push({name:'oilHome'})"></i>
+                <i class="cubeic-back" @click="$route.query.go=='cocogc'?$router.back():$router.push({name:'oilHome'})"></i>
                 兑换记录
             </header>
             <div class="whoSelectW">

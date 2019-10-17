@@ -99,7 +99,7 @@ export default {
         }else{
           this.initShow();
           this.$dialog({content:res.message},()=>{
-            this.$router.push({name:'goldHome'})
+            this.$router.replace({name:'goldHome'})
           })
         }
     },
