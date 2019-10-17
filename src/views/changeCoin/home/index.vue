@@ -26,7 +26,7 @@
               <div class="title">{{item.catName}}</div>
               <div class="price"><span>售价：{{item.catKey}}</span></div>
             </div>
-            <div class="gift"><span>送{{userinfo.coinAlisa ? userinfo.coinAlisa : '金币'}}{{Math.round(item.obj.num)}}</span></div>
+            <div class="gift"><span>送{{userinfo.coinAlisa ? userinfo.coinAlisa : '金币'}}{{Math.round(item.num)}}</span></div>
           </div>
         </div>
       </div>
@@ -125,11 +125,7 @@ export default {
     async getList(){
       const {getChuanQiCoinList} = await import('@/api')
       const { code, data } = await getChuanQiCoinList({catKey: this.vendorId})
-      for (let item of data) {
-        let obj = await this.getCostCoin(item.catKey)
-        let cost = {...item, obj}
-        this.list.push(cost)
-      }
+      this.list = data
       this.coinInfo = { ...this.coinInfo, ...this.list[0].obj}
       this.coinInfo.moneyNum = data[0].catKey
       this.storeName = data[0].parentName
@@ -384,6 +380,7 @@ export default {
               background: #30CE84;
               color: #fff;
               border-radius:5px 5px 0px 0px;
+              box-sizing: border-box;
             }
             .title{
               font-weight: bold;
