@@ -115,8 +115,6 @@ export default {
     }
   },
   created() {
-    console.log(`url:${window.location.href}`)
-    console.log(`vendorId:${this.$route.query.vendorId}`)
     this.getList()
   },
   methods: {
