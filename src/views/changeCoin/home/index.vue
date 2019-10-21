@@ -114,9 +114,6 @@ export default {
       }
     }
   },
-  created() {
-    this.getList()
-  },
   methods: {
     ...mapActions({
       checkPassword: 'checkPassword',
@@ -124,7 +121,7 @@ export default {
     }),
     async getList(){
       const {getChuanQiCoinList} = await import('@/api')
-      const { code, data } = await getChuanQiCoinList({catKey: this.vendorId})
+      const { code, data } = await getChuanQiCoinList({catKey: this.vendorId, token: this.getToken})
       this.list = data
       this.coinInfo = { ...this.coinInfo, ...this.list[0].obj}
       this.coinInfo.moneyNum = data[0].catKey
@@ -246,6 +243,7 @@ export default {
     if (this.$route.query.vendorUid) {
       this.vendorUid = this.$route.query.vendorUid
     }
+    this.getList()
   },
   components: {
     BgMask: () => import('components/BgMask'),
