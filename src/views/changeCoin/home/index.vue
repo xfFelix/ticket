@@ -129,7 +129,6 @@ export default {
       this.desc = data[0].content
     },
     toggleActive(item) {
-      this.coinInfo = { ...this.coinInfo, ...item.obj}
       this.coinInfo.moneyNum = item.catKey
     },
     codeInfo(code) {
@@ -147,7 +146,7 @@ export default {
     async coinChange() {
       let res = await this.checkPassword();
       if (!res) return;
-      this.showInfo()
+      this.getCostCoin(this.coinInfo.moneyNum)
     },
     outLogin() {
       this.$dialog({ type: 'confirm', content: '确认退出当前账号？' }, () => {
@@ -168,7 +167,8 @@ export default {
       try{
         let params = { token: this.getToken, integral, vendorId: this.vendorId, vendorUid: this.vendorUid }
         const { code, data } = await getCostCoin(params);
-        return data[0]
+        this.showInfo()
+        this.coinInfo = { ...this.coinInfo, ...data[0]}
       } catch (e) {
         this.$toast('getCostCoin 接口失败')
       }
