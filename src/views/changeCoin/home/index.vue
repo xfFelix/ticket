@@ -123,7 +123,6 @@ export default {
       const {getChuanQiCoinList} = await import('@/api')
       const { code, data } = await getChuanQiCoinList({catKey: this.vendorId, token: this.getToken})
       this.list = data
-      this.coinInfo = { ...this.coinInfo, ...this.list[0].obj}
       this.coinInfo.moneyNum = data[0].catKey
       this.storeName = data[0].parentName
       this.desc = data[0].content
@@ -167,8 +166,8 @@ export default {
       try{
         let params = { token: this.getToken, integral, vendorId: this.vendorId, vendorUid: this.vendorUid }
         const { code, data } = await getCostCoin(params);
-        this.showInfo()
         this.coinInfo = { ...this.coinInfo, ...data[0]}
+        this.showInfo()
       } catch (e) {
         this.$toast('getCostCoin 接口失败')
       }
