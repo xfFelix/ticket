@@ -57,6 +57,14 @@ const router = new Router({
             title: '选择地区',
           }
         },
+        {
+          path: 'success',
+          name: 'signGeoSuccess',
+          component: () => import('views/sign_geo/success'),
+          meta: {
+            title: '签约成功',
+          }
+        }
       ]
     },
     {
