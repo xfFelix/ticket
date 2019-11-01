@@ -16,6 +16,7 @@ import Vuex from 'vuex'
 
 // 引入模块
 import face from './modules/face'
+import sign from './modules/sign'
 import createLogger from 'vuex/dist/logger' // 每次修改会去控制台打一个状态
 
 Vue.use(Vuex)
@@ -24,10 +25,12 @@ const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
   getters: {
-    face_config: state => state.face.config
+    face_config: state => state.face.config,
+    sign_config: state => state.sign.config
   },
   modules: {
-    face
+    face,
+    sign
   },
   strict: debug,
   plugins: debug ? [createLogger()] : []

@@ -20,6 +20,14 @@ const router = new Router({
       }
     },
     {
+      path: '/sign/geolocation',
+      name: 'signGeolocation',
+      component: () => import('views/sign/geolocation'),
+      meta: {
+        title: '选择地区',
+      }
+    },
+    {
       path: '/sign/signHelps',
       name: 'signHelps',
       component: () => import('views/sign/signHelps'),
