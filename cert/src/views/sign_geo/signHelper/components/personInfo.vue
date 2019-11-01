@@ -1,6 +1,11 @@
 <template>
   <div>
     <ul class="identity-info-wrap">
+      <li @click="$router.push('/sign_geo/geolocation')">
+        <span>地区</span>
+        <input type="text" placeholder="请选择地区" v-model.trim="config.city" disabled />
+        <i class="cubeic-arrow"></i>
+      </li>
       <li>
         <span>真实姓名</span>
         <input type="text" placeholder="请填写真实姓名" v-model.trim="data.name" />
@@ -55,6 +60,11 @@ export default {
       bankCard:""
     }
   }),
+  computed: {
+    ...mapGetters({
+      config: 'sign_config'
+    })
+  },
   watch: {
     getPersonInfoC(val) {
         if(val==true){
@@ -136,11 +146,17 @@ export default {
         color: #a9a9a9;
         font-size: 13px;
       }
+      &:disabled{
+        background: transparent;
+      }
     }
     input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus,input:-webkit-autofill:active{
       -webkit-box-shadow: 0 0 0px 1000px white inset !important;
       -webkit-transition-delay: 9999s;
       -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
+    }
+    .cubeic-arrow{
+      font-size: 18px;
     }
     .bnt{
       text-align: center;

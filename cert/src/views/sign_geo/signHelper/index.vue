@@ -16,6 +16,7 @@
 import { IdentityCodeValid,isEmpty,IsMobile } from "util/common";
 import { checkId,signInfo } from 'api'
 import axios from 'axios'
+import { mapGetters } from 'vuex';
 export default {
   data: () => ({
     checked: true,
@@ -24,6 +25,11 @@ export default {
     frontObj:{},
     backObj:{},
   }),
+  computed: {
+    ...mapGetters({
+      config: 'sign_config'
+    })
+  },
   methods: {
     // 点击确定按钮后不能直接拿到子组件的值，所以得在拿到值后再调接口
     commitInfo() {
@@ -34,13 +40,14 @@ export default {
       if (Object.keys(this.frontObj).length==0) return this.$toast("请上传您的身份证正面照");
       if (Object.keys(this.backObj).length==0) return this.$toast("请上传您的身份证反面照");
       if (isEmpty(this.dataInfo.name)) return this.$toast("请填写您的姓名");
+      if (isEmpty(this.config.city)) return this.$toast("请选择您的地区");
       if (!IdentityCodeValid(this.dataInfo.idNum)) return this.$toast("请填写您的有效身份证号码");
       if (isEmpty(this.dataInfo.bankCard)) return this.$toast("请填写您的银行卡号");
       if (isEmpty(this.dataInfo.mobile)) return this.$toast("请填写您的手机号");
       if (!IsMobile(this.dataInfo.mobile)) return this.$toast("请输入正确的手机号");
       if (isEmpty(this.dataInfo.code)) return this.$toast("请输入验证码");
       if (this.checked==false) return  this.$toast("请阅读并同意<p>《在线签约用户协议》</p>");
-      this.checkedID();
+      this.uploadFile();
     },
     //校验
     async checkedID(){
@@ -58,14 +65,15 @@ export default {
       try{
         let data = await signInfo({
           name:this.dataInfo.name,
-          idCard:this.dataInfo.idNum,
+          idNo:this.dataInfo.idNum,
           mobile:this.dataInfo.mobile,
           code:this.dataInfo.code,
-          bankCardNum:this.dataInfo.bankCard,
+          cardNo:this.dataInfo.bankCard,
+          region: this.config.city,
           positiveIDPhoto:this.frontObj,
           negativeIDPhoto:this.backObj
         })
-        this.$router.push({name:'signHelps'})
+        window.location.href = data.data.shortUrl
         toast.hide();
       } catch (e) {
         toast.hide();
