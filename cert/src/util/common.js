@@ -65,6 +65,36 @@ export function getParam() {
   return args
 }
 
+export function getArgs() {
+  var args = {}
+  var end = location.hash.indexOf('?') + 1
+  var query = location.hash.substring(end)
+  var pairs = query.split('&')
+  for (var i = 0; i < pairs.length; i += 1) {
+    var pos = pairs[i].indexOf('=')
+    if (pos === -1) {
+      continue
+    }
+    var argname = pairs[i].substring(0, pos)
+    var value = pairs[i].substring(pos + 1)
+    args[argname] = decodeURIComponent(value)
+  }
+  if (!Object.keys(args).length) {
+    query = location.search.substring(1)
+    pairs = query.split('&')
+    for (var i = 0; i < pairs.length; i += 1) {
+      var pos = pairs[i].indexOf('=')
+      if (pos === -1) {
+        continue
+      }
+      var argname = pairs[i].substring(0, pos)
+      var value = pairs[i].substring(pos + 1)
+      args[argname] = decodeURIComponent(value)
+    }
+  }
+  return args
+}
+
 
 //身份证校验
 export const IdentityCodeValid = (code) => {

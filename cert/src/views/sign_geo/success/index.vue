@@ -8,6 +8,7 @@
     <div class="info">
       <h1>如下是您的电子工牌:</h1>
       <div class="content">
+        <img src="~common/images/banner.png" alt="" class="banner">
         <div class="iconfont icon-LC_icon_user_fill_3"></div>
         <div class="item">
           <span class="label">姓名</span>
@@ -34,7 +35,7 @@
   </div>
 </template>
 <script>
-import {getParam} from '@/util/common'
+import {getArgs} from '@/util/common'
 export default {
   data: () => ({
     jobNumber: '',
@@ -43,7 +44,7 @@ export default {
     region: ''
   }),
   created() {
-    let obj = getParam()
+    let obj = getArgs()
     this.name = obj.name
     this.idNo = obj.idNo
     this.jobNumber = obj.jobNumber
@@ -75,6 +76,11 @@ export default {
   .info{
     margin: 30px 0 ;
     padding: 0 40px;
+    .banner{
+      height: 60px;
+      width: 200px;
+      transform: scaleY(2.5);
+    }
     h1{
       margin: 10px 0;
       font-size: 14px;
