@@ -2,7 +2,7 @@
   <div>
     <ul class="identity-info-wrap">
       <li @click="$router.push('/sign_geo/geolocation')">
-        <span>地区</span>
+        <span>工作地区</span>
         <input type="text" placeholder="请选择地区" v-model.trim="config.city" disabled />
         <i class="cubeic-arrow"></i>
       </li>
