@@ -60,7 +60,7 @@ export default {
     },
     //上传文件
     async uploadFile(){
-      const toast = this.$createToast({mask:true,time:0});
+      const toast = this.$createToast({mask:true,time:0, txt: '正在加载合同，进入签署电子合同中...'});
       toast.show();
       try{
         let data = await signInfo({
