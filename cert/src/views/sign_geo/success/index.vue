@@ -8,7 +8,7 @@
     <div class="info">
       <h1>如下是您的电子工牌:</h1>
       <div class="content">
-        <img src="~common/images/banner.png" alt="" class="banner">
+        <img src="~common/images/banner.png" alt="" class="cocoImg">
         <div class="iconfont icon-LC_icon_user_fill_3"></div>
         <div class="item">
           <span class="label">姓名</span>
@@ -76,8 +76,8 @@ export default {
   .info{
     margin: 30px 0 ;
     padding: 0 40px;
-    .banner{
-      height: 60px;
+    .cocoImg{
+      height: 80px;
       width: 200px;
       transform: scaleY(2.5);
     }
