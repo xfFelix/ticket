@@ -32,6 +32,11 @@ module.exports = {
   },
   lintOnSave: false,
   chainWebpack: (config) => {
+    config.module
+      .rule('images')
+        .use('url-loader')
+          .loader('url-loader')
+          .tap(options => Object.assign(options, { limit: 1024 }))
     config.resolve.alias
       .set('@', resolve('src'))
       .set('common', resolve('src/common'))
