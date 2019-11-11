@@ -3,10 +3,10 @@
     <form ref="advForm">
       <upload-img @front-file="frontFiles"  @back-file="backFiles"></upload-img>
       <person-info @person-data="personInfoF" :getPersonInfoC.sync="getPersonInfo"></person-info>
-      <div class="agreement">
+      <!-- <div class="agreement">
         <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
         <span class="file" @click="$router.push({name:'signHelpFile'})">《数字经济合作伙伴协议》</span>
-      </div>
+      </div> -->
     </form>
     <div class="next-step" @click="commitInfo">确认提交</div>
     <div class="next-step-height"></div>
@@ -46,7 +46,7 @@ export default {
       if (isEmpty(this.dataInfo.mobile)) return this.$toast("请填写您的手机号");
       if (!IsMobile(this.dataInfo.mobile)) return this.$toast("请输入正确的手机号");
       if (isEmpty(this.dataInfo.code)) return this.$toast("请输入验证码");
-      if (this.checked==false) return  this.$toast("请阅读并同意<p>《在线签约用户协议》</p>");
+      // if (this.checked==false) return  this.$toast("请阅读并同意<p>《在线签约用户协议》</p>");
       this.uploadFile();
     },
     //校验
@@ -111,7 +111,7 @@ export default {
     color: #fff;
     line-height: 44px;
     text-align: center;
-    margin: 0 auto;
+    margin: 20px auto;
   }
   .next-step-height{
     height:50px;
