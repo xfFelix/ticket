@@ -114,11 +114,6 @@ export default {
       this.interval = window.setInterval(async () => {
         try {
           const { error_code, data, message, status } = await getArrearsByLife({token: this.token, productNo: this.config.unitId, pn: this.config.number, oid: (new Date()).getTime()})
-        } catch(e) {
-          window.clearInterval(this.interval)
-          this.showProgress = false
-          console.log('接口超时！！！！')
-        }
           if (+status === 404) {
               window.clearInterval(this.interval)
               this.showProgress = false
@@ -140,6 +135,11 @@ export default {
               this.showArrears = true
             }
           }
+        } catch(e) {
+          window.clearInterval(this.interval)
+          this.showProgress = false
+          console.log('接口超时！！！！')
+        }
         }, 1000)
     },
     isNull() {
