@@ -26,7 +26,7 @@
               <div class="title">{{item.catName}}</div>
               <div class="price"><span>售价：{{item.catKey}}</span></div>
             </div>
-            <div class="gift"><span>送{{userinfo.coinAlisa ? userinfo.coinAlisa : '金币'}}{{Math.round(item.obj.num)}}</span></div>
+            <div class="gift"><span>送{{userinfo.coinAlisa ? userinfo.coinAlisa : '金币'}}{{Math.round(item.num)}}</span></div>
           </div>
         </div>
       </div>
@@ -114,9 +114,6 @@ export default {
       }
     }
   },
-  created() {
-    this.getList()
-  },
   methods: {
     ...mapActions({
       checkPassword: 'checkPassword',
@@ -124,19 +121,13 @@ export default {
     }),
     async getList(){
       const {getChuanQiCoinList} = await import('@/api')
-      const { code, data } = await getChuanQiCoinList({catKey: this.vendorId})
-      for (let item of data) {
-        let obj = await this.getCostCoin(item.catKey)
-        let cost = {...item, obj}
-        this.list.push(cost)
-      }
-      this.coinInfo = { ...this.coinInfo, ...this.list[0].obj}
+      const { code, data } = await getChuanQiCoinList({catKey: this.vendorId, token: this.getToken})
+      this.list = data
       this.coinInfo.moneyNum = data[0].catKey
       this.storeName = data[0].parentName
       this.desc = data[0].content
     },
     toggleActive(item) {
-      this.coinInfo = { ...this.coinInfo, ...item.obj}
       this.coinInfo.moneyNum = item.catKey
     },
     codeInfo(code) {
@@ -154,7 +145,7 @@ export default {
     async coinChange() {
       let res = await this.checkPassword();
       if (!res) return;
-      this.showInfo()
+      this.getCostCoin(this.coinInfo.moneyNum)
     },
     outLogin() {
       this.$dialog({ type: 'confirm', content: '确认退出当前账号？' }, () => {
@@ -175,7 +166,8 @@ export default {
       try{
         let params = { token: this.getToken, integral, vendorId: this.vendorId, vendorUid: this.vendorUid }
         const { code, data } = await getCostCoin(params);
-        return data[0]
+        this.coinInfo = { ...this.coinInfo, ...data[0]}
+        this.showInfo()
       } catch (e) {
         this.$toast('getCostCoin 接口失败')
       }
@@ -250,6 +242,7 @@ export default {
     if (this.$route.query.vendorUid) {
       this.vendorUid = this.$route.query.vendorUid
     }
+    this.getList()
   },
   components: {
     BgMask: () => import('components/BgMask'),
@@ -384,6 +377,7 @@ export default {
               background: #30CE84;
               color: #fff;
               border-radius:5px 5px 0px 0px;
+              box-sizing: border-box;
             }
             .title{
               font-weight: bold;

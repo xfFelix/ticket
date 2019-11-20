@@ -36,6 +36,38 @@ const router = new Router({
       }
     },
     {
+      path: '/sign_geo',
+      redirect: '/sign_geo/home',
+      component: () => import('views/sign_geo'),
+      children: [
+        {
+          path: 'home',
+          name: 'signGeoHome',
+          component: () => import('views/sign_geo/signHelper'),
+          meta: {
+            title: '签约助手',
+            keepAlive: true
+          }
+        },
+        {
+          path: 'geolocation',
+          name: 'signGeolocation',
+          component: () => import('views/sign_geo/geolocation'),
+          meta: {
+            title: '选择地区',
+          }
+        },
+        {
+          path: 'success',
+          name: 'signGeoSuccess',
+          component: () => import('views/sign_geo/success'),
+          meta: {
+            title: '签约成功',
+          }
+        }
+      ]
+    },
+    {
       path: '/face',
       redirect: '/face/user',
       component: () => import('views/face'),

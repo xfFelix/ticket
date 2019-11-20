@@ -24,8 +24,18 @@ export const checkId = data => fetch({
  * @param {*} data
  */
 export const signInfo = data => fetch({
-  url: `${process.env.VUE_APP_CONTRACT_URL}/contract/save`,
+  url: `${process.env.VUE_APP_CONTRACT_URL}/electronicSignature/bank3Factors`,
   method: 'POST',
+  data
+})
+
+/**
+ * 签约助手---选择地区
+ * @param {*} data
+ */
+export const getGeolocation = data => fetch({
+  url: `${process.env.VUE_APP_CONTRACT_URL}/electronicSignature/region`,
+  method: 'GET',
   data
 })
 
