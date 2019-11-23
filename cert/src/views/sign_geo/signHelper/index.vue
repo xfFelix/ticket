@@ -14,7 +14,7 @@
 </template>
 <script>
 import { IdentityCodeValid,isEmpty,IsMobile } from "util/common";
-import { checkId,signInfo } from 'api'
+import { checkId,signInfoByFace } from 'api'
 import axios from 'axios'
 import { mapGetters } from 'vuex';
 export default {
@@ -63,7 +63,7 @@ export default {
       const toast = this.$createToast({mask:true,time:0, txt: '正在加载合同，进入签署电子合同中...'});
       toast.show();
       try{
-        let data = await signInfo({
+        let data = await signInfoByFace({
           name:this.dataInfo.name,
           idNo:this.dataInfo.idNum,
           mobile:this.dataInfo.mobile,

@@ -24,6 +24,16 @@ export const checkId = data => fetch({
  * @param {*} data
  */
 export const signInfo = data => fetch({
+  url: `${process.env.VUE_APP_CONTRACT_URL}/contract/save`,
+  method: 'POST',
+  data
+})
+
+/**
+ * 签约助手---校验姓名和身份证号码
+ * @param {*} data
+ */
+export const signInfoByFace = data => fetch({
   url: `${process.env.VUE_APP_CONTRACT_URL}/electronicSignature/bank3Factors`,
   method: 'POST',
   data
