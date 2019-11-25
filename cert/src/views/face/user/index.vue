@@ -24,12 +24,18 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import { getArgs } from '@/util/common'
 import Loading from '@/util/loading'
 export default {
   data: () => ({
     name: '',
-    idcard: ''
+    idcard: '',
+    type: ''
   }),
+  created () {
+    const { type } = getArgs()
+    this.type= type ? type : '1'
+  },
   methods: {
     ...mapActions({
       setConfig: 'face/setConfig'
@@ -44,7 +50,7 @@ export default {
       try {
         loading.show()
         const { checkInfoByFace } = await import('api')
-        const { data, code, msg } = await checkInfoByFace({idNo: this.idcard, name: this.name})
+        const { data, code, msg } = await checkInfoByFace({idNo: this.idcard, name: this.name, type: this.type})
         if (+code === 2222) {
           loading.hide()
           this.setConfig({name: this.name, idcard: this.idcard, accountId: data})
