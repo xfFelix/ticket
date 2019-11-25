@@ -25,9 +25,9 @@
                             </span>
                             <span v-else>卡密：— —</span>
                             <div v-if="item.buyInfo">
-                                <span v-if="item.buyInfo.status==0">回收中</span>
-                                <span v-if="item.buyInfo.status==1">回收成功</span>
-                                <span v-if="item.buyInfo.status==2">回收取消</span>
+                                <span v-if="item.buyInfo.status==0">回购中</span>
+                                <span v-if="item.buyInfo.status==1">回购成功</span>
+                                <span v-if="item.buyInfo.status==2">回购取消</span>
                             </div>
                             <div v-else>
                                 <span v-if="item.status==0">兑换中</span>
