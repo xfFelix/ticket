@@ -65,8 +65,8 @@ export default {
           positiveIDPhoto:this.frontObj,
           negativeIDPhoto:this.backObj
         })
-        this.$router.push({name:'signHelps'})
         toast.hide();
+        window.location.href = data.data
       } catch (e) {
         toast.hide();
         this.$toast(e);

@@ -8,7 +8,7 @@
     <div class="info">
       <h1>如下是您的电子工牌:</h1>
       <div class="content">
-        <img src="~common/images/banner.png" alt="" class="cocoImg">
+        <img src="~common/images/zb.png" alt="" class="cocoImg">
         <div class="iconfont icon-LC_icon_user_fill_3"></div>
         <div class="item">
           <span class="label">姓名</span>
@@ -20,15 +20,15 @@
         </div>
         <div class="item">
           <span class="label">部门</span>
-          <span class="value">椰云医疗事业部</span>
+          <span class="value">椰云众包事业部</span>
         </div>
         <div class="item">
           <span class="label">工号</span>
           <span class="value">{{jobNumber}}</span>
         </div>
         <div class="item">
-          <span class="label">负责区域</span>
-          <span class="value">{{region}}</span>
+          <span class="label">职位</span>
+          <span class="value">普通员工</span>
         </div>
       </div>
     </div>
@@ -78,8 +78,7 @@ export default {
     padding: 0 40px;
     .cocoImg{
       height: 80px;
-      width: 200px;
-      transform: scaleY(2.5);
+      width: 210px;
     }
     h1{
       margin: 10px 0;
