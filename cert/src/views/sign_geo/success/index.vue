@@ -20,13 +20,17 @@
         </div>
         <div class="item">
           <span class="label">部门</span>
-          <span class="value">椰云众包事业部</span>
+          <span class="value">椰云{{region ? '医疗': '众包'}}事业部</span>
         </div>
         <div class="item">
           <span class="label">工号</span>
           <span class="value">{{jobNumber}}</span>
         </div>
-        <div class="item">
+        <div class="item" v-if="region">
+          <span class="label">负责区域</span>
+          <span class="value">{{region}}</span>
+        </div>
+        <div class="item" v-else>
           <span class="label">职位</span>
           <span class="value">普通员工</span>
         </div>
