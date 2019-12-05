@@ -20,7 +20,7 @@
         </div>
         <div class="item">
           <span class="label">部门</span>
-          <span class="value">椰云众包事业部</span>
+          <span class="value">椰云众包{{region ? '' : '事业部'}}</span>
         </div>
         <div class="item">
           <span class="label">工号</span>
