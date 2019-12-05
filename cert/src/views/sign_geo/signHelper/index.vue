@@ -77,7 +77,7 @@ export default {
         toast.hide();
       } catch (e) {
         toast.hide();
-        this.$toast(e);
+        this.$toast(e, '', 2000);
       }
 
     },
