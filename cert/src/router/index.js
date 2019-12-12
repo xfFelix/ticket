@@ -68,6 +68,38 @@ const router = new Router({
       ]
     },
     {
+      path: '/sign_com',
+      redirect: '/sign_com/home',
+      component: () => import('views/sign_com'),
+      children: [
+        {
+          path: 'home',
+          name: 'signComGeoHome',
+          component: () => import('views/sign_com/signHelper'),
+          meta: {
+            title: '签约助手',
+            keepAlive: true
+          }
+        },
+        {
+          path: 'geolocation',
+          name: 'signComGeo',
+          component: () => import('views/sign_com/geolocation'),
+          meta: {
+            title: '选择地区',
+          }
+        },
+        {
+          path: 'success',
+          name: 'signComGeoSuccess',
+          component: () => import('views/sign_com/success'),
+          meta: {
+            title: '签约成功',
+          }
+        }
+      ]
+    },
+    {
       path: '/face',
       redirect: '/face/user',
       component: () => import('views/face'),
