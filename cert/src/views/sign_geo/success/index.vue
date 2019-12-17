@@ -6,7 +6,7 @@
     </div>
     <p class="title">恭喜您，已经签约成功！</p>
     <div class="info">
-      <h1>如下是您的兼职电子工牌:</h1>
+      <h1>如下是您的电子兼职工牌:</h1>
       <div class="content">
         <img src="~common/images/zb.png" alt="" class="cocoImg">
         <div class="iconfont icon-LC_icon_user_fill_3"></div>
@@ -32,7 +32,7 @@
         </div>
         <div class="item" v-else>
           <span class="label">职位</span>
-          <span class="value">普通员工</span>
+          <span class="value">兼职员工</span>
         </div>
       </div>
     </div>
