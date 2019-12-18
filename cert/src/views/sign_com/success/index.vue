@@ -6,29 +6,26 @@
     </div>
     <p class="title">恭喜您，已经签约成功！</p>
     <div class="info">
-      <h1>如下是您的电子兼职工牌:</h1>
       <div class="content">
         <img src="~common/images/zb.png" alt="" class="cocoImg">
         <div class="iconfont icon-LC_icon_user_fill_3"></div>
         <div class="item">
-          <span class="label">姓名</span>
+          <span class="value">{{industryName}}</span>
+        </div>
+        <div class="item">
+          <span class="value">{{region}}</span>
+        </div>
+        <div class="item">
+          <span class="value">外包服务伙伴</span>
+        </div>
+        <div class="item">
           <span class="value">{{name}}</span>
         </div>
         <div class="item">
-          <span class="label">身份证</span>
           <span class="value">{{idNo}}</span>
         </div>
         <div class="item">
-          <span class="label">部门</span>
-          <span class="value">椰云众包</span>
-        </div>
-        <div class="item">
-          <span class="label">工号</span>
-          <span class="value">{{jobNumber}}</span>
-        </div>
-        <div class="item">
-          <span class="label">职位</span>
-          <span class="value">兼职员工</span>
+          <span class="value">编号：{{jobNumber}}</span>
         </div>
       </div>
     </div>
@@ -41,7 +38,8 @@ export default {
     jobNumber: '',
     idNo: '',
     name: '',
-    region: ''
+    region: '',
+    industryName: ''
   }),
   created() {
     let obj = getArgs()
@@ -49,6 +47,7 @@ export default {
     this.idNo = obj.idNo
     this.jobNumber = obj.jobNumber
     this.region = obj.region
+    this.industryName = obj.industryName
   },
 }
 </script>
@@ -101,11 +100,11 @@ export default {
       .item{
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        padding: 10px 20px;
+        padding: 8px 20px;
         box-sizing: border-box;
-        font-size: 14px;
+        font-size: 16px;
         .label{
           font-weight: bold;
         }
