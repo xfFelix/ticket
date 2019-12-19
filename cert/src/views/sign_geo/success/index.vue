@@ -25,7 +25,7 @@
           <span class="value">{{idNo}}</span>
         </div>
         <div class="item">
-          <span class="value">{{jobNumber}}</span>
+          <span class="value">编号：{{jobNumber}}</span>
         </div>
       </div>
     </div>
