@@ -10,6 +10,9 @@
         <img src="~common/images/zb.png" alt="" class="cocoImg">
         <div class="iconfont icon-LC_icon_user_fill_3"></div>
         <div class="item" v-if="region">
+          <span class="value">椰云医疗</span>
+        </div>
+        <div class="item" v-if="region">
           <span class="value">{{region}}</span>
         </div>
         <div class="item" >
