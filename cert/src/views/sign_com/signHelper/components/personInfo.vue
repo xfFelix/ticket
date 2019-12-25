@@ -4,7 +4,7 @@
       <li>
         <span>所属行业</span>
         <input type="text" placeholder="请输入所属行业" v-model.trim="data.industryName" disabled />
-        <i class="cubeic-arrow"></i>
+        <!-- <i class="cubeic-arrow"></i> -->
       </li>
       <li @click="$router.push('/sign_geo/geolocation')">
         <span>工作地区</span>
