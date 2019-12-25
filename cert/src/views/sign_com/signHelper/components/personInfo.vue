@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="identity-info-wrap">
-      <li @click="showIndustry()">
+      <li>
         <span>所属行业</span>
         <input type="text" placeholder="请输入所属行业" v-model.trim="data.industryName" disabled />
         <i class="cubeic-arrow"></i>
@@ -44,6 +44,7 @@
 import { IsMobile,isEmpty } from "util/common";
 import { mapGetters } from "vuex";
 import { IOSFocus } from "@/mixins";
+import { Base64 } from 'js-base64'
 export default {
   mixins: [IOSFocus],
   props: {
@@ -69,7 +70,7 @@ export default {
     industryList: []
   }),
   created () {
-    this.getIndustry()
+    this.getParams()
   },
   computed: {
     ...mapGetters({
@@ -85,6 +86,29 @@ export default {
     }
   },
   methods: {
+    getParams () {
+      try {
+        let param = location.hash.split('?')[1].toString()
+        let query = Base64.decode(decodeURIComponent(param))
+        var obj = {}
+        var queryArr = query.split("&")
+        queryArr.forEach(function(item){
+            var value = item.split("=")[1]
+            var key = item.split("=")[0]
+            obj[key] = value;
+        })
+        this.data = {...this.data, industry: obj.id, industryName: obj.name}
+      } catch (e) {
+        console.error(e.message)
+        this.$toast(e.message)
+      }
+    },
+    decode(str) {
+        // Going backwards: from bytestream, to percent-encoding, to original string.
+        return decodeURIComponent(atob(str).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    },
     async getIndustry () {
       try{
         const { getIndustry } = await import('api')

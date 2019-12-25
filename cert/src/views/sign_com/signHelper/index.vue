@@ -37,7 +37,6 @@ export default {
     },
     //判断是否为空
     judgeEmpty(){
-      console.log(isEmpty(this.dataInfo.industry))
       if (Object.keys(this.frontObj).length==0) return this.$toast("请上传您的身份证正面照");
       if (Object.keys(this.backObj).length==0) return this.$toast("请上传您的身份证反面照");
       if (isEmpty(this.dataInfo.name)) return this.$toast("请填写您的姓名");
