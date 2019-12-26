@@ -9,13 +9,13 @@
       <div class="content">
         <img src="~common/images/zb.png" alt="" class="cocoImg">
         <div class="iconfont icon-LC_icon_user_fill_3"></div>
-        <div class="item" v-if="region">
-          <span class="value">椰云医疗</span>
+        <div class="item">
+          <span class="value">{{industryName}}</span>
         </div>
-        <div class="item" v-if="region">
+        <div class="item">
           <span class="value">{{region}}</span>
         </div>
-        <div class="item" >
+        <div class="item">
           <span class="value">外包服务伙伴</span>
         </div>
         <div class="item">
@@ -38,7 +38,8 @@ export default {
     jobNumber: '',
     idNo: '',
     name: '',
-    region: ''
+    region: '',
+    industryName: ''
   }),
   created() {
     let obj = getArgs()
@@ -46,6 +47,7 @@ export default {
     this.idNo = obj.idNo
     this.jobNumber = obj.jobNumber
     this.region = obj.region
+    this.industryName = obj.industryName
   },
 }
 </script>

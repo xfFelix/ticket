@@ -24,6 +24,16 @@ export const checkId = data => fetch({
  * @param {*} data
  */
 export const signInfo = data => fetch({
+  url: `${process.env.VUE_APP_CONTRACT_URL}/contract/save`,
+  method: 'POST',
+  data
+})
+
+/**
+ * 签约助手---校验姓名和身份证号码
+ * @param {*} data
+ */
+export const signInfoByFace = data => fetch({
   url: `${process.env.VUE_APP_CONTRACT_URL}/electronicSignature/bank3Factors`,
   method: 'POST',
   data
@@ -69,4 +79,23 @@ export const getSignByFace = data => fetch({
   data
 })
 
+/**
+ * 身份验证——所属行业
+ * @param {*} data
+ */
+export const getIndustry = data => fetch({
+  url: `${process.env.VUE_APP_CONTRACT_URL}/industrySignature/findList`,
+  method: 'GET',
+  data
+})
+
+/**
+ * 签约助手---校验姓名和身份证号码
+ * @param {*} data
+ */
+export const signInfoByCom = data => fetch({
+  url: `${process.env.VUE_APP_CONTRACT_URL}/industrySignature/bank3Factors`,
+  method: 'POST',
+  data
+})
 

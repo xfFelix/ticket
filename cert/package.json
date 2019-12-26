@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-preset-env": "^1.7.0",
     "core-js": "^2.6.5",
     "cube-ui": "~1.12.1",
     "fastclick": "^1.0.6",

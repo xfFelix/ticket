@@ -14,7 +14,7 @@
 </template>
 <script>
 import { IdentityCodeValid,isEmpty,IsMobile } from "util/common";
-import { checkId,signInfoByFace } from 'api'
+import { checkId,signInfoByCom } from 'api'
 import axios from 'axios'
 import { mapGetters } from 'vuex';
 export default {
@@ -40,6 +40,7 @@ export default {
       if (Object.keys(this.frontObj).length==0) return this.$toast("请上传您的身份证正面照");
       if (Object.keys(this.backObj).length==0) return this.$toast("请上传您的身份证反面照");
       if (isEmpty(this.dataInfo.name)) return this.$toast("请填写您的姓名");
+      if (!this.dataInfo.industry) return this.$toast("请选择行业")
       if (isEmpty(this.config.city)) return this.$toast("请选择您的地区");
       if (!IdentityCodeValid(this.dataInfo.idNum)) return this.$toast("请填写您的有效身份证号码");
       if (isEmpty(this.dataInfo.bankCard)) return this.$toast("请填写您的银行卡号");
@@ -63,12 +64,13 @@ export default {
       const toast = this.$createToast({mask:true,time:0, txt: '正在加载合同，进入签署电子合同中...'});
       toast.show();
       try{
-        let data = await signInfoByFace({
+        let data = await signInfoByCom({
           name:this.dataInfo.name,
           idNo:this.dataInfo.idNum,
           mobile:this.dataInfo.mobile,
           code:this.dataInfo.code,
           cardNo:this.dataInfo.bankCard,
+          type: this.dataInfo.industry,
           region: this.config.city,
           positiveIDPhoto:this.frontObj,
           negativeIDPhoto:this.backObj
