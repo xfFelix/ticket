@@ -52,7 +52,7 @@
                               <div class="gold-bnt-info"  :style="item.statusT?'height:auto':'height:0'">
                                 <p>银行卡号：{{item.buyInfo.cardNum}}</p>
                                 <p>开户行：{{item.buyInfo.bank}}</p>
-                                <p class="backMoney">回购金额：{{(item.buyInfo.goldPrice*item.weight)|toPrice}}</p>
+                                <p class="backMoney">回购金额：{{(item.buyInfo.buyMoney)|toPrice}}</p>
                                 <p>姓名：{{item.buyInfo.name}}</p>
                               </div>
                               <div class="gold-bnt"  @click="transClick(item,index)">
