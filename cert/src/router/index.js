@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import changeTitle from './hook/changeTitle';
+// import changeTitle from './hook/changeTitle';
 
 Vue.use(Router)
 
