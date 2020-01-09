@@ -141,6 +141,6 @@ const router = new Router({
   ]
 })
 
-changeTitle(router)
+// changeTitle(router)
 export default router
 
