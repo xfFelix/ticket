@@ -107,6 +107,7 @@ export default {
       this.chargeInfo.tax_total = data.data.tax_total;
       this.chargeInfo.total = data.data.total;
       this.chargeInfo.productType = data.data.productType;
+      this.chargeInfo.service_fee = data.data.service_fee
       this.showInfo();
     },
     //发送短信

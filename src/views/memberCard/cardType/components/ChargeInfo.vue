@@ -38,6 +38,12 @@
         </span>
       </li>
       <li class="item">
+        <span class="label">服务费</span>
+        <span class="value">
+          {{info.service_fee|toPrice}}
+        </span>
+      </li>
+      <li class="item">
         <span class="label">税费</span>
         <span class="value">
           {{info.tax_total|toPrice}}
@@ -76,7 +82,6 @@ export default {
     }
   },
   mounted() {
-
   }
 }
 </script>
