@@ -31,6 +31,7 @@
               <span v-else>年卡</span>
             </li>
             <li>售价：{{item.repaymentAmount|toPrice}}</li>
+            <li>服务费：{{item.serviceFee|toPrice}}</li>
             <li>
               <span class="tax_fee">税费：{{item.taxFee|toPrice}}</span>
               <span class="total">合计：{{item.totalAmount|toPrice}}</span>
