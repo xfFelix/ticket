@@ -30,11 +30,16 @@ export default {
   data: () => ({
     name: '',
     idcard: '',
-    type: ''
+    type: '',
+    uid: '',
+    url: ''
   }),
   created () {
-    const { type } = getArgs()
+    const { type, uid, url } = getArgs()
+    console.log(uid)
     this.type= type ? type : '1'
+    this.uid = uid
+    this.url = url
   },
   methods: {
     ...mapActions({
@@ -50,7 +55,7 @@ export default {
       try {
         loading.show()
         const { checkInfoByFace } = await import('api')
-        const { data, code, msg } = await checkInfoByFace({idNo: this.idcard, name: this.name, type: this.type})
+        const { data, code, msg } = await checkInfoByFace({idNo: this.idcard, name: this.name, type: this.type, uid: this.uid, url: this.url})
         if (+code === 2222) {
           loading.hide()
           this.setConfig({name: this.name, idcard: this.idcard, accountId: data})
