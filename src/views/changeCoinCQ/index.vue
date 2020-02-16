@@ -227,10 +227,11 @@ export default {
       }
       .container{
         overflow: hidden;
+        width: 100%;
         .item{
-          width: 103px;
+          width: 30%;
           height: 49px;
-          margin-left: 18px;
+          margin-left: 4.5%;
           margin-top: 15px;
           background:rgba(48,206,132,1);
           border-radius:5px;
@@ -245,8 +246,8 @@ export default {
           }
         }
         .face-item{
-          width: 103px;
-          margin-left: 18px;
+          width: 30%;
+          margin-left: 4.5%;
           margin-top: 15px;
           border-radius:5px;
           float: left;
