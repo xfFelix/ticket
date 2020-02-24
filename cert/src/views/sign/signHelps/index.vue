@@ -18,28 +18,32 @@ export default {
   },
   methods: {
     getTimeout() {
-      wx.miniProgram.getEnv(function(res) {
-          this.showTimeout = true
-          console.log(res.miniprogram) // true
-          if (res.miniprogram) {
-              // 小程序环境
-            this.timeout = setInterval(() => {
-              if (this.time > 0) {
-                console.log(this.time)
-                --this.time
-              } else {
-                console.log('end')
-                clearInterval(this.timeout)
-                wx.miniProgram.reLaunch({
-                  url: '/pages/personal/index'
-                })
-              }
-            }, 1000)
-          }else {
-              //非小程序环境
-            console.log('非小程序环境')                     
-          }
-      })
+      try {
+        let _this = this
+        wx.miniProgram.getEnv(function(res) {
+            _this.showTimeout = true
+            if (res.miniprogram) {
+                // 小程序环境
+              _this.timeout = setInterval(() => {
+                if (_this.time > 0) {
+                  console.log(_this.time)
+                  --_this.time
+                } else {
+                  console.log('end')
+                  clearInterval(_this.timeout)
+                  wx.miniProgram.reLaunch({
+                    url: '/pages/personal/index'
+                  })
+                }
+              }, 1000)
+            }else {
+                //非小程序环境
+              console.log('非小程序环境')                     
+            }
+        })
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 };
