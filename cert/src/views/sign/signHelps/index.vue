@@ -2,13 +2,13 @@
   <div id="signHelpS">
     <img src="~common/images/chenggong.png" alt="wu" class="img-success" />
     <p class="sign-success-word">恭喜您签约成功！</p>
-    <p class="sign-text">{{time}}s后返回个人中心页面</p>
+    <p class="sign-text" v-if="showTimeout">{{time}}s后返回个人中心页面</p>
   </div>
 </template>
 <script>
 export default {
   data: () => ({
-    showTimeout: true,
+    showTimeout: false,
     time: 5
   }),
   components: {
