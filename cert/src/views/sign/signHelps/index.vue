@@ -2,12 +2,45 @@
   <div id="signHelpS">
     <img src="~common/images/chenggong.png" alt="wu" class="img-success" />
     <p class="sign-success-word">恭喜您签约成功！</p>
+    <p class="sign-text">{{time}}s后返回个人中心页面</p>
   </div>
 </template>
 <script>
 export default {
-  data: () => ({}),
+  data: () => ({
+    showTimeout: true,
+    time: 5
+  }),
   components: {
+  },
+  created() {
+    this.getTimeout()
+  },
+  methods: {
+    getTimeout() {
+      wx.miniProgram.getEnv(function(res) {
+          this.showTimeout = true
+          console.log(res.miniprogram) // true
+          if (res.miniprogram) {
+              // 小程序环境
+            this.timeout = setInterval(() => {
+              if (this.time > 0) {
+                console.log(this.time)
+                --this.time
+              } else {
+                console.log('end')
+                clearInterval(this.timeout)
+                wx.miniProgram.reLaunch({
+                  url: '/pages/personal/index'
+                })
+              }
+            }, 1000)
+          }else {
+              //非小程序环境
+            console.log('非小程序环境')                     
+          }
+      })
+    }
   }
 };
 </script>
@@ -28,6 +61,10 @@ export default {
     font-size: 0.56rem;
     font-weight: bold;
     margin-top: 27px;
+  }
+  .sign-text{
+    margin: 20px auto 0;
+    text-align: center;
   }
 }
 </style>
