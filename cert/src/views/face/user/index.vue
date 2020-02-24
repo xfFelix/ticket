@@ -38,6 +38,7 @@ export default {
   created () {
     const { type, uid, url, jumpPage } = getArgs()
     console.log(jumpPage)
+    console.log(uid)
     this.type= type ? type : '1'
     this.uid = uid
     this.url = url
