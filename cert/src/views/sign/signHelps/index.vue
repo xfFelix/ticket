@@ -2,7 +2,7 @@
   <div id="signHelpS">
     <img src="~common/images/chenggong.png" alt="wu" class="img-success" />
     <p class="sign-success-word">恭喜您签约成功！</p>
-    <p class="sign-text" v-if="showTimeout">{{time}}s后返回个人中心页面</p>
+    <button class="sign-text" v-if="showTimeout" @click="goPersonal()">返回个人中心({{time}})</button>
   </div>
 </template>
 <script>
@@ -29,11 +29,7 @@ export default {
                   console.log(_this.time)
                   --_this.time
                 } else {
-                  console.log('end')
-                  clearInterval(_this.timeout)
-                  wx.miniProgram.reLaunch({
-                    url: '/pages/personal/index'
-                  })
+                  _this.goPersonal()
                 }
               }, 1000)
             }else {
@@ -44,6 +40,13 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    goPersonal () {
+      console.log('end')
+      clearInterval(this.timeout)
+      wx.miniProgram.reLaunch({
+        url: '/pages/personal/index'
+      })
     }
   }
 };
@@ -67,8 +70,15 @@ export default {
     margin-top: 27px;
   }
   .sign-text{
-    margin: 20px auto 0;
-    text-align: center;
+    background-color: #30ce84;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    display: block;
+    margin: 40px auto 0;
+    width: 166px;
+    height: 50px;
+    font-size: 18px;
   }
 }
 </style>
