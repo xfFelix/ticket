@@ -8,7 +8,7 @@
 <script>
 export default {
   data: () => ({
-    showTimeout: false,
+    showTimeout: true,
     time: 5
   }),
   components: {
@@ -79,6 +79,7 @@ export default {
     width: 166px;
     height: 50px;
     font-size: 18px;
+    white-space: nowrap;
   }
 }
 </style>
