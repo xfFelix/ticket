@@ -1,32 +1,56 @@
 <template>
   <div id="signHelpS">
-    <img src="~common/images/chenggong.png" alt="wu" class="img-success" />
-    <p class="sign-success-word">恭喜您签约成功！</p>
+    <img :src="require(`common/images/${isSuccess ? 'chenggong' : 'fail'}.png`)" alt="wu" class="img-success" />
+    <p class="sign-success-word">{{isSuccess ? '恭喜您签约成功！' : '签约失败'}}</p>
     <button class="sign-text" v-if="showTimeout" @click="goPersonal()">返回个人中心({{time}})</button>
   </div>
 </template>
 <script>
+import { getSignStatus } from '@/api'
+import { getArgs } from '@/util/common'
 export default {
   data: () => ({
-    showTimeout: true,
-    time: 5
+    showTimeout: false,
+    time: 5,
+    isSuccess: true
   }),
   components: {
   },
   created() {
+    console.log(window.location)
+    this.getStatus()
     this.getTimeout()
   },
   methods: {
+    async getStatus () {
+      try {
+        const { accountId } = getArgs()
+        const { data } = await getSignStatus({accountId})
+        // 0-草稿
+        // 1-签署中
+        // 2-完成
+        // 3-撤销
+        // 4-终止（签署流程设置了文件有效截至日期，到期后触发）
+        // 5-过期（签署截至日志到期后触发）
+        // 7-拒签
+        if (data === 2) {
+          this.isSuccess = true
+        } else {
+          this.isSuccess = false
+        }
+      } catch (e) {
+        this.$toast(e)
+      }
+    },
     getTimeout() {
       try {
         let _this = this
         wx.miniProgram.getEnv(function(res) {
-            _this.showTimeout = true
-            if (res.miniprogram) {
+          if (res.miniprogram) {
+              _this.showTimeout = true
                 // 小程序环境
               _this.timeout = setInterval(() => {
                 if (_this.time > 0) {
-                  console.log(_this.time)
                   --_this.time
                 } else {
                   _this.goPersonal()
@@ -42,7 +66,6 @@ export default {
       }
     },
     goPersonal () {
-      console.log('end')
       clearInterval(this.timeout)
       wx.miniProgram.reLaunch({
         url: '/pages/personal/index'
