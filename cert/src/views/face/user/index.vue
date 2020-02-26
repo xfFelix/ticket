@@ -30,11 +30,19 @@ export default {
   data: () => ({
     name: '',
     idcard: '',
-    type: ''
+    type: '',
+    uid: '',
+    url: '',
+    jumpPage: ''
   }),
   created () {
-    const { type } = getArgs()
+    const { type, uid, url, jumpPage } = getArgs()
+    console.log(jumpPage)
+    console.log(uid)
     this.type= type ? type : '1'
+    this.uid = uid
+    this.url = url
+    this.jumpPage = jumpPage
   },
   methods: {
     ...mapActions({
@@ -50,7 +58,7 @@ export default {
       try {
         loading.show()
         const { checkInfoByFace } = await import('api')
-        const { data, code, msg } = await checkInfoByFace({idNo: this.idcard, name: this.name, type: this.type})
+        const { data, code, msg } = await checkInfoByFace({idNo: this.idcard, name: this.name, type: this.type, uid: this.uid, url: this.url, jumpPage: this.jumpPage})
         if (+code === 2222) {
           loading.hide()
           this.setConfig({name: this.name, idcard: this.idcard, accountId: data})
