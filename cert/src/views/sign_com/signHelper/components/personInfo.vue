@@ -138,7 +138,7 @@ export default {
       if (isEmpty(this.captcha)) return this.$toast("请输入图形验证码");
       try{
         const { contractSms } = await import(/* webpackPrefetch: true */ "api");
-        let data = await contractSms({ mobile: this.data.mobile,code:this.captcha});
+        let data = await contractSms({ mobile: this.data.mobile, code:this.captcha, type: this.data.industry});
       }catch (e) {
         this.validateImgClick();
         this.captcha = '';

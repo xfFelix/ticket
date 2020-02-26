@@ -218,7 +218,7 @@ export default {
 }
 
 .main-absolute{
-  height: calc(100vh-89px);
+  height: calc(100vh - 89px);
   position: absolute;
   top: 44px;
   bottom:45px;

@@ -99,3 +99,12 @@ export const signInfoByCom = data => fetch({
   data
 })
 
+/**
+ * 签约助手--- 判断是否签约成功
+ * @param {*} data
+ */
+export const getSignStatus = data => fetch({
+  url: `${process.env.VUE_APP_CONTRACT_URL}/appletSigning/getSigningStatus`,
+  method: 'POST',
+  data
+})
