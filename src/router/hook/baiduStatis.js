@@ -4,7 +4,7 @@ export default router => {
   router.beforeEach((to, from, next) => {
     if (_hmt) {
       if (to.path) {
-        _hmt.push(['_trackPageview'], '/ticket' + to.fullPath)
+        _hmt.push(['_trackPageview', '/ticket' + to.fullPath])
       }
     }
     next();
