@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import './cube-ui'
 import App from './App.vue'
+import './common/js/hmt'
 import router from './router'
 import store from './store'
 import './filter'
@@ -13,6 +14,7 @@ import FastClick from 'fastclick'
 import 'common/js/rem'
 import './common/css/index.scss'
 import 'swiper/dist/css/swiper.css'
+
 
 // import Vconsole from 'vconsole';
 // new Vconsole();
