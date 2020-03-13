@@ -18,8 +18,8 @@ export default {
   },
   created() {
     console.log(window.location)
-    this.getStatus()
     this.getTimeout()
+    this.getStatus()
   },
   methods: {
     async getStatus () {
@@ -39,7 +39,7 @@ export default {
           this.isSuccess = false
         }
       } catch (e) {
-        this.$toast(e)
+        // this.$toast(e)
       }
     },
     getTimeout() {
