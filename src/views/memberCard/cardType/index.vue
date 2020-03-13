@@ -20,7 +20,9 @@
 import { vipCostInfo, sendSmsCode, vipSubmit } from 'api';
 import { mapGetters } from 'vuex';
 import { tools_uri } from 'common/tools';
+import { IOSFocus } from "@/mixins";
 export default {
+  mixins: [IOSFocus],
   data: () => ({
     show: {
       mask: false,
