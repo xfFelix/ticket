@@ -138,12 +138,13 @@ export default {
            this.type[0].show=false;
            this.typeIndex=1;
            this.yinqiudiShow = true;
-           this.noGoods=['1','5','20','30','50','100','200','300'];
-           this.carIndex =Object.keys(this.cardList).length-1;
+          //['1','5','20','30','50','100','200','300','500'];//所有的金额类型
+           this.noGoods=['1','5','20','30','50'];  //不需要的金额
+           this.carIndex = this.noGoods.length;
            this.setConfig({
               type:1,
-              cardPrice:Object.keys(this.cardList)[Object.keys(this.cardList).length-1],
-              realCarP:Object.values(this.cardList)[Object.keys(this.cardList).length-1]
+              cardPrice:Object.keys(this.cardList)[this.carIndex],
+              realCarP:Object.values(this.cardList)[this.carIndex]
             })
         }else{
           this.setConfig({cardPrice:Object.keys(this.cardList)[2],realCarP:Object.values(this.cardList)[2]}) //初始值拿下标为1的值
