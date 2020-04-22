@@ -2,7 +2,7 @@
   <div class="sign-helper">
     <form ref="advForm">
       <upload-img @front-file="frontFiles"  @back-file="backFiles"></upload-img>
-      <person-info @person-data="personInfoF" :getPersonInfoC.sync="getPersonInfo"></person-info>
+      <person-info @person-data="personInfoF" :getPersonInfoC.sync="getPersonInfo" :gainPhotoInfo.sync="photoInfo"></person-info>
       <!-- <div class="agreement">
         <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
         <span class="file" @click="$router.push({name:'signHelpFile'})">《数字经济合作伙伴协议》</span>
@@ -14,7 +14,7 @@
 </template>
 <script>
 import { IdentityCodeValid,isEmpty,IsMobile } from "util/common";
-import { checkId,signInfoByFace } from 'api'
+import { checkId,signInfoByFace, getInfo } from 'api'
 import axios from 'axios'
 import { mapGetters } from 'vuex';
 export default {
@@ -24,6 +24,7 @@ export default {
     dataInfo:{},
     frontObj:{},
     backObj:{},
+    photoInfo:{}
   }),
   computed: {
     ...mapGetters({
@@ -58,6 +59,20 @@ export default {
         this.$toast(e);
       }
     },
+    //上传照片得到信息
+    async getPhotoInfo(fontFile, backFile){
+      const toast = this.$createToast({mask:true,time:0});
+      toast.show();
+      try{
+        let data = await getInfo({positiveIDPhoto:fontFile,negativeIDPhoto:backFile});
+        this.photoInfo = data.data;
+        toast.hide();
+      }catch(e){
+        toast.hide();
+        this.photoInfo = {};
+        this.$toast(e)
+      }
+    },
     //上传文件
     async uploadFile(){
       const toast = this.$createToast({mask:true,time:0, txt: '正在加载合同，进入签署电子合同中...'});
@@ -89,9 +104,15 @@ export default {
     },
     frontFiles(val){
       this.frontObj = val;
+      if(Object.keys(this.backObj).length !==0){
+        this.getPhotoInfo(val,this.backObj)
+      }
     },
     backFiles(val){
-       this.backObj = val;
+      this.backObj = val;
+      if(Object.keys(this.frontObj).length !==0){
+         this.getPhotoInfo(this.frontObj,val)
+      }
     }
   },
   components: {

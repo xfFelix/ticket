@@ -108,3 +108,14 @@ export const getSignStatus = data => fetch({
   method: 'POST',
   data
 })
+
+
+/**
+ * 签约助手--- 上传照片得到信息
+ * @param {*} data
+ */
+export const getInfo = data => fetch({
+  url: `${process.env.VUE_APP_PHOTOINFO_URL}/signature/characterRecognition`,
+  method: 'POST',
+  data
+})

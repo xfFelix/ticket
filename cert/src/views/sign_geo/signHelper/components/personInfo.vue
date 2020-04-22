@@ -8,11 +8,11 @@
       </li>
       <li>
         <span>真实姓名</span>
-        <input type="text" placeholder="请填写真实姓名" v-model.trim="data.name" />
+        <input type="text" placeholder="请填写真实姓名" v-model.trim="data.name" disabled/>
       </li>
       <li>
         <span>证件号码</span>
-        <input type="text" placeholder="请填写身份证号码" v-model.trim="data.idNum" />
+        <input type="text" placeholder="请填写身份证号码" v-model.trim="data.idNum" disabled/>
       </li>
       <li>
         <span>银行卡号</span>
@@ -45,6 +45,9 @@ export default {
     getPersonInfoC:{
       type:Boolean,
       default:false
+    },
+    gainPhotoInfo:{
+      type:Object
     }
   },
   data: () => ({
@@ -71,6 +74,15 @@ export default {
           this.$emit('person-data',this.data);
           this.$emit('update:getPersonInfoC', false);
         }
+    },
+    gainPhotoInfo(val){
+      if(Object.keys(val).length !==0){
+        this.data.idNum = val.cardNum;
+        this.data.name = val.name;
+      }else{
+        this.data.idNum = '';
+        this.data.name = '';
+      }
     }
   },
   methods: {
@@ -134,6 +146,7 @@ export default {
       height: 100%;
       color: #333;
       line-height: 100%;
+       background: #fff;
       &::-webkit-input-placeholder {
         color: #a9a9a9;
         font-size: 13px;

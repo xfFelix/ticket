@@ -2,7 +2,7 @@
   <div class="sign-helper">
     <form ref="advForm">
       <upload-img @front-file="frontFiles"  @back-file="backFiles"></upload-img>
-      <person-info @person-data="personInfoF" :getPersonInfoC.sync="getPersonInfo"></person-info>
+      <person-info @person-data="personInfoF" :getPersonInfoC.sync="getPersonInfo"  :gainPhotoInfo.sync="photoInfo"></person-info>
       <div class="agreement">
         <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
         <span class="file" @click="$router.push({name:'signHelpFile'})">《数字经济合作伙伴协议》</span>
@@ -14,7 +14,7 @@
 </template>
 <script>
 import { IdentityCodeValid,isEmpty,IsMobile } from "util/common";
-import { checkId,signInfo } from 'api'
+import { checkId, signInfo, getInfo } from 'api'
 import axios from 'axios'
 export default {
   data: () => ({
@@ -23,6 +23,7 @@ export default {
     dataInfo:{},
     frontObj:{},
     backObj:{},
+    photoInfo:{}
   }),
   methods: {
     // 点击确定按钮后不能直接拿到子组件的值，所以得在拿到值后再调接口
@@ -51,6 +52,20 @@ export default {
         this.$toast(e);
       }
     },
+    //上传照片得到信息
+    async getPhotoInfo(fontFile, backFile){
+      const toast = this.$createToast({mask:true,time:0});
+      toast.show();
+      try{
+        let data = await getInfo({positiveIDPhoto:fontFile,negativeIDPhoto:backFile});
+        this.photoInfo = data.data;
+        toast.hide();
+      }catch(e){
+        toast.hide();
+        this.photoInfo = {};
+        this.$toast(e)
+      }
+    },
     //上传文件
     async uploadFile(){
       const toast = this.$createToast({mask:true,time:0});
@@ -71,19 +86,23 @@ export default {
         toast.hide();
         this.$toast(e);
       }
-
     },
     //拿到子组件的值，开始调接口
     personInfoF(val){
       this.dataInfo=val;
-
       this.judgeEmpty();
     },
     frontFiles(val){
       this.frontObj = val;
+      if(Object.keys(this.backObj).length !==0){
+        this.getPhotoInfo(val,this.backObj)
+      }
     },
     backFiles(val){
        this.backObj = val;
+       if(Object.keys(this.frontObj).length !==0){
+         this.getPhotoInfo(this.frontObj,val)
+       }
     }
   },
   components: {

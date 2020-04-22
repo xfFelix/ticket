@@ -90,6 +90,7 @@ module.exports = {
     port: 8080,
     open: true,
     hot: true,
-    hotOnly: true
+    hotOnly: true,
+    disableHostCheck: true
   }
 }
