@@ -41,7 +41,7 @@
 <script>
 import { goldbuyback ,goldPrice} from 'api';
 import { mapGetters ,mapActions } from 'vuex';
-import { IsMobile,isEmpty } from "util/common";
+import { IsMobile,isEmpty, luhnCheck } from "util/common";
 export default {
   data:()=>({
     checked:false,
@@ -110,7 +110,7 @@ export default {
       if(isEmpty(this.inpInfo.name)){
           return this.$toast('请输入真实姓名！');
       }
-      if(isEmpty(this.inpInfo.cardNum)){
+      if(isEmpty(this.inpInfo.cardNum) || !luhnCheck(this.inpInfo.cardNum)){
           return this.$toast('请输入有效的银行账号！');
       }
       if(isEmpty(this.inpInfo.bank)){
