@@ -35,7 +35,7 @@ export default {
       if (Object.keys(this.frontObj).length==0) return this.$toast("请上传您的身份证正面照");
       if (Object.keys(this.backObj).length==0) return this.$toast("请上传您的身份证反面照");
       if (isEmpty(this.dataInfo.name)) return this.$toast("请填写您的姓名");
-      if (!IdentityCodeValid(this.dataInfo.idNum)) return this.$toast("请填写您的有效身份证号码");
+      // if (!IdentityCodeValid(this.dataInfo.idNum)) return this.$toast("请填写您的有效身份证号码");
       if (isEmpty(this.dataInfo.bankCard)) return this.$toast("请填写您的银行卡号");
       if (isEmpty(this.dataInfo.mobile)) return this.$toast("请填写您的手机号");
       if (!IsMobile(this.dataInfo.mobile)) return this.$toast("请输入正确的手机号");

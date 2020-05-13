@@ -43,7 +43,7 @@ export default {
       if (isEmpty(this.dataInfo.name)) return this.$toast("请填写您的姓名");
       if (!this.dataInfo.industry) return this.$toast("请选择行业")
       if (isEmpty(this.config.city)) return this.$toast("请选择您的地区");
-      if (!IdentityCodeValid(this.dataInfo.idNum)) return this.$toast("请填写您的有效身份证号码");
+      // if (!IdentityCodeValid(this.dataInfo.idNum)) return this.$toast("请填写您的有效身份证号码");
       if (isEmpty(this.dataInfo.bankCard)) return this.$toast("请填写您的银行卡号");
       if (isEmpty(this.dataInfo.mobile)) return this.$toast("请填写您的手机号");
       if (!IsMobile(this.dataInfo.mobile)) return this.$toast("请输入正确的手机号");
