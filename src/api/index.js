@@ -471,6 +471,16 @@ export const taxes = (data) => fetch({
   data
 })
 
+/**
+ * 校验姓名和银行卡号
+ * @param {*} data
+ */
+export const checkBankAndName = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/checkCardInfo',
+  method: 'POST',
+  data
+})
+
 /************************************* 传奇金币 *************************************/
 // 传奇金币
 export const chuanqiinfo = (data) => fetch({

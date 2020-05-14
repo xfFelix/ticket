@@ -16,7 +16,7 @@
         <li>联系电话<input type="text" name="mobile" maxlength="12" placeholder="请输入联系人电话" v-model="inpInfo.mobile"/></li>
         <li>姓名<input type="text" name="name" maxlength="10" placeholder="请输入户主姓名" v-model="inpInfo.name"/></li>
         <li>银行卡号<input type="text" name="cardNum" maxlength="20" placeholder="请输入银行卡号" v-model="inpInfo.cardNum"/></li>
-        <li>开户行<input type="text" name="bank" maxlength="20" placeholder="请输入开卡银行" v-model="inpInfo.bank"/></li>
+        <li>开户行<input type="text" name="bank" maxlength="20" placeholder="请输入开卡银行" v-model="inpInfo.bank" disabled/></li>
         <li>开户支行<input type="text" name="subBank" maxlength="20" placeholder="请输入开户支行" v-model="inpInfo.subBank" /></li>
       </ul>
     <div class="agreement">
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { goldbuyback ,goldPrice} from 'api';
+import { goldbuyback ,goldPrice, checkBankAndName} from 'api';
 import { mapGetters ,mapActions } from 'vuex';
 import { IsMobile,isEmpty, luhnCheck } from "util/common";
 export default {
@@ -69,6 +69,22 @@ export default {
         }
       }
     },
+    'inpInfo.name': {
+      handler(val) {
+        clearTimeout(this.timeout)
+        this.timeout = setTimeout(() => {
+          this.checkBank()
+        }, 1000)
+      }
+    },
+    'inpInfo.cardNum': {
+      handler(val) {
+        clearTimeout(this.timeout)
+        this.timeout = setTimeout(() => {
+          this.checkBank()
+        }, 1000)
+      }
+    }
   },
   computed:{
     ...mapGetters({
@@ -82,6 +98,20 @@ export default {
     ...mapActions({
       checkPassword: 'checkPassword',
     }),
+    async checkBank() {
+      try {
+        const { cardNum, name } = this.inpInfo
+        if (!name || !cardNum) return
+        const { data, error_code, message } = await checkBankAndName({token: this.getToken, realName: name, cardNum})
+        if (error_code) {
+          this.inpInfo.bank = ''
+          return this.$toast(message)
+        }
+        this.inpInfo.bank = data.bank
+      } catch (e) {
+
+      }
+    },
     async submitOrder(val){ //输入短信下单
         let res= await goldbuyback({
             token: this.getToken,
@@ -110,7 +140,7 @@ export default {
       if(isEmpty(this.inpInfo.name)){
           return this.$toast('请输入真实姓名！');
       }
-      if(isEmpty(this.inpInfo.cardNum) || !luhnCheck(this.inpInfo.cardNum)){
+      if(isEmpty(this.inpInfo.cardNum)){
           return this.$toast('请输入有效的银行账号！');
       }
       if(isEmpty(this.inpInfo.bank)){
