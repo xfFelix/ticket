@@ -14,8 +14,8 @@
         </li>
         <li class="l_add">卡密<input type="text" name="code" maxlength="14" placeholder="请输入兑换码"  disabled :value="backInfo.cardCode"/></li>
         <li>联系电话<input type="text" name="mobile" maxlength="12" placeholder="请输入联系人电话" v-model="inpInfo.mobile"/></li>
-        <li>姓名<input type="text" name="name" maxlength="10" placeholder="请输入户主姓名" v-model="inpInfo.name"/></li>
-        <li>银行卡号<input type="text" name="cardNum" maxlength="20" placeholder="请输入银行卡号" v-model="inpInfo.cardNum"/></li>
+        <li>姓名<input type="text" name="name" maxlength="10" placeholder="请输入户主姓名" v-model="inpInfo.name" @blur="checkBank"/></li>
+        <li>银行卡号<input type="text" name="cardNum" maxlength="20" placeholder="请输入银行卡号" v-model="inpInfo.cardNum" @blur="checkBank"/></li>
         <li>开户行<input type="text" name="bank" maxlength="20" placeholder="请输入开卡银行" v-model="inpInfo.bank" disabled/></li>
         <li>开户支行<input type="text" name="subBank" maxlength="20" placeholder="请输入开户支行" v-model="inpInfo.subBank" /></li>
       </ul>
@@ -69,22 +69,22 @@ export default {
         }
       }
     },
-    'inpInfo.name': {
-      handler(val) {
-        clearTimeout(this.timeout)
-        this.timeout = setTimeout(() => {
-          this.checkBank()
-        }, 1000)
-      }
-    },
-    'inpInfo.cardNum': {
-      handler(val) {
-        clearTimeout(this.timeout)
-        this.timeout = setTimeout(() => {
-          this.checkBank()
-        }, 1000)
-      }
-    }
+    // 'inpInfo.name': {
+    //   handler(val) {
+    //     clearTimeout(this.timeout)
+    //     this.timeout = setTimeout(() => {
+    //       this.checkBank()
+    //     }, 1000)
+    //   }
+    // },
+    // 'inpInfo.cardNum': {
+    //   handler(val) {
+    //     clearTimeout(this.timeout)
+    //     this.timeout = setTimeout(() => {
+    //       this.checkBank()
+    //     }, 1000)
+    //   }
+    // }
   },
   computed:{
     ...mapGetters({
