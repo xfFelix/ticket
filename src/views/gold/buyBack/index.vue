@@ -89,6 +89,7 @@ export default {
         const { data, error_code, message } = await checkBankAndName({token: this.getToken, realName: name, cardNum})
         if ([0, 500].includes(error_code)) {
           this.inpInfo.bank = data.bank
+          if (error_code == 500) this.$toast(message)
         } else {
           this.inpInfo.bank = ''
           return this.$toast(message)
