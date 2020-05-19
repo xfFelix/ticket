@@ -69,22 +69,6 @@ export default {
         }
       }
     },
-    // 'inpInfo.name': {
-    //   handler(val) {
-    //     clearTimeout(this.timeout)
-    //     this.timeout = setTimeout(() => {
-    //       this.checkBank()
-    //     }, 1000)
-    //   }
-    // },
-    // 'inpInfo.cardNum': {
-    //   handler(val) {
-    //     clearTimeout(this.timeout)
-    //     this.timeout = setTimeout(() => {
-    //       this.checkBank()
-    //     }, 1000)
-    //   }
-    // }
   },
   computed:{
     ...mapGetters({
@@ -103,11 +87,12 @@ export default {
         const { cardNum, name } = this.inpInfo
         if (!name || !cardNum) return
         const { data, error_code, message } = await checkBankAndName({token: this.getToken, realName: name, cardNum})
-        if (error_code) {
+        if ([0, 500].includes(error_code)) {
+          this.inpInfo.bank = data.bank
+        } else {
           this.inpInfo.bank = ''
           return this.$toast(message)
         }
-        this.inpInfo.bank = data.bank
       } catch (e) {
 
       }
