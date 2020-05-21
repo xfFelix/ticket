@@ -27,7 +27,7 @@
           </li>
         </ul>
       </div>
-
+      <div class="confirm" @click="goLink"></div>
   </div>
   </div>
 </template>
@@ -42,6 +42,9 @@ export default {
     handleCopy(text, event) {
       clip(text, event)
     },
+    goLink() {
+      window.location.href = `http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481`
+    }
   }
 }
 </script>
@@ -106,6 +109,13 @@ export default {
     text-align: center;
     width: 92%;
         margin: 0 auto;
+  }
+  .confirm{
+    height: 40px;
+    width: 304px;
+    margin: 40px auto;
+    background: transparent url('~@/common/images/btn_contact.png') no-repeat center center;
+    background-size: 100% 100%;
   }
 }
 </style>
