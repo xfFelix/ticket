@@ -29,7 +29,8 @@
             </li>
             <li>时间：{{item.addDate}}</li>
             <li>充值账号：{{item.cardNum}}</li>
-            <li>售价：{{(item.repaymentAmount + item.serviceFee)|toPrice}}</li>
+            <li>售价：{{item.repaymentAmount|toPrice}}</li>
+            <li>服务费：{{item.serviceFee|toPrice}}</li>
             <li>
               <span class="tax_fee">税费：{{item.taxFee|toPrice}}</span>
               <span class="total">合计：{{item.totalAmount|toPrice}}</span>

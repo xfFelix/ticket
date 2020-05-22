@@ -20,9 +20,9 @@
             </a>
           </li>
           <li>
-            <a href="#" class="item-step" @click.stop="handleCopy('403292023',$event)">
-              <div class="item-title">QQ号</div>
-              <div class="item-after">403292023 <span class="cubeic-back arrow"></span></div>
+            <a href="#" class="item-step" @click.stop="handleCopy('椰子竞技积分',$event)">
+              <div class="item-title">公众号</div>
+              <div class="item-after">椰子竞技积分 <span class="cubeic-back arrow"></span></div>
             </a>
           </li>
         </ul>
