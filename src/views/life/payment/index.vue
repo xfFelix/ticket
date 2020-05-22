@@ -41,10 +41,13 @@
       </div>
       <ul class="info">
         <li>
-          售价：<span class="value">{{salePrice.toFixed(2)}}</span>
+          售价：<span class="value">{{amount.sale.toFixed(2)}}</span>
         </li>
         <li>
           税费：<span class="value">{{amount.tax.toFixed(2)}}</span>
+        </li>
+        <li>
+          服务费：<span class="value">{{amount.service.toFixed(2)}}</span>
         </li>
         <li>
           应付合计：<span class="value">{{amount.total.toFixed(2)}}</span>
@@ -52,7 +55,7 @@
       </ul>
       <button class="payment" @click="validate">立即充值</button>
     </div>
-    <verify-code @confirm="payment" :showCode.sync="showCode" :amount="amount" :sale="salePrice" :price="price"></verify-code>
+    <verify-code @confirm="payment" :showCode.sync="showCode" :amount="amount" :sale="amount.sale" :price="price"></verify-code>
     <!-- 设置支付密码dialog -->
     <set-password :show.sync="showSetPassword"></set-password>
     <!-- 设置手机号 -->
@@ -160,7 +163,7 @@ export default {
         const {error_code, data} = await getPriceByLife({token: this.token, amount: this.price})
         if (error_code) return
         this.amount = Object.assign(this.amount, {
-          sale: data.sale,
+          sale: data.amount,
           tax: data.tax_total,
           service: data.service_fee,
           total: data.total

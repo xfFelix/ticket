@@ -7,6 +7,7 @@
         <div class="item"><span class="label">产品名称</span><i>:</i>{{price}}元{{findNameByType(config.type)}}充值</div>
         <div class="item"><span class="label">售价</span><i>:</i>{{sale.toFixed(2)}}</div>
         <div class="item"><span class="label">税费</span><i>:</i>{{amount.tax.toFixed(2)}}</div>
+        <div class="item"><span class="label">服务费</span><i>:</i>{{amount.service.toFixed(2)}}</div>
         <div class="item"><span class="label">应付合计</span><i>:</i>{{amount.total.toFixed(2)}}</div>
         <div class="item">
           <span class="label">{{+userinfo.payValidType === 1 ? '密码': '验证码'}}</span>
