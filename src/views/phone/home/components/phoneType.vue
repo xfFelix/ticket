@@ -153,6 +153,7 @@ export default {
       specialCustom() {  // 戴斯商户
         if(this.userinfo.vendorId == '5866a9fe52c04bfda0fd00aecda464b1' || this.userinfo.vendorId == 'd0ff41a07f04494ca7753686fb42383a' || this.userinfo.vendorId == '583d192da2734e5b8bd4a3837135c27a'){
           this.typeIndex=1;
+          this.$store.dispatch('phone/setConfig',{type: 1})
         }
       }
   },
