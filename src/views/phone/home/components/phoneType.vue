@@ -39,6 +39,9 @@
                     <span class="phoneBill-tMoney"> {{key}}</span>
                     <span class="phoneBill-tYuan">元</span>
                   </p>
+                  <p class="pB-tIWrap">
+                    <span class="phoneBill-tIntegral">需积分500000.91</span>
+                  </p>
               </li>
             </ul>
           </div>
@@ -78,7 +81,8 @@ export default {
     dirIndex:'',
     carIndex:2,
     noGoods:['1','5'],
-    yinqiudiShow:false
+    yinqiudiShow:false,
+    needIntegral: []
   }),
   watch:{
     mobile(val){
@@ -108,6 +112,18 @@ export default {
         let res = await directPrice({token:this.getToken,mobile:this.mobile});
         if(res.error_code!=0) return res.message;
         this.dirList = res.data;
+        // console.log(this.dirList)
+        let serviceCharge = 100
+        for (const i in this.dirList) {
+          let tempData = serviceCharge + i
+          if(tempData<=30000){
+            this.needIntegral.push(i)
+          }else if(tempData>30000 && tempData<=100000){
+            this.needIntegral.push(i*0.01)
+          }else if(tempData>100000) {
+
+          }
+        }
         this.setConfig({dirPrice:Object.keys(this.dirList)[0],realDirP:Object.values(this.dirList)[0]})
       },
        async getCarPrice(){
@@ -155,7 +171,11 @@ export default {
           this.typeIndex=1;
           this.$store.dispatch('phone/setConfig',{type: 1})
         }
-      }
+      },
+      // getServiceCharge () {
+      //   let serviceCharge = 100
+      //   console.log(this.dirList)
+      // }
   },
   computed: {
     ...mapGetters({
@@ -167,7 +187,7 @@ export default {
     this.getDirPrice();
     this.getCarPrice();
     this.specialCustom();
-
+    // this.getServiceCharge()
   },
 
 }

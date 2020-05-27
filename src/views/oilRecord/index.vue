@@ -76,9 +76,10 @@
                                 </p>
 
                             </div>
-                            <div class="recover" v-if="!changeFlag" @click="recovery(item.id,item.status)" :class="item.status==0?'recoverCan':'recoverNo'">
+                            <!-- 项目需求隐藏立即回收功能 -->
+                            <!-- <div class="recover" v-if="!changeFlag" @click="recovery(item.id,item.status)" :class="item.status==0?'recoverCan':'recoverNo'">
                                 立即回收
-                            </div>
+                            </div> -->
                         </div>
                     </li>
                 </ul>

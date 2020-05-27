@@ -5,7 +5,8 @@
 
     <div class="home-footer">
       <div class="exchange" @click="handlerShowType">立即兑换</div>
-      <div class="back" @click="goRecovery">立即回收</div>
+      <!-- 项目需求隐藏立即回收功能 -->
+      <!-- <div class="back" @click="goRecovery">立即回收</div> -->
     </div>
 
     <transition name="fade">
