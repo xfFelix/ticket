@@ -39,8 +39,9 @@
                     <span class="phoneBill-tMoney"> {{key}}</span>
                     <span class="phoneBill-tYuan">元</span>
                   </p>
-                  <p class="pB-tIWrap">
-                    <span class="phoneBill-tIntegral">需积分500000.91</span>
+                  <p class="pB-tIWrap" v-if="phoneCan">
+                    <span class="phoneBill-tIntegral">需积分</span>
+                    <span class="phoneBill-tIntegral">{{item[1]}}</span>
                   </p>
               </li>
             </ul>
@@ -53,6 +54,10 @@
                 :style="(noGoods.indexOf(key)!=-1 && yinqiudiShow)?'display: none':''">
                     <span v-if="noGoods.indexOf(key)!=-1" class="lack" >缺货</span>
                     <p class="phoneCard-tMTop"><span class="phoneCard-tMoney">{{key}}</span><span class="phoneCard-tYuan">元</span></p>
+                    <p class="phoneCard-tIWrap">
+                      <span class="phoneCard-tIntegral">需积分</span>
+                      <span class="phoneCard-tIntegral">{{item[1]}}</span>
+                    </p>
                 </li>
               </ul>
           </div>
@@ -91,7 +96,7 @@ export default {
           this.phoneCan=true;
           this.setConfig({mobile:val})
       }else{
-         this.phoneCan=false
+        this.phoneCan=false
       }
       this.$emit("hand-phoneCan",this.phoneCan)
     },
@@ -112,19 +117,13 @@ export default {
         let res = await directPrice({token:this.getToken,mobile:this.mobile});
         if(res.error_code!=0) return res.message;
         this.dirList = res.data;
-        // console.log(this.dirList)
-        let serviceCharge = 100
-        for (const i in this.dirList) {
-          let tempData = serviceCharge + i
-          if(tempData<=30000){
-            this.needIntegral.push(i)
-          }else if(tempData>30000 && tempData<=100000){
-            this.needIntegral.push(i*0.01)
-          }else if(tempData>100000) {
-
-          }
+        if(this.mobile){
+          // 填了手机号码，返回的数据格式跟没有填号码时返回的数据格式不一致
+          this.setConfig({dirPrice:Object.keys(this.dirList)[0],realDirP:Object.values(this.dirList)[0][0]})
+        }else{
+          this.setConfig({dirPrice:Object.keys(this.dirList)[0],realDirP:Object.values(this.dirList)[0]})
         }
-        this.setConfig({dirPrice:Object.keys(this.dirList)[0],realDirP:Object.values(this.dirList)[0]})
+
       },
        async getCarPrice(){
         let res = await cardPrice({token:this.getToken});
@@ -139,7 +138,7 @@ export default {
       dirClick(index,price,key){
         if(this.phoneCan==true){
           this.dirIndex = index;
-          this.setConfig({dirPrice:key,realDirP:price})
+          this.setConfig({dirPrice:key,realDirP:price[0]})
         }
       },
       carClick(index,price,key){
@@ -147,7 +146,7 @@ export default {
           return false;
         }
         this.carIndex = index;
-        this.setConfig({cardPrice:key,realCarP:price})
+        this.setConfig({cardPrice:key,realCarP:price[0]})
       },
       vipCustom(){  //赢球帝
         if(this.userinfo.vendorId == 'yingqiudi'){
@@ -160,10 +159,10 @@ export default {
            this.setConfig({
               type:1,
               cardPrice:Object.keys(this.cardList)[this.carIndex],
-              realCarP:Object.values(this.cardList)[this.carIndex]
+              realCarP:Object.values(this.cardList)[this.carIndex][0]
             })
         }else{
-          this.setConfig({cardPrice:Object.keys(this.cardList)[2],realCarP:Object.values(this.cardList)[2]}) //初始值拿下标为1的值
+          this.setConfig({cardPrice:Object.keys(this.cardList)[2],realCarP:Object.values(this.cardList)[2][0]}) //初始值拿下标为1的值
         }
       },
       specialCustom() {  // 戴斯商户
@@ -171,11 +170,7 @@ export default {
           this.typeIndex=1;
           this.$store.dispatch('phone/setConfig',{type: 1})
         }
-      },
-      // getServiceCharge () {
-      //   let serviceCharge = 100
-      //   console.log(this.dirList)
-      // }
+      }
   },
   computed: {
     ...mapGetters({
@@ -187,7 +182,6 @@ export default {
     this.getDirPrice();
     this.getCarPrice();
     this.specialCustom();
-    // this.getServiceCharge()
   },
 
 }
