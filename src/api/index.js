@@ -332,6 +332,13 @@ export const goldCode = (data) => fetch({
   data
 })
 
+//黄金查看保存的银行卡信息
+export const goldBankInfo = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/findCardInfo',
+  method: 'POST',
+  data
+})
+
 
 /****************************  话费 ******************************/
 //直充价格查询

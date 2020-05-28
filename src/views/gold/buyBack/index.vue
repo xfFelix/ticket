@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { goldbuyback ,goldPrice, checkBankAndName} from 'api';
+import { goldbuyback ,goldPrice, checkBankAndName, goldBankInfo} from 'api';
 import { mapGetters ,mapActions } from 'vuex';
 import { IsMobile,isEmpty, luhnCheck } from "util/common";
 export default {
@@ -82,6 +82,21 @@ export default {
     ...mapActions({
       checkPassword: 'checkPassword',
     }),
+    async getUserBankInfo () {
+      let res= await goldBankInfo({
+            token: this.getToken,
+        })
+        if(res.error_code != 0){
+          this.$toast(res.message)
+        }else {
+          if(res.data != null){
+            this.inpInfo.name = res.data.name
+            this.inpInfo.bank = res.data.bank
+            this.inpInfo.subBank = res.data.subBank
+            this.inpInfo.cardNum = res.data.cardNum
+          }
+        }
+    },
     async checkBank() {
       try {
         const { cardNum, name } = this.inpInfo
@@ -153,6 +168,7 @@ export default {
     },
   },
   mounted(){
+    this.getUserBankInfo()
     if(this.backInfo.type==0){
       this.backPrice = (this.backInfo.barPrice-20)*this.backInfo.weight;
     }else{
