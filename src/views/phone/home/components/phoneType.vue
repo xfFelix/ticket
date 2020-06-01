@@ -62,7 +62,7 @@
               </ul>
           </div>
           <p class="phone-explain" v-show="typeIndex!=0">注：同一个账号在多个渠道进行充值卡充值，每天累计最多5次</p>
-          <p></p>
+          <p class="phone-explain-important" v-show="typeIndex!=0">本方式适用于向第三方转卖话费，如需充值话费请使用“直充”功能</p>
       </div>
 </div>
 </template>
@@ -165,12 +165,13 @@ export default {
           this.setConfig({cardPrice:Object.keys(this.cardList)[2],realCarP:Object.values(this.cardList)[2][0]}) //初始值拿下标为1的值
         }
       },
-      specialCustom() {  // 戴斯商户
-        if(this.userinfo.vendorId == '5866a9fe52c04bfda0fd00aecda464b1' || this.userinfo.vendorId == 'd0ff41a07f04494ca7753686fb42383a' || this.userinfo.vendorId == '583d192da2734e5b8bd4a3837135c27a'){
-          this.typeIndex=1;
-          this.$store.dispatch('phone/setConfig',{type: 1})
-        }
-      }
+      // 戴斯商户
+      // specialCustom() {
+      //   if(this.userinfo.vendorId == '5866a9fe52c04bfda0fd00aecda464b1' || this.userinfo.vendorId == 'd0ff41a07f04494ca7753686fb42383a' || this.userinfo.vendorId == '583d192da2734e5b8bd4a3837135c27a'){
+      //     this.typeIndex=1;
+      //     this.$store.dispatch('phone/setConfig',{type: 1})
+      //   }
+      // }
   },
   computed: {
     ...mapGetters({
@@ -181,7 +182,7 @@ export default {
   mounted(){
     this.getDirPrice();
     this.getCarPrice();
-    this.specialCustom();
+    // this.specialCustom();
   },
 
 }
@@ -251,7 +252,12 @@ export default {
     .phone-explain{
       color: #999;
       font-size: 12px;
-      padding-bottom: 70px;
+      // padding-bottom: 70px;
+      padding-bottom: 5px;
+    }
+    .phone-explain-important {
+      color: #FF0000;
+      font-size: 20px;
     }
   }
 
