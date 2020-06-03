@@ -33,7 +33,7 @@
 </template>
 <script>
 import {getArgs} from '@/util/common'
-import {getSignSuccess} from '@/api'
+import {getSignSuccess, getSignSuccessByFace} from '@/api'
 export default {
   data: () => ({
     jobNumber: '',
@@ -50,12 +50,18 @@ export default {
     this.jobNumber = obj.jobNumber
     this.region = obj.region
     this.accountId = obj.accountId
-    this.getInfo()
+    this.getInfo(obj.isFaceRecognition)
   },
   methods: {
-    async getInfo() {
+    async getInfo(isFaceRecognition) {
       try {
-        const { data } = await getSignSuccess({accountId: this.accountId})
+        let res = ''
+        if (isFaceRecognition) {
+          res = await getSignSuccessByFace({accountId: this.accountId})
+        } else {
+          res = await getSignSuccess({accountId: this.accountId})
+        }
+        const { data } = res
         if (data === 2) {
           this.showSuccess = true
         } else {
