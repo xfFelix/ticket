@@ -40,38 +40,34 @@ export default {
     idNo: '',
     name: '',
     region: '',
-    accountId: '',
-    showSuccess: false
+    showSuccess: true
   }),
+  async beforeRouteEnter(to, from, next) {
+    const {accountId, isFaceRecognition} = getArgs()
+    try {
+      let res = ''
+      if (isFaceRecognition == 1) {
+        res = await getSignSuccessByFace({accountId})
+      } else {
+        res = await getSignSuccess({accountId})
+      }
+      const { data } = res
+      if (data === 2) {
+        next(vm => vm.showSuccess = true)
+      } else {
+        next(vm => vm.showSuccess = false)
+      }
+    } catch (e) {
+      next(vm => vm.$toast(e))
+    }
+  },
   created() {
     let obj = getArgs()
     this.name = obj.name
     this.idNo = obj.idNo
     this.jobNumber = obj.jobNumber
     this.region = obj.region
-    this.accountId = obj.accountId
-    this.getInfo(obj.isFaceRecognition)
   },
-  methods: {
-    async getInfo(isFaceRecognition) {
-      try {
-        let res = ''
-        if (isFaceRecognition) {
-          res = await getSignSuccessByFace({accountId: this.accountId})
-        } else {
-          res = await getSignSuccess({accountId: this.accountId})
-        }
-        const { data } = res
-        if (data === 2) {
-          this.showSuccess = true
-        } else {
-          this.showSuccess = false
-        }
-      } catch (e) {
-        this.$toast(e);
-      }
-    }
-  }
 }
 </script>
 <style scoped lang="scss">
