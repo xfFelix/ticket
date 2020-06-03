@@ -119,3 +119,24 @@ export const getInfo = data => fetch({
   method: 'POST',
   data
 })
+
+/**
+ * sign_geo 合同是否成功api
+ * @param {*} data
+ */
+export const getSignSuccess = data => fetch({
+  url: `${process.env.VUE_APP_CONTRACT_URL}/electronicSignature/getSigningStatus`,
+  method: 'POST',
+  data
+})
+
+/**
+ * sign_geo 合同是否成功api
+ * @param {*} data
+ */
+export const getSignSuccessByFace = data => fetch({
+  url: `${process.env.VUE_APP_CONTRACT_URL}/faceRecognition/getSigningStatus`,
+  method: 'POST',
+  data
+})
+

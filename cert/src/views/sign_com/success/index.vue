@@ -2,10 +2,10 @@
   <div class="success-wrapper">
     <Header :show-back="false">{{$route.meta.title}}</Header>
     <div class="img-wrapper">
-      <img src="~common/images/chenggong.png" alt=" ">
+      <img :src="require(`@/common/images/${showSuccess ? 'chenggong': 'fail'}.png`)" alt=" ">
     </div>
-    <p class="title">恭喜您，已经签约成功！</p>
-    <div class="info">
+    <p class="title">{{showSuccess ? '恭喜您，已经签约成功！' : '签约失败'}}</p>
+    <div class="info" v-if="showSuccess">
       <div class="content">
         <img src="~common/images/zb.png" alt="" class="cocoImg">
         <div class="iconfont icon-LC_icon_user_fill_3"></div>
@@ -33,13 +33,16 @@
 </template>
 <script>
 import {getArgs} from '@/util/common'
+import {getSignSuccess} from '@/api'
 export default {
   data: () => ({
     jobNumber: '',
     idNo: '',
     name: '',
     region: '',
-    industryName: ''
+    industryName: '',
+    accountId: '',
+    showSuccess: false
   }),
   created() {
     let obj = getArgs()
@@ -48,7 +51,23 @@ export default {
     this.jobNumber = obj.jobNumber
     this.region = obj.region
     this.industryName = obj.industryName
+    this.accountId = obj.accountId
+    this.getInfo()
   },
+  methods: {
+    async getInfo() {
+      try {
+        const { data } = await getSignSuccess({accountId: this.accountId})
+        if (data === 2) {
+          this.showSuccess = true
+        } else {
+          this.showSuccess = false
+        }
+      } catch (e) {
+        this.$toast(e);
+      }
+    }
+  }
 }
 </script>
 <style scoped lang="scss">
