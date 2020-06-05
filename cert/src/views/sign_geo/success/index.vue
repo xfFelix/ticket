@@ -48,6 +48,8 @@ export default {
       let res = ''
       if (isFaceRecognition == 1) {
         res = await getSignSuccessByFace({accountId})
+      } else if(isFaceRecognition == 2) {
+        return next(vm => vm.showSuccess = true)
       } else {
         res = await getSignSuccess({accountId})
       }
