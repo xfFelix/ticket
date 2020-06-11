@@ -2,10 +2,10 @@
   <div class="success-wrapper">
     <Header :show-back="false">{{$route.meta.title}}</Header>
     <div class="img-wrapper">
-      <img src="~common/images/chenggong.png" alt=" ">
+      <img :src="require(`@/common/images/${showSuccess ? 'chenggong': 'fail'}.png`)" alt=" ">
     </div>
-    <p class="title">恭喜您，已经签约成功！</p>
-    <div class="info">
+    <p class="title">{{showSuccess ? '恭喜您，已经签约成功！' : '签约失败'}}</p>
+    <div class="info" v-if="showSuccess">
       <div class="content">
         <img src="~common/images/zb.png" alt="" class="cocoImg">
         <div class="iconfont icon-LC_icon_user_fill_3"></div>
@@ -33,14 +33,35 @@
 </template>
 <script>
 import {getArgs} from '@/util/common'
+import {getSignSuccess} from '@/api'
 export default {
   data: () => ({
     jobNumber: '',
     idNo: '',
     name: '',
     region: '',
-    industryName: ''
+    industryName: '',
+    showSuccess: true
   }),
+  async beforeRouteEnter(to, from, next) {
+    const {accountId, isFaceRecognition} = getArgs()
+    try {
+      let res = ''
+      if (isFaceRecognition == 1) {
+        res = await getSignSuccessByFace({accountId})
+      } else {
+        res = await getSignSuccess({accountId})
+      }
+      const { data } = res
+      if (data === 2) {
+        next(vm => vm.showSuccess = true)
+      } else {
+        next(vm => vm.showSuccess = false)
+      }
+    } catch (e) {
+      next(vm => vm.$toast(e))
+    }
+  },
   created() {
     let obj = getArgs()
     this.name = obj.name

@@ -13,11 +13,11 @@
       </li>
       <li>
         <span>真实姓名</span>
-        <input type="text" placeholder="真实姓名" v-model.trim="data.name"  disabled/>
+        <input type="text" placeholder="真实姓名" v-model.trim="data.name" />
       </li>
       <li>
         <span>证件号码</span>
-        <input type="text" placeholder="身份证号码" v-model.trim="data.idNum"  disabled/>
+        <input type="text" placeholder="身份证号码" v-model.trim="data.idNum" />
       </li>
       <li>
         <span>银行卡号</span>
