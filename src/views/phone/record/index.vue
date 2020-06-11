@@ -42,16 +42,21 @@
                                 <p class="total">合计：{{item.totalAmount|toPrice}}</p>
                             </div>
                         </div>
-                        <a class="pBUse" :href="item.orderNum" v-if="item.cardNum==1 && item.status==1">立即使用</a>
+                        <div class="pBUse" @click="smsShow(item.orderNum)" v-if="item.cardNum==1 && item.status==1">立即使用</div>
+                        <!-- <a class="pBUse" :href="item.orderNum" v-if="item.cardNum==1 && item.status==1">立即使用</a> -->
                     </li>
                 </ul>
             </cube-scroll>
             <no-data :data="recodeList"></no-data>
         </div>
+        <Sms-code :show="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder"></Sms-code>
+        <transition name="fade">
+          <bg-mask v-model="show.mask"></bg-mask>
+        </transition>
     </div>
 </template>
 <script>
-import { phoneLogs } from 'api';
+import { phoneLogs, checkCode } from 'api';
 import { mapGetters ,mapActions } from 'vuex';
 import {vipCustom} from '@/mixins'
 export default {
@@ -67,9 +72,17 @@ export default {
         tenFlag: true,
         time: 0,
         code: '',
+        show: {
+          mask: false,
+          code: false
+        },
+        failText:undefined,
+        orderNum: ''
     }),
     components: {
-        NoData: () => import('components/NoData')
+        NoData: () => import('components/NoData'),
+        SmsCode: ()=> import('@/components/SmsCode'),
+        BgMask: () => import('@/components/BgMask'),
     },
     computed: {
         options() {
@@ -145,13 +158,42 @@ export default {
           }
           return res[name]
         },
+        smsShow (val) {
+          this.orderNum = val
+          this.show={mask:true,code:true};
+        },
+        initShow () {
+          this.show={mask:false,code:false};
+        },
+        async submitOrder (val) {
+          let data = await checkCode({
+              token: this.getToken,
+              verify_code: val
+            });
+          if(data.error_code == 0) {
+            this.initShow();
+            window.location.href = this.orderNum
+          }else {
+            this.failText = data.message
+          }
+        }
     },
     mounted() {
       if(this.$route.query.cardId==1 || this.userinfo.vendorId=='yingqiudi'){
         this.typeFlag = 1;
       }
       this.getScenicList();
-    }
+    },
+    watch: {
+    'show.mask': {
+      handler(val) {
+        if (!val) {
+          this.initShow();
+          this.failText=undefined
+        }
+      }
+    },
+  },
 }
 </script>
 

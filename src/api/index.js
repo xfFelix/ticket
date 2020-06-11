@@ -376,6 +376,13 @@ export const phoneTax = (data) => fetch({
   data
 })
 
+// 话费充值卡立即使用短信验证
+export const checkCode = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/checkCode',
+  method: 'POST',
+  data
+})
+
 /****************************  信用卡 ******************************/
 // 信用卡列表 （状态为审核通过）
 export const cards = (data) => fetch({
