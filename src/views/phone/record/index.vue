@@ -49,7 +49,7 @@
             </cube-scroll>
             <no-data :data="recodeList"></no-data>
         </div>
-        <Sms-code :show="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder"></Sms-code>
+        <Sms-code :show="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder" :showSendCode="show.code"></Sms-code>
         <transition name="fade">
           <bg-mask v-model="show.mask"></bg-mask>
         </transition>
@@ -160,7 +160,11 @@ export default {
         },
         smsShow (val) {
           this.orderNum = val
-          this.show={mask:true,code:true};
+          if(this.userinfo.payValidType === 1) {
+            window.location.href = this.orderNum
+          }else {
+            this.show={mask:true,code:true}
+          }
         },
         initShow () {
           this.show={mask:false,code:false};
