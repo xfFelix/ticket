@@ -31,8 +31,9 @@
     <transition name="fade">
       <bg-mask v-model="show.mask"></bg-mask>
     </transition>
-
-     <gold-file :show="show.file" @handle-show-file="initShow"></gold-file>
+    <!-- 设置支付密码dialog -->
+    <set-password :show.sync="showSetPassword"></set-password>
+    <gold-file :show="show.file" @handle-show-file="initShow"></gold-file>
 
 
   </div>
@@ -77,6 +78,14 @@ export default {
       backInfo: 'gold/getBackInfo',
       userinfo: 'getUserinfo'
     }),
+    showSetPassword: {
+      get() {
+        return this.$store.getters.getShowSetPassword
+      },
+      set(val) {
+        this.$store.dispatch('setShowSetPassword', val)
+      }
+    },
   },
   methods:{
     ...mapActions({
@@ -180,7 +189,8 @@ export default {
   components:{
     SmsCode: ()=> import('@/components/SmsCode'),
     BgMask: () => import('@/components/BgMask'),
-    goldFile: () => import("./components/goldFile")
+    goldFile: () => import("./components/goldFile"),
+    SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),
   }
 
 }
