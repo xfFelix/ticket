@@ -42,8 +42,10 @@
 <script>
 import { goldbuyback ,goldPrice, checkBankAndName, goldBankInfo} from 'api';
 import { mapGetters ,mapActions } from 'vuex';
+import { setPayType ,IOSFocus ,vipCustom} from '@/mixins';
 import { IsMobile,isEmpty, luhnCheck } from "util/common";
 export default {
+  mixins: [setPayType, IOSFocus,vipCustom],
   data:()=>({
     checked:false,
     backPrice:undefined,
@@ -77,15 +79,7 @@ export default {
       goldConfig: 'gold/getConfig',
       backInfo: 'gold/getBackInfo',
       userinfo: 'getUserinfo'
-    }),
-    showSetPassword: {
-      get() {
-        return this.$store.getters.getShowSetPassword
-      },
-      set(val) {
-        this.$store.dispatch('setShowSetPassword', val)
-      }
-    },
+    })
   },
   methods:{
     ...mapActions({
