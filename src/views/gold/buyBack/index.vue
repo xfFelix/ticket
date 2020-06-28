@@ -33,7 +33,7 @@
     </transition>
     <!-- 设置支付密码dialog -->
     <set-password :show.sync="showSetPassword"></set-password>
-    <gold-file :show="show.file" @handle-show-file="initShow" :fileType="goldFileType"></gold-file>
+    <gold-file :show="show.file" @handle-show-file="initShow" :fileType="fileType"></gold-file>
 
 
   </div>
@@ -66,7 +66,7 @@ export default {
     id: '',
     gtype: '',
     token: '',
-    goldFileType: 0
+    fileType: 0
   }),
   watch: {
     'show.mask': {
@@ -215,7 +215,7 @@ export default {
       this.token = getParam().token
       this.getUserToken ()
       this.getGoldBuyBackPrice()
-      this.goldFileType = 3
+      this.fileType = 3
     }
     this.inpInfo.mobile = this.userinfo.userName;
     this.inpInfo.name = this.userinfo.realName;

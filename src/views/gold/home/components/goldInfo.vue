@@ -44,7 +44,8 @@
     </div>
 
     <ul class="goldC-msg">
-      <li>金条价格<span>{{taxInfo.amount|toPrice}}</span></li>
+      <li v-if="gtId==3">金条价格<span>{{taxInfo.amount|toPrice}}</span></li>
+      <li v-if="gtId==4">金砂价格<span>{{taxInfo.amount|toPrice}}</span></li>
       <li>服务费<span>{{taxInfo.service_fee|toPrice}}</span></li>
       <li>税费<span>{{taxInfo.tax_total|toPrice}}</span></li>
       <li>合计<span>{{taxInfo.total|toPrice}}</span></li>
