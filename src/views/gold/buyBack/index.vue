@@ -21,7 +21,7 @@
       </ul>
     <div class="agreement">
       <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
-      <span @click="show.file=true" class="file" :fileType = fileType>《黄金回购协议》</span>
+      <span @click="show.file=true" class="file">《黄金回购协议》</span>
     </div>
     <p class="arrivel-accound-day">1-3个工作日内到账，请耐心等待</p>
 
@@ -33,7 +33,7 @@
     </transition>
     <!-- 设置支付密码dialog -->
     <set-password :show.sync="showSetPassword"></set-password>
-    <gold-file :show="show.file" @handle-show-file="initShow"></gold-file>
+    <gold-file :show="show.file" @handle-show-file="initShow" :fileType="goldFileType"></gold-file>
 
 
   </div>
@@ -66,7 +66,7 @@ export default {
     id: '',
     gtype: '',
     token: '',
-    fileType: 0
+    goldFileType: 0
   }),
   watch: {
     'show.mask': {
@@ -142,7 +142,7 @@ export default {
         }else{
           this.initShow();
           this.$dialog({content:"回购申请成功，请等候客服审核！工作日（周一至周五）24小时内打款  节假日（周六周天）及法定节假日不打款。"},()=>{
-            this.$router.replace({name:'goldHome'})
+            this.$router.replace({name:'goldRecord'})
           })
         }
     },
@@ -215,7 +215,7 @@ export default {
       this.token = getParam().token
       this.getUserToken ()
       this.getGoldBuyBackPrice()
-      this.fileType = 3
+      this.goldFileType = 3
     }
     this.inpInfo.mobile = this.userinfo.userName;
     this.inpInfo.name = this.userinfo.realName;
