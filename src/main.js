@@ -12,8 +12,14 @@ import './plugins'
 import FastClick from 'fastclick'
 import 'common/js/rem'
 import './common/css/index.scss'
+import 'mint-ui/lib/style.css'
 import 'swiper/dist/css/swiper.css'
-
+import infiniteScroll from 'vue-infinite-scroll'
+import {
+  Spinner,
+} from "mint-ui";
+Vue.component(Spinner.name, Spinner);
+Vue.use(infiniteScroll)
 // import Vconsole from 'vconsole';
 // new Vconsole();
 

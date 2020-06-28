@@ -5,37 +5,26 @@
       <li v-for="(item,index) in detail" :key="index" @click="detailClick(index)" :class="selectIndex==index?'active':''">{{item.name}}</li>
     </ul>
     <div class="liHight" v-if="fixedTop==1"></div>
-    <ul v-show="goldType.type==0">
+    <ul v-show="goldType.type==3">
       <li v-show="selectIndex==0">
-        <img src="../../../../common/images/gold/bar-01-01.jpg" alt="金条" width="100%" />
-        <img src="../../../../common/images/gold/bar-01-02.jpg" alt="金条" width="100%" />
-        <img src="../../../../common/images/gold/bar-01-03.jpg" alt="金条" width="100%" />
-        <img src="../../../../common/images/gold/bar-01-04.jpg" alt="金条" width="100%" />
-        <img src="../../../../common/images/gold/bar-01-05.jpg" alt="金条" width="100%" />
-        <img src="../../../../common/images/gold/bar-01-06.jpg" alt="金条" width="100%" />
-        <img src="../../../../common/images/gold/bar-01-07.jpg" alt="金条" width="100%" />
+        <img src="../../../../common/images/gold/bar-01-01.png" alt="金条" width="100%" />
+        <img src="../../../../common/images/gold/bar-01-02.png" alt="金条" width="100%" />
       </li>
       <li v-show="selectIndex==1">
         <img src="../../../../common/images/gold/bar-02.png" alt="金条" width="100%" />
       </li>
       <li v-show="selectIndex==2">
-        <img src="../../../../common/images/gold/bar-03.png" alt="金条" width="100%" />
-      </li>
-      <li v-show="selectIndex==3">
         <img src="../../../../common/images/gold/bar-04.png" alt="金条" width="100%" />
       </li>
     </ul>
 
-   <ul v-show="goldType.type==1">
+   <ul v-show="goldType.type==4">
       <li v-show="selectIndex==0">
-         <img src="../../../../common/images/gold/sand-01-01.jpg" alt="金砂" width="100%" />
-        <img src="../../../../common/images/gold/sand-01-02.jpg" alt="金砂" width="100%" />
-        <img src="../../../../common/images/gold/sand-01-03.jpg" alt="金砂" width="100%" />
-        <img src="../../../../common/images/gold/sand-01-04.jpg" alt="金砂" width="100%" />
+        <img src="../../../../common/images/gold/sand-01-01.png" alt="金砂" width="100%" />
+        <img src="../../../../common/images/gold/bar-01-02.png" alt="金砂" width="100%" />
       </li>
-      <li v-show="selectIndex==1"> <img src="../../../../common/images/gold/sand-02.png" alt="金砂" width="100%" /></li>
-      <li v-show="selectIndex==2"><img src="../../../../common/images/gold/sand-03.png" alt="金砂" width="100%" /></li>
-      <li v-show="selectIndex==3"><img src="../../../../common/images/gold/sand-04.png" alt="金砂" width="100%" /></li>
+      <li v-show="selectIndex==1"> <img src="../../../../common/images/gold/bar-02.png" alt="金砂" width="100%" /></li>
+      <li v-show="selectIndex==2"><img src="../../../../common/images/gold/bar-04.png" alt="金砂" width="100%" /></li>
     </ul>
     <!-- <div ref="headTop" class="headTop"></div> -->
   </div>
@@ -58,9 +47,6 @@ export default {
       },
       {
         name: "回购须知"
-      },
-      {
-        name: "检测报告"
       },
       {
         name: "常见问题"

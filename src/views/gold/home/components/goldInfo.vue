@@ -5,7 +5,7 @@
         <li
           v-for="(item,index) in goldType"
           :key="index"
-          :class="gtId==index?'goldC-active':''"
+          :class="gtId-3==index?'goldC-active':''"
           @click="selectType(index)"
           :style="item.show?'':'display:none'"
         >{{item.name}}</li>
@@ -13,7 +13,7 @@
 
       <ul class="goldC-compare">
         <li class="goldC-goldPrice">
-          <p class="goldC-price-name">{{gtId==0?'今日金条价：':'今日金砂价：'}}</p>
+          <p class="goldC-price-name">{{gtId==3?'今日金条价：':'今日金砂价：'}}</p>
           <p>
             <span class="goldPrice">{{goldPrice|toPrice}}</span>
             <span class="goldC-ratio">元/克</span>
@@ -26,13 +26,13 @@
         <div class="input-flex">
           <input
           type="number"
-          :placeholder="gtId==0?'1根起购，仅限整数':'1颗起购，仅限整数'"
+          :placeholder="gtId==3?'1根起购，仅限整数':'1颗起购，仅限整数'"
           class="goldC-input"
           :value="inpPrice"
           @input="$emit('input', $event.target.value)"/>
         </div>
-        <span class="goldC-unit">{{gtId==0?'根':'颗'}}</span>
-        <span class="goldC-explain">{{gtId==0?'(1根=10克)':'(1颗=0.2克)'}}</span>
+        <span class="goldC-unit">{{gtId==3?'根':'颗'}}</span>
+        <span class="goldC-explain">{{gtId==3?'(1根=10克)':'(1颗=0.1克)'}}</span>
       </div>
     </div>
 
@@ -75,7 +75,7 @@ export default {
         show:true
       }
     ],
-    gtId: 0,
+    gtId: 3,
     goldPrice:undefined,
     taxInfo:{},
     timeInp:null,
@@ -127,17 +127,17 @@ export default {
       setConfig: 'gold/setConfig'
     }),
     selectType(index) {
-      this.gtId = index;
+      this.gtId = index+3;
       this.getTax(0);
       this.getPrice();
-      this.type=index;
+      this.type=index+3;
       this.$emit('inp-Clean')
     },
     async getPrice() {
       let res = await goldPrice({ id: this.gtId });
       if(res.error_code!=0) return this.$toast(res.message);
       this.goldPrice = res.data.goldPrice;
-      if(this.gtId==0){
+      if(this.gtId==3){
           this.barPrice = this.goldPrice;
       }else{
           this.sandPrice = this.goldPrice;
@@ -146,6 +146,7 @@ export default {
      async getTax(val) {
       let res = await goldTax({ amount: val,id: this.gtId,token: this.getToken});
       if(res.error_code!=0) return this.$toast(res.message);
+      // if(res.error_code!=0) return console.log(res.message);
       this.taxInfo = res.data;
       this.$emit('tax-money',this.taxInfo)
     },

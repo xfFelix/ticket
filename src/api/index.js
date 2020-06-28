@@ -285,21 +285,37 @@ export const getPriceByLife = data => fetch({
 
 /****************************  黄金 ******************************/
 //获取黄金价格
+// export const goldPrice = (data) => fetch({
+//   url: process.env.VUE_APP_INFO_URl + 'user/prices',
+//   method: 'POST',
+//   data
+// })
+//获取自营黄金价格
 export const goldPrice = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/prices',
+  url: process.env.VUE_APP_INFO_URl + 'user/zyPrices',
   method: 'POST',
   data
 })
 //计算黄金价格
+// export const goldTax = (data) => fetch({
+//   url: process.env.VUE_APP_INFO_URl + 'user/goldTax',
+//   method: 'POST',
+//   data
+// })
 export const goldTax = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/goldTax',
+  url: process.env.VUE_APP_INFO_URl + 'user/zyGoldTax',
   method: 'POST',
   data
 })
 
 //黄金兑换接口
+// export const goldBuy = (data) => fetch({
+//   url: process.env.VUE_APP_INFO_URl + 'user/gold',
+//   method: 'POST',
+//   data
+// })
 export const goldBuy = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/gold',
+  url: process.env.VUE_APP_INFO_URl + 'user/zyGold',
   method: 'POST',
   data
 })
@@ -319,8 +335,13 @@ export const goldInfo = (data) => fetch({
 })
 
 //黄金回购
+// export const goldbuyback = (data) => fetch({
+//   url: process.env.VUE_APP_INFO_URl + 'user/goldbuyback',
+//   method: 'POST',
+//   data
+// })
 export const goldbuyback = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/goldbuyback',
+  url: process.env.VUE_APP_INFO_URl + 'user/zyGoldbuyback',
   method: 'POST',
   data
 })
@@ -335,6 +356,13 @@ export const goldCode = (data) => fetch({
 //黄金查看保存的银行卡信息
 export const goldBankInfo = (data) => fetch({
   url: process.env.VUE_APP_INFO_URl + 'user/findCardInfo',
+  method: 'POST',
+  data
+})
+
+// 查询黄金回购价格
+export const findGoldBuyBackPrice = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/findGoldBuyBackPrice',
   method: 'POST',
   data
 })

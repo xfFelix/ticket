@@ -1,7 +1,7 @@
 import {isEmpty} from 'util/common';
 import {sessionStorage } from 'common/storage'
 let defaultConfig = {  //购买
-  type: 0, //0金条 1金砂
+  type: 3, //3自营金条 4自营金砂
   id:undefined,
   barPrice:undefined,
   sandPrice:undefined
@@ -77,7 +77,7 @@ const mutations = {
       sandPrice:''
     }
     state.config = {
-      type: 0, //0金条 1金砂
+      type: 3, //0金条 1金砂
       id:'',
       barPrice:'',
       sandPrice:''

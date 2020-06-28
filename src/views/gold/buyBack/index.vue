@@ -9,10 +9,10 @@
           <p>
             <span>{{backPrice|toPrice}}</span>
             <span>元</span>
-            <span @click="showDig()">?</span>
+            <span v-if="!id" @click="showDig()">?</span>
           </p>
         </li>
-        <li class="l_add">卡密<input type="text" name="code" maxlength="14" placeholder="请输入兑换码"  disabled :value="backInfo.cardCode"/></li>
+        <!-- <li class="l_add">卡密<input type="text" name="code" maxlength="14" placeholder="请输入兑换码"  disabled :value="backInfo.cardCode"/></li> -->
         <li>联系电话<input type="text" name="mobile" maxlength="12" placeholder="请输入联系人电话" v-model="inpInfo.mobile"/></li>
         <li>姓名<input type="text" name="name" maxlength="10" placeholder="请输入户主姓名" v-model="inpInfo.name" @blur="checkBank"/></li>
         <li>银行卡号<input type="text" name="cardNum" maxlength="20" placeholder="请输入银行卡号" v-model="inpInfo.cardNum" @blur="checkBank"/></li>
@@ -21,7 +21,7 @@
       </ul>
     <div class="agreement">
       <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
-      <span @click="show.file=true" class="file">《黄金回购协议》</span>
+      <span @click="show.file=true" class="file" :fileType = fileType>《黄金回购协议》</span>
     </div>
     <p class="arrivel-accound-day">1-3个工作日内到账，请耐心等待</p>
 
@@ -40,10 +40,11 @@
 </template>
 
 <script>
-import { goldbuyback ,goldPrice, checkBankAndName, goldBankInfo} from 'api';
+import { goldbuyback ,goldPrice, checkBankAndName, goldBankInfo, findGoldBuyBackPrice, getInfo} from 'api';
 import { mapGetters ,mapActions } from 'vuex';
 import { setPayType ,IOSFocus ,vipCustom} from '@/mixins';
-import { IsMobile,isEmpty, luhnCheck } from "util/common";
+import { IsMobile,isEmpty, luhnCheck, getParam } from "util/common";
+import store from 'store'
 export default {
   mixins: [setPayType, IOSFocus,vipCustom],
   data:()=>({
@@ -61,7 +62,11 @@ export default {
       code:false,
       file:false
     },
-    failText:''
+    failText:'',
+    id: '',
+    gtype: '',
+    token: '',
+    fileType: 0
   }),
   watch: {
     'show.mask': {
@@ -117,15 +122,19 @@ export default {
       }
     },
     async submitOrder(val){ //输入短信下单
+        let currentId = this.gtype?this.gtype:this.backInfo.type
+        let currentCardId = this.id?this.id:this.backInfo.cardId
+        let currentAmount = this.amount?this.amount:this.backInfo.weight
         let res= await goldbuyback({
             token: this.getToken,
+            amount: currentAmount,
             mobile: this.inpInfo.mobile,
             bank: this.inpInfo.bank,
             subBank: this.inpInfo.subBank,
             realName: this.inpInfo.name,
             cardNum: this.inpInfo.cardNum,
-            id: this.backInfo.type,
-            cardId:this.backInfo.cardId,
+            id: currentId,  // 分自营黄金和金宇黄金
+            cardId: currentCardId, // 分自营黄金和金宇黄金
             verify_code: val,
         })
         if(res.error_code != 0){
@@ -169,13 +178,44 @@ export default {
     showDig(){
       this.$dialog({title:'回购说明',content: "<p style='margin-top:-12px;text-align: left;'>本服务由深圳市金宇阳光文化发展有限公司提供。</p><p style='text-align: left;margin: 8px 0 -13px 0;'>回购价格=基础金价-3元/克，基础金价为上海黄金交易所Au99.99当日开盘价。</p>"},() => {})
     },
+    async getGoldBuyBackPrice() {
+      let res = await findGoldBuyBackPrice({
+        token: this.token,
+        cardId: this.id
+      })
+      if(res.error_code != 0){
+          return
+      }else {
+        this.backPrice = res.data.buyMoney
+      }
+    },
+    async getUserToken() {
+      let res = await getInfo({
+        token: this.token
+      })
+      if(res.error_code != 0){
+          return
+      }else {
+        store.dispatch('setUserinfo', res.data)
+      }
+    }
   },
   mounted(){
     this.getUserBankInfo()
     if(this.backInfo.type==0){
       this.backPrice = (this.backInfo.barPrice-20)*this.backInfo.weight;
-    }else{
+    }
+    if(this.backInfo.type==1) {
       this.backPrice = (this.backInfo.sandPrice-21)*this.backInfo.weight;
+    }
+    // 自营黄金 回购价格从连接参数中获取
+    if(getParam().id) {
+      this.id = getParam().id
+      this.gtype = getParam().gtype
+      this.token = getParam().token
+      this.getUserToken ()
+      this.getGoldBuyBackPrice()
+      this.fileType = 3
     }
     this.inpInfo.mobile = this.userinfo.userName;
     this.inpInfo.name = this.userinfo.realName;

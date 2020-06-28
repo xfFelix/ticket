@@ -108,6 +108,11 @@ export default {
           return this.$toast('请阅读并同意《黄金兑换协议》');
         }
         if(this.inpPrice >=1 && IsInteger(this.inpPrice)){
+          if(this.taxMoney.total == undefined) {
+            this.inpPrice = ''
+            this.$toast('库存不足');
+            return
+          }
           if(this.userinfo.score >= this.taxMoney.total){
             if(this.taxMoney.monthTotal > 30000 && isEmpty(this.userinfo.idnum)){
               return this.$dialog({type:'confirm',content:'您消费额度超过3万，请先实名认证！'},()=>{
@@ -219,6 +224,7 @@ export default {
 
 .main-absolute{
   height: calc(100vh - 89px);
+  width: 100%;
   position: absolute;
   top: 44px;
   bottom:45px;
