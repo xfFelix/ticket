@@ -7,7 +7,8 @@
         <li class="goldbuy-back-money">
           回购金额:
           <p>
-            <span>{{backPrice|toPrice}}</span>
+            <span v-if="id" style="color:#F23D3D">{{backPrice|toPrice}}</span>
+            <span v-else>{{backPrice|toPrice}}</span>
             <span>元</span>
             <span v-if="!id" @click="showDig()">?</span>
           </p>
@@ -19,7 +20,11 @@
         <li>开户行<input type="text" name="bank" maxlength="20" placeholder="请输入开卡银行" v-model="inpInfo.bank" disabled/></li>
         <li>开户支行<input type="text" name="subBank" maxlength="20" placeholder="请输入开户支行" v-model="inpInfo.subBank" /></li>
       </ul>
-    <div class="agreement">
+    <div class="agreement zy-agreement" v-if="id">
+      <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
+      <span style="color: #576B95" @click="show.file=true" class="file">《黄金回购协议》</span>
+    </div>
+    <div class="agreement" v-else>
       <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
       <span @click="show.file=true" class="file">《黄金回购协议》</span>
     </div>
@@ -48,7 +53,7 @@ import store from 'store'
 export default {
   mixins: [setPayType, IOSFocus,vipCustom],
   data:()=>({
-    checked:false,
+    checked:true,
     backPrice:undefined,
     inpInfo:{
       mobile:undefined,
@@ -235,6 +240,7 @@ export default {
     // 自营黄金 回购价格从连接参数中获取
     if(getParam().id) {
       let id = getParam().id
+      this.id = id
       sessionStorage.setItem('GOLDID',id)
       this.gtype = getParam().gtype
       this.token = getParam().token
@@ -387,7 +393,9 @@ export default {
 .cube-dialog-title-def{
   margin:20px 0 25px 0;
 }
-
+.zy-agreement .cube-checkbox_checked .cube-checkbox-ui i {
+  color: #576B95;
+}
 @media screen and (min-width: 600px) {
   header,.backBnt{
     max-width: 384px; /*no*/

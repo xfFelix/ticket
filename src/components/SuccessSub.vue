@@ -63,7 +63,7 @@ export default {
   },
   data(){
     return{
-      countDown:5,
+      countDown:10,
       timer: null,
       toggleFlag: false,
       list:[
