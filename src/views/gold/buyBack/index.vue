@@ -23,8 +23,8 @@
       <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
       <span @click="show.file=true" class="file">《黄金回购协议》</span>
     </div>
-    <p class="arrivel-accound-day">1-3个工作日内到账，请耐心等待</p>
-
+    <p class="arrivel-accound-day" v-if="id">12个小时内到账，请耐心等待</p>
+    <p class="arrivel-accound-day" v-else>1-3个工作日内到账，请耐心等待</p>
     <div class="backBnt" @click="buyBnt()">提交</div>
 
     <sms-code :show="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder"></sms-code>
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { goldbuyback ,goldPrice, checkBankAndName, goldBankInfo, findGoldBuyBackPrice, getInfo} from 'api';
+import { goldbuyback, zygoldbuyback ,goldPrice, checkBankAndName, goldBankInfo, findGoldBuyBackPrice, getInfo} from 'api';
 import { mapGetters ,mapActions } from 'vuex';
 import { setPayType ,IOSFocus ,vipCustom} from '@/mixins';
 import { IsMobile,isEmpty, luhnCheck, getParam } from "util/common";
@@ -125,26 +125,50 @@ export default {
         let currentId = this.gtype?this.gtype:this.backInfo.type
         let currentCardId = this.id?this.id:this.backInfo.cardId
         let currentAmount = this.amount?this.amount:this.backInfo.weight
-        let res= await goldbuyback({
-            token: this.getToken,
-            amount: currentAmount,
-            mobile: this.inpInfo.mobile,
-            bank: this.inpInfo.bank,
-            subBank: this.inpInfo.subBank,
-            realName: this.inpInfo.name,
-            cardNum: this.inpInfo.cardNum,
-            id: currentId,  // 分自营黄金和金宇黄金
-            cardId: currentCardId, // 分自营黄金和金宇黄金
-            verify_code: val,
-        })
-        if(res.error_code != 0){
-          return this.failText = res.message;
-        }else{
-          this.initShow();
-          this.$dialog({content:"回购申请成功，请等候客服审核！工作日（周一至周五）24小时内打款  节假日（周六周天）及法定节假日不打款。"},()=>{
-            this.$router.replace({name:'goldRecord'})
+        if(this.id) {
+            let res= await zygoldbuyback({
+              token: this.getToken,
+              amount: currentAmount,
+              mobile: this.inpInfo.mobile,
+              bank: this.inpInfo.bank,
+              subBank: this.inpInfo.subBank,
+              realName: this.inpInfo.name,
+              cardNum: this.inpInfo.cardNum,
+              id: currentId,  // 分自营黄金和金宇黄金
+              cardId: currentCardId, // 分自营黄金和金宇黄金
+              verify_code: val,
           })
+          if(res.error_code != 0){
+            return this.failText = res.message;
+          }else{
+            this.initShow();
+            this.$dialog({content:"回购申请成功，请等候客服审核预计12个小时内到账。"},()=>{
+                  this.$router.replace({name:'goldRecord'})
+              })
+          }
+        }else {
+            let res= await goldbuyback({
+              token: this.getToken,
+              amount: currentAmount,
+              mobile: this.inpInfo.mobile,
+              bank: this.inpInfo.bank,
+              subBank: this.inpInfo.subBank,
+              realName: this.inpInfo.name,
+              cardNum: this.inpInfo.cardNum,
+              id: currentId,  // 分自营黄金和金宇黄金
+              cardId: currentCardId, // 分自营黄金和金宇黄金
+              verify_code: val,
+          })
+          if(res.error_code != 0){
+            return this.failText = res.message;
+          }else{
+            this.initShow();
+            this.$dialog({content:"回购申请成功，请等候客服审核！工作日（周一至周五）24小时内打款  节假日（周六周天）及法定节假日不打款。"},()=>{
+                  this.$router.replace({name:'goldRecord'})
+              })
+          }
         }
+
     },
     async buyBnt(){
       if(!IsMobile(this.inpInfo.mobile)){

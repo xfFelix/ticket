@@ -335,12 +335,12 @@ export const goldInfo = (data) => fetch({
 })
 
 //黄金回购
-// export const goldbuyback = (data) => fetch({
-//   url: process.env.VUE_APP_INFO_URl + 'user/goldbuyback',
-//   method: 'POST',
-//   data
-// })
 export const goldbuyback = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/goldbuyback',
+  method: 'POST',
+  data
+})
+export const zygoldbuyback = (data) => fetch({
   url: process.env.VUE_APP_INFO_URl + 'user/zyGoldbuyback',
   method: 'POST',
   data
