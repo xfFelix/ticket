@@ -23,7 +23,7 @@
       <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
       <span @click="show.file=true" class="file">《黄金回购协议》</span>
     </div>
-    <p class="arrivel-accound-day" v-if="id">12个小时内到账，请耐心等待</p>
+    <p class="arrivel-accound-day" v-if="id">工作日预计24小时内到账</p>
     <p class="arrivel-accound-day" v-else>1-3个工作日内到账，请耐心等待</p>
     <div class="backBnt" @click="buyBnt()">提交</div>
 
@@ -63,7 +63,7 @@ export default {
       file:false
     },
     failText:'',
-    id: '',
+    id: sessionStorage.getItem('GOLDID'),
     gtype: '',
     token: '',
     fileType: 0
@@ -142,7 +142,7 @@ export default {
             return this.failText = res.message;
           }else{
             this.initShow();
-            this.$dialog({content:"回购申请成功，请等候客服审核预计12个小时内到账。"},()=>{
+            this.$dialog({content:"回购申请成功，请等候客服审核！工作日（周一至周五）24小时内打款  节假日（周六周天）及法定节假日不打款。"},()=>{
                   this.$router.replace({name:'goldRecord'})
               })
           }
@@ -234,7 +234,8 @@ export default {
     }
     // 自营黄金 回购价格从连接参数中获取
     if(getParam().id) {
-      this.id = getParam().id
+      let id = getParam().id
+      sessionStorage.setItem('GOLDID',id)
       this.gtype = getParam().gtype
       this.token = getParam().token
       this.getUserToken ()

@@ -27,6 +27,10 @@
       <li v-show="selectIndex==2"><img src="../../../../common/images/gold/bar-04.png" alt="金砂" width="100%" /></li>
     </ul>
     <!-- <div ref="headTop" class="headTop"></div> -->
+    <div class="contact" @click="contact">
+      <img src="../../../../common/images/gold/service-icon.png">
+      <p>联系我们</p>
+    </div>
   </div>
 </template>
 <script>
@@ -75,6 +79,9 @@ export default {
     detailClick(index){
       this.selectIndex = index;
     },
+    contact () {
+      window.location.href = `http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481`
+    }
     // handleScroll() {
     //   let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
     //   let detailTop = this.$refs.detailTop.offsetTop;
@@ -119,6 +126,22 @@ export default {
       color: #999999;
       padding: 8px 0;
       font-size: 12px;
+    }
+  }
+  .contact {
+    padding: 14px 150px;
+    background-color: #F7FAF8;
+    display: flex;
+    align-items: center;
+    p {
+      font-size:12px;
+      color: #576B95;
+      text-align: center;
+    }
+    img {
+      width: 12px;
+      height: 12px;
+      margin-right: 5px;
     }
   }
 }

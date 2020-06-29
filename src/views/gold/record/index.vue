@@ -6,10 +6,10 @@
                 兑换记录
             </header>
             <div class="whoSelectW">
-                <p :class="typeFlag==3?'whoSelectLogo':''"  @click="directCharge()">
+                <p :class="typeFlag==0?'whoSelectLogo':''"  @click="directCharge()">
                     <span>金条</span>
                 </p>
-                <p :class="typeFlag==4?'whoSelectLogo':''"   @click="cardCharge()"  v-if="!yingqiudiShow">
+                <p :class="typeFlag==1?'whoSelectLogo':''"   @click="cardCharge()"  v-if="!yingqiudiShow">
                     <span >金砂</span>
                 </p>
             </div>
@@ -71,14 +71,14 @@
     </div>
 </template>
 <script>
-import { goldLog,goldPrice } from 'api';
+import { goldLog,jygoldPrice } from 'api';
 import { mapGetters ,mapActions } from 'vuex';
 import { vipCustom } from '@/mixins';
 import clip from 'util/clipboard';
 export default {
     mixins: [vipCustom],
     data: () => ({
-        typeFlag: 3,
+        typeFlag: 0,
         recodeList: [],
         pullUpLoad: true,
         pullUpLoadThreshold: 0,
@@ -128,27 +128,27 @@ export default {
           this.tenFlag = true
         },
         directCharge() {
-            this.typeFlag = 3;
+            this.typeFlag = 0;
             this.initData();
             this.getScenicList();
-            // this.getPrice()
+            this.getPrice()
         },
         cardCharge() {
-            this.typeFlag = 4;
+            this.typeFlag = 1;
             this.initData();
             this.getScenicList();
-            // this.getPrice()
+            this.getPrice()
         },
-        // async getPrice() {
-        //   let res = await goldPrice({ id: this.typeFlag });
-        //   if(res.error_code!=0) return this.$toast(res.message);
-        //   this.goldPrice = res.data.goldPrice;
-        //   if(this.typeFlag==3){
-        //     this.backInfo({barPrice: this.goldPrice})
-        //   }else{
-        //     this.backInfo({sandPrice: this.goldPrice});
-        //   }
-        // },
+        async getPrice() {
+          let res = await jygoldPrice({ id: this.typeFlag });
+          if(res.error_code!=0) return this.$toast(res.message);
+          this.goldPrice = res.data.goldPrice;
+          if(this.typeFlag==0){
+            this.backInfo({barPrice: this.goldPrice})
+          }else{
+            this.backInfo({sandPrice: this.goldPrice});
+          }
+        },
         async getScenicList() {
             let data = await goldLog({
               token: this.getToken,
@@ -236,10 +236,10 @@ export default {
         recovery(price,id,gtype,code,weight) {
           let vm = this
           if(gtype == 0) {
-            this.backInfo({barPrice:price,cardId:id,cardCode:code,type:gtype,weight:weight})
+            this.backInfo({cardId:id,cardCode:code,type:gtype,weight:weight})
           }
           if(gtype == 1) {
-            this.backInfo({sandPrice:price,cardId:id,cardCode:code,type:gtype,weight:weight})
+            this.backInfo({cardId:id,cardCode:code,type:gtype,weight:weight})
           }
           if(gtype==0 || gtype==1) {
             this.$router.push({name:"goldBuyBack"})
@@ -260,13 +260,13 @@ export default {
     },
     mounted() {
       if(this.$route.query.cardId==3){
-        this.typeFlag = 3;
+        this.typeFlag = 0;
       }
       if(this.$route.query.cardId==4){
-        this.typeFlag = 4;
+        this.typeFlag = 1;
       }
       this.getScenicList();
-      // this.getPrice();
+      this.getPrice();
       this.initConfig();
     }
 }

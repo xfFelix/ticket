@@ -284,12 +284,12 @@ export const getPriceByLife = data => fetch({
 
 
 /****************************  黄金 ******************************/
-//获取黄金价格
-// export const goldPrice = (data) => fetch({
-//   url: process.env.VUE_APP_INFO_URl + 'user/prices',
-//   method: 'POST',
-//   data
-// })
+//获取金宇黄金价格
+export const jygoldPrice = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/prices',
+  method: 'POST',
+  data
+})
 //获取自营黄金价格
 export const goldPrice = (data) => fetch({
   url: process.env.VUE_APP_INFO_URl + 'user/zyPrices',
