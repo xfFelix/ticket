@@ -3,11 +3,11 @@
     <ul class="identity-info-wrap">
       <li>
         <span>真实姓名</span>
-        <input type="text" placeholder="真实姓名" v-model.trim="data.name"  />
+        <input type="text" placeholder="真实姓名" v-model.trim="data.name"  disabled/>
       </li>
       <li>
         <span>证件号码</span>
-        <input type="text" placeholder="身份证号码" v-model.trim="data.idNum"  />
+        <input type="text" placeholder="身份证号码" v-model.trim="data.idNum"  disabled/>
       </li>
       <li>
         <span>银行卡号</span>
