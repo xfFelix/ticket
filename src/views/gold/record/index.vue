@@ -244,7 +244,7 @@ export default {
           if(gtype==0 || gtype==1) {
             this.$router.push({name:"goldBuyBack"})
           }else {
-            vm.$router.push({path: 'buyBack', query:{id:id,gtype:gtype,token:this.getToken}})
+            vm.$router.push({path: 'buyBackZy', query:{id:id,gtype:gtype,token:this.getToken}})
             // this.$dialog({
             //   title: '申明',
             //   content:'本业务由有资质的第三方供应商提供服务',

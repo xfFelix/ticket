@@ -340,6 +340,15 @@ const router = new Router({
           }
         },
         {
+          path: 'buyBackZy',
+          name: 'goldBuyBackZy',
+          component: () => import(/* webpackChunkName: "group-life" */'views/gold/buyBack/zyBuyBack'),
+          meta: {
+            title: '黄金回购',
+            requireAuth: true
+          }
+        },
+        {
           path: 'record',
           name: 'goldRecord',
           component: () => import(/* webpackChunkName: "group-life" */'views/gold/record'),

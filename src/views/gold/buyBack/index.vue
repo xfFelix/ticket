@@ -7,10 +7,9 @@
         <li class="goldbuy-back-money">
           回购金额:
           <p>
-            <span v-if="id" style="color:#F23D3D">{{backPrice|toPrice}}</span>
-            <span v-else>{{backPrice|toPrice}}</span>
+            <span>{{backPrice|toPrice}}</span>
             <span>元</span>
-            <span v-if="!id" @click="showDig()">?</span>
+            <span @click="showDig()">?</span>
           </p>
         </li>
         <!-- <li class="l_add">卡密<input type="text" name="code" maxlength="14" placeholder="请输入兑换码"  disabled :value="backInfo.cardCode"/></li> -->
@@ -20,16 +19,11 @@
         <li>开户行<input type="text" name="bank" maxlength="20" placeholder="请输入开卡银行" v-model="inpInfo.bank" disabled/></li>
         <li>开户支行<input type="text" name="subBank" maxlength="20" placeholder="请输入开户支行" v-model="inpInfo.subBank" /></li>
       </ul>
-    <div class="agreement zy-agreement" v-if="id">
-      <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
-      <span style="color: #576B95" @click="show.file=true" class="file">《黄金回购协议》</span>
-    </div>
-    <div class="agreement" v-else>
+    <div class="agreement">
       <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
       <span @click="show.file=true" class="file">《黄金回购协议》</span>
     </div>
-    <p class="arrivel-accound-day" v-if="id">工作日预计24小时内到账</p>
-    <p class="arrivel-accound-day" v-else>1-3个工作日内到账，请耐心等待</p>
+    <p class="arrivel-accound-day">1-3个工作日内到账，请耐心等待</p>
     <div class="backBnt" @click="buyBnt()">提交</div>
 
     <sms-code :show="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder"></sms-code>
@@ -68,9 +62,6 @@ export default {
       file:false
     },
     failText:'',
-    id: sessionStorage.getItem('GOLDID'),
-    gtype: '',
-    token: '',
     fileType: 0
   }),
   watch: {
@@ -127,41 +118,16 @@ export default {
       }
     },
     async submitOrder(val){ //输入短信下单
-        let currentId = this.gtype?this.gtype:this.backInfo.type
-        let currentCardId = this.id?this.id:this.backInfo.cardId
-        let currentAmount = this.amount?this.amount:this.backInfo.weight
-        if(this.id) {
-            let res= await zygoldbuyback({
-              token: this.getToken,
-              amount: currentAmount,
-              mobile: this.inpInfo.mobile,
-              bank: this.inpInfo.bank,
-              subBank: this.inpInfo.subBank,
-              realName: this.inpInfo.name,
-              cardNum: this.inpInfo.cardNum,
-              id: currentId,  // 分自营黄金和金宇黄金
-              cardId: currentCardId, // 分自营黄金和金宇黄金
-              verify_code: val,
-          })
-          if(res.error_code != 0){
-            return this.failText = res.message;
-          }else{
-            this.initShow();
-            this.$dialog({content:"回购申请成功，请等候客服审核！工作日（周一至周五）24小时内打款  节假日（周六周天）及法定节假日不打款。"},()=>{
-                  this.$router.replace({name:'goldRecord'})
-              })
-          }
-        }else {
             let res= await goldbuyback({
               token: this.getToken,
-              amount: currentAmount,
+              amount: this.backInfo.weight,
               mobile: this.inpInfo.mobile,
               bank: this.inpInfo.bank,
               subBank: this.inpInfo.subBank,
               realName: this.inpInfo.name,
               cardNum: this.inpInfo.cardNum,
-              id: currentId,  // 分自营黄金和金宇黄金
-              cardId: currentCardId, // 分自营黄金和金宇黄金
+              id: this.backInfo.type,
+              cardId: backInfo.cardId,
               verify_code: val,
           })
           if(res.error_code != 0){
@@ -172,7 +138,6 @@ export default {
                   this.$router.replace({name:'goldRecord'})
               })
           }
-        }
 
     },
     async buyBnt(){
@@ -207,27 +172,6 @@ export default {
     showDig(){
       this.$dialog({title:'回购说明',content: "<p style='margin-top:-12px;text-align: left;'>本服务由深圳市金宇阳光文化发展有限公司提供。</p><p style='text-align: left;margin: 8px 0 -13px 0;'>回购价格=基础金价-3元/克，基础金价为上海黄金交易所Au99.99当日开盘价。</p>"},() => {})
     },
-    async getGoldBuyBackPrice() {
-      let res = await findGoldBuyBackPrice({
-        token: this.token,
-        cardId: this.id
-      })
-      if(res.error_code != 0){
-          return
-      }else {
-        this.backPrice = res.data.buyMoney
-      }
-    },
-    async getUserToken() {
-      let res = await getInfo({
-        token: this.token
-      })
-      if(res.error_code != 0){
-          return
-      }else {
-        store.dispatch('setUserinfo', res.data)
-      }
-    }
   },
   mounted(){
     this.getUserBankInfo()
@@ -236,17 +180,6 @@ export default {
     }
     if(this.backInfo.type==1) {
       this.backPrice = (this.backInfo.sandPrice-21)*this.backInfo.weight;
-    }
-    // 自营黄金 回购价格从连接参数中获取
-    if(getParam().id) {
-      let id = getParam().id
-      this.id = id
-      sessionStorage.setItem('GOLDID',id)
-      this.gtype = getParam().gtype
-      this.token = getParam().token
-      this.getUserToken ()
-      this.getGoldBuyBackPrice()
-      this.fileType = 3
     }
     this.inpInfo.mobile = this.userinfo.userName;
     this.inpInfo.name = this.userinfo.realName;
@@ -392,9 +325,6 @@ export default {
 <style>
 .cube-dialog-title-def{
   margin:20px 0 25px 0;
-}
-.zy-agreement .cube-checkbox_checked .cube-checkbox-ui i {
-  color: #576B95;
 }
 @media screen and (min-width: 600px) {
   header,.backBnt{

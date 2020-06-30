@@ -2,7 +2,10 @@
     <div class="agreeFixed" v-if="show">
         <div class="iconfont goback" @click="$emit('handle-show-file')">&#xe61e;</div>
         <div class="agreeContentW">
-            <h1>
+            <h1 v-if="fileType == 0">
+                《回购协议》
+            </h1>
+            <h1 v-else style="color: #576B95">
                 《回购协议》
             </h1>
             <div v-if="fileType == 0" class="agreeContent">
