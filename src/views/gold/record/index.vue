@@ -248,7 +248,7 @@ export default {
             if(href == 'https://tmall.cocogc.cn') {
               window.location.href = href+'/ticket/gold/buyBackZy?id='+id+'&gtype='+gtype+'&token='+this.getToken
             }else {
-              // window.location.href = 'https://tmall.cocogc.cn/ticket/gold/buyBackZy?id='+id+'&gtype='+gtype+'&token='+this.getToken
+              window.location.href = 'https://t.xiyuma.net/ticket/gold/buyBackZy?id='+id+'&gtype='+gtype+'&token='+this.getToken
             }
           }
         },
