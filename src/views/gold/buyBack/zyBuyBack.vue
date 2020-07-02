@@ -140,7 +140,9 @@ export default {
           }else{
             this.initShow();
             this.$dialog({content:"回购申请成功，请等候客服审核！工作日（周一至周五）24小时内打款  节假日（周六周天）及法定节假日不打款。"},()=>{
-                  this.$router.replace({name:'goldRecord'})
+              this.$router.go(-1)
+                  // window.location.href = 'http://192.168.0.107:8080/ticket/gold/record?cardId='+ currentId +'&token='+this.getToken+'&back=zygold'
+                  // this.$router.replace({name:'goldRecord'})
               })
           }
     },
