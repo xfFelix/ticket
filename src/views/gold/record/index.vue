@@ -246,9 +246,9 @@ export default {
           }else {
             let href = window.location.origin
             if(href == 'https://tmall.cocogc.cn') {
-              window.location.href = href+'/ticket/gold/buyBackZy?id='+id+'&gtype='+gtype+'&token='+this.getToken
+              window.location.href = href+'/ticket/gold/buyBackZy?id='+id+'&gtype='+gtype+'&token='+this.getToken+'&fromType=cocogc'
             }else {
-              window.location.href = 'https://t.xiyuma.net/ticket/gold/buyBackZy?id='+id+'&gtype='+gtype+'&token='+this.getToken
+              window.location.href = 'https://t.xiyuma.net/ticket/gold/buyBackZy?id='+id+'&gtype='+gtype+'&token='+this.getToken+'&fromType=cocogc'
             }
           }
         },

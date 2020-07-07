@@ -1,8 +1,9 @@
 import fetch from './fetch'
-
+import { getParam } from 'util/common'
+let fromType = getParam().fromType
 // 配置接口
 export const getInfo = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/info',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/info',
   // url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/cc5c24b8de8ac46fa85f.json', //赢球帝
   // url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/53978791842af681d07b.json', //30000
   // url:'http://lc-OnsG2j7w.cn-n1.lcfile.com/1dc605696e190e530bb6.json',//未实名
@@ -88,7 +89,7 @@ export const homeBanner = (data) => fetch({
 
 // 发送验证码 短信
 export const sendSmsCode = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/sms',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/sms',
   method: 'POST',
   data
 })
@@ -185,7 +186,7 @@ export const vipOrderList= (data) => fetch({
 
 
 export const checkPayPwd = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/editPayPwd',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/editPayPwd',
   method: 'POST',
   data
 })
@@ -286,13 +287,13 @@ export const getPriceByLife = data => fetch({
 /****************************  黄金 ******************************/
 //获取金宇黄金价格
 export const jygoldPrice = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/prices',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/prices',
   method: 'POST',
   data
 })
 //获取自营黄金价格
 export const goldPrice = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/zyPrices',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/zyPrices',
   method: 'POST',
   data
 })
@@ -303,7 +304,7 @@ export const goldPrice = (data) => fetch({
 //   data
 // })
 export const goldTax = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/zyGoldTax',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/zyGoldTax',
   method: 'POST',
   data
 })
@@ -315,54 +316,54 @@ export const goldTax = (data) => fetch({
 //   data
 // })
 export const goldBuy = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/zyGold',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/zyGold',
   method: 'POST',
   data
 })
 
 //黄金购买记录
 export const goldLog = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/golds',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/golds',
   method: 'POST',
   data
 })
 
 //黄金兑换详情
 export const goldInfo = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/goldInfo',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/goldInfo',
   method: 'POST',
   data
 })
 
 //黄金回购
 export const goldbuyback = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/goldbuyback',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/goldbuyback',
   method: 'POST',
   data
 })
 export const zygoldbuyback = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/zyGoldbuyback',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/zyGoldbuyback',
   method: 'POST',
   data
 })
 
 //黄金查看卡密
 export const goldCode = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/goldCode',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/goldCode',
   method: 'POST',
   data
 })
 
 //黄金查看保存的银行卡信息
 export const goldBankInfo = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/findCardInfo',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/findCardInfo',
   method: 'POST',
   data
 })
 
 // 查询黄金回购价格
 export const findGoldBuyBackPrice = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/findGoldBuyBackPrice',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/findGoldBuyBackPrice',
   method: 'POST',
   data
 })
@@ -472,13 +473,13 @@ export const cardInfo = (data) => fetch({
 /************************************* userInfo *************************************/
 // 实名认证
 export const cert = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + '/user/cert',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + '/user/cert',
   method: 'POST',
   data
 })
 //实名认证短信
 export const certsms = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + '/user/certsms',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + '/user/certsms',
   method: 'POST',
   data
 })
@@ -486,7 +487,7 @@ export const certsms = (data) => fetch({
 
 // 用户绑定
 export const bind = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + '/user/bind',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + '/user/bind',
   method: 'POST',
   data
 })
@@ -518,7 +519,7 @@ export const taxes = (data) => fetch({
  * @param {*} data
  */
 export const checkBankAndName = (data) => fetch({
-  url: process.env.VUE_APP_INFO_URl + 'user/checkCardInfo',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/checkCardInfo',
   method: 'POST',
   data
 })
