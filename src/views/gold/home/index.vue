@@ -128,7 +128,7 @@ export default {
             this.$toast('您的积分不足');
           }
         }else{
-          if(this.goldType.type==0){
+          if(this.goldType.type==3){
             this.$toast('请输入有效的根数');
           }else{
             this.$toast('请输入有效的颗数');
