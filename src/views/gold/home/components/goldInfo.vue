@@ -149,6 +149,9 @@ export default {
       if(res.error_code!=0) return this.$toast(res.message);
       // if(res.error_code!=0) return console.log(res.message);
       this.taxInfo = res.data;
+      let resStock = await goldPrice({ id: this.gtId });
+      if(resStock.error_code!=0) return this.$toast(resStock.message);
+      this.taxInfo.goldStock = resStock.data.goldStock;
       this.$emit('tax-money',this.taxInfo)
     },
     vipCustom(){  //赢球帝

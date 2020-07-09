@@ -104,28 +104,36 @@ export default {
         this.show={mask:false,code:false,file:false};
       },
       async handlerShowType() {
+        let goldWeight = 0
         if(!this.checked){
           return this.$toast('请阅读并同意《黄金兑换协议》');
         }
+        if(this.goldType.type==3 && this.inpPrice >=1) {
+          goldWeight = this.inpPrice*10
+        }
+        if(this.goldType.type==4 && this.inpPrice >=1) {
+          goldWeight = this.inpPrice*0.1
+        }
         if(this.inpPrice >=1 && IsInteger(this.inpPrice)){
-          if(this.taxMoney.total == undefined) {
-            this.inpPrice = ''
-            this.$toast('库存不足');
-            return
-          }
-          if(this.userinfo.score >= this.taxMoney.total){
+          if(this.userinfo.score >= this.taxMoney.total && this.taxMoney.goldStock>=goldWeight){
             if(this.taxMoney.monthTotal > 30000 && isEmpty(this.userinfo.idnum)){
               return this.$dialog({type:'confirm',content:'您消费额度超过3万，请先实名认证！'},()=>{
                 this.$router.push({path:'/realName?back=/gold'})
               })
-            }
-            else{
+            }else{
               let res = await this.checkPassword();
               if (!res) return;
               this.show = { mask: true,code: true,file:false}
             }
           }else{
-            this.$toast('您的积分不足');
+            if(this.userinfo.score < this.taxMoney.total) {
+              this.$toast('您的积分不足');
+              return
+            }
+            if(this.taxMoney.goldStock < goldWeight) {
+              this.$toast('剩余库存不足，请调整兑换数量');
+              return
+            }
           }
         }else{
           if(this.goldType.type==3){
