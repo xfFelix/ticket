@@ -211,7 +211,7 @@ export default {
         name: "回购须知"
       },
       {
-        name: "兑换实物须知"
+        name: "兑换须知"
       }
     ],
     selectIndex:0,
@@ -280,10 +280,10 @@ export default {
     padding: 0 25px;
     box-sizing: border-box;
     li {
-      line-height: 29px;
-      color: #999999;
+      line-height: 32px;
+      color: #181A18;
       padding: 8px 0;
-      font-size: 12px;
+      font-size: 16px;
     }
   }
   .contact {
@@ -292,19 +292,20 @@ export default {
     display: flex;
     align-items: center;
     p {
-      font-size:12px;
+      font-size:14px;
       color: #576B95;
       text-align: center;
     }
     img {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       margin-right: 5px;
     }
   }
 }
 .active {
-  border-bottom: 2px solid #32cf85;
+  border-bottom: 2px solid #66CA8A;
+  color: #66CA8A !important;
 }
 .fixedP{
   top: 44px;

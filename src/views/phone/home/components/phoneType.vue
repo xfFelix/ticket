@@ -349,13 +349,13 @@ export default {
   display: flex;
   align-items: center;
   p {
-    font-size:12px;
+    font-size:14px;
     color: #576B95;
     text-align: center;
   }
   img {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     margin-right: 5px;
   }
 }
