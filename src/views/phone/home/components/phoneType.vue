@@ -344,7 +344,7 @@ export default {
     margin: 38px auto 0px auto;
 }
 .contact {
-  padding: 14px 142px;
+  padding: 14px 135px;
   background-color: #ffffff;
   display: flex;
   align-items: center;
