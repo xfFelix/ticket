@@ -127,7 +127,7 @@ export default {
               realName: this.inpInfo.name,
               cardNum: this.inpInfo.cardNum,
               id: this.backInfo.type,
-              cardId: backInfo.cardId,
+              cardId: this.backInfo.cardId,
               verify_code: val,
           })
           if(res.error_code != 0){

@@ -244,15 +244,12 @@ export default {
           if(gtype==0 || gtype==1) {
             this.$router.push({name:"goldBuyBack"})
           }else {
-            vm.$router.push({path: 'buyBackZy', query:{id:id,gtype:gtype,token:this.getToken}})
-            // this.$dialog({
-            //   title: '申明',
-            //   content:'本业务由有资质的第三方供应商提供服务',
-            //   confirmBtn:{text: "继续前往"},
-            //   maskClosable:true},()=>{
-            //     // 跳转第三方域名
-            //     vm.$router.push({path: 'buyBack', query:{id:id,gtype:gtype,token:this.getToken}})
-            // });
+            let href = window.location.origin
+            if(href == 'https://tmall.cocogc.cn') {
+              window.location.href = href+'/ticket/gold/buyBackZy?id='+id+'&gtype='+gtype+'&token='+this.getToken+'&fromType=cocogc'
+            }else {
+              window.location.href = 'https://t.xiyuma.net/ticket/gold/buyBackZy?id='+id+'&gtype='+gtype+'&token='+this.getToken+'&fromType=cocogc'
+            }
           }
         },
         handleCopy(text, event) {

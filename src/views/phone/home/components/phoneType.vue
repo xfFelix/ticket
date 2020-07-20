@@ -61,8 +61,17 @@
                 </li>
               </ul>
           </div>
-          <p class="phone-explain" v-show="typeIndex!=0">注：同一个账号在多个渠道进行充值卡充值，每天累计最多5次</p>
-          <p class="phone-explain-important" v-show="typeIndex!=0">本方式适用于向第三方转卖话费，如需充值话费请使用“直充”功能</p>
+          <p class="phone-explain" v-show="typeIndex==0">自7月1日开始，联通充值官方调整，导致本平台无法进行联通手机充值，建议转为兑换黄金，手续费低，到账及时。</p>
+          <p class="phone-explain" v-show="typeIndex!=0">温馨提示：</p>
+          <p class="phone-explain" v-show="typeIndex!=0">1.同一个账号在多个渠道进行充值卡充值，每天累计最多5次；</p>
+          <p class="phone-explain" v-show="typeIndex!=0">2.本方式适用于向第三方转卖话费，24小时内到账，手续费率随市场波动；</p>
+          <p class="phone-explain" v-show="typeIndex!=0">3.手机话费充值请使用“直充”；</p>
+          <p class="phone-explain" v-show="typeIndex!=0">4.推荐本商城“黄金兑换”，费率低、到账更快。</p>
+          <!-- <p class="phone-explain-important" v-show="typeIndex!=0">本方式适用于向第三方转卖话费，如需充值话费请使用“直充”功能</p> -->
+          <div class="contact" @click="contact">
+            <img src="../../../../common/images/gold/service-icon.png">
+            <p>联系我们</p>
+          </div>
       </div>
 </div>
 </template>
@@ -172,6 +181,9 @@ export default {
       //     this.$store.dispatch('phone/setConfig',{type: 1})
       //   }
       // }
+      contact () {
+        window.location.href = `http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481`
+      }
   },
   computed: {
     ...mapGetters({
@@ -330,6 +342,22 @@ export default {
     width: 88%;
     text-align: center;
     margin: 38px auto 0px auto;
+}
+.contact {
+  padding: 14px 135px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  p {
+    font-size:14px;
+    color: #576B95;
+    text-align: center;
+  }
+  img {
+    width: 14px;
+    height: 14px;
+    margin-right: 5px;
+  }
 }
 
 
