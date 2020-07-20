@@ -104,15 +104,15 @@ export default {
     },
     frontFiles(val){
       this.frontObj = val;
-      if(Object.keys(this.backObj).length !==0){
-        this.getPhotoInfo(val,this.backObj)
-      }
+      // if(Object.keys(this.backObj).length !==0){
+      //   this.getPhotoInfo(val,this.backObj)
+      // }
     },
     backFiles(val){
       this.backObj = val;
-      if(Object.keys(this.frontObj).length !==0){
-         this.getPhotoInfo(this.frontObj,val)
-      }
+      // if(Object.keys(this.frontObj).length !==0){
+      //    this.getPhotoInfo(this.frontObj,val)
+      // }
     }
   },
   components: {
