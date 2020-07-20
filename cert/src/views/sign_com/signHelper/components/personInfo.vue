@@ -68,7 +68,8 @@ export default {
       name: "",
       bankCard:"",
       industry: '',
-      industryName: ''
+      industryName: '',
+      redirect_url: undefined
     },
     industryList: []
   }),
@@ -109,7 +110,7 @@ export default {
             var key = item.split("=")[0]
             obj[key] = value;
         })
-        this.data = {...this.data, industry: obj.id, industryName: obj.name}
+        this.data = {...this.data, industry: obj.id, industryName: obj.name, redirect_url: obj.redirect_url}
       } catch (e) {
         console.error(e.message)
         this.$toast(e.message)
