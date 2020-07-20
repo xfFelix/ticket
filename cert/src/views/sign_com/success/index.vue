@@ -7,7 +7,7 @@
     <p class="title">{{showSuccess ? '恭喜您，已经签约成功！' : '签约失败'}}</p>
     <div class="info" v-if="showSuccess">
       <div class="content">
-        <img src="~common/images/zb.png" alt="" class="cocoImg">
+        <img src="~common/images/zb.png" alt="" class="cocoImg" v-if="!redirect_url">
         <div class="iconfont icon-LC_icon_user_fill_3"></div>
         <div class="item">
           <span class="value">{{industryName}}</span>
@@ -41,7 +41,8 @@ export default {
     name: '',
     region: '',
     industryName: '',
-    showSuccess: true
+    showSuccess: true,
+    redirect_url: undefined
   }),
   async beforeRouteEnter(to, from, next) {
     const {accountId, isFaceRecognition} = getArgs()
@@ -69,6 +70,7 @@ export default {
     this.jobNumber = obj.jobNumber
     this.region = obj.region
     this.industryName = obj.industryName
+    this.redirect_url = obj.redirect_url
   },
 }
 </script>
