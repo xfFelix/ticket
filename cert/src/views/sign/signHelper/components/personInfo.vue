@@ -24,7 +24,7 @@
       </li>
       <li>
         <span>手机验证码</span>
-        <input type="text" v-model.trim="data.code"/>
+        <input type="tel" v-model.trim="data.code" :maxlength="4" pattern="[0-9]*"/>
         <button @click.prevent="sendCode" :disabled="codeFlag" class="bnt" type="button">{{codeText}}</button>
       </li>
     </ul>
