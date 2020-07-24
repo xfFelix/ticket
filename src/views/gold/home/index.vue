@@ -113,6 +113,7 @@ export default {
         }
         if(this.goldType.type==4 && this.inpPrice >=1) {
           goldWeight = this.inpPrice*0.1
+          goldWeight = goldWeight.toFixed(1)
         }
         if(this.inpPrice >=1 && IsInteger(this.inpPrice)){
           if(this.userinfo.score >= this.taxMoney.total && this.taxMoney.goldStock>=goldWeight){
