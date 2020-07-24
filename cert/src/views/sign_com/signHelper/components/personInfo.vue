@@ -34,7 +34,7 @@
       </li>
       <li>
         <span>手机验证码</span>
-        <input type="text" v-model.trim="data.code"/>
+        <input type="tel" v-model.trim="data.code" :maxlength="4" pattern="[0-9]*"/>
         <button @click.prevent="sendCode" :disabled="codeFlag" class="bnt" type="button">{{codeText}}</button>
       </li>
     </ul>
@@ -68,7 +68,8 @@ export default {
       name: "",
       bankCard:"",
       industry: '',
-      industryName: ''
+      industryName: '',
+      redirect_url: undefined
     },
     industryList: []
   }),
@@ -109,7 +110,7 @@ export default {
             var key = item.split("=")[0]
             obj[key] = value;
         })
-        this.data = {...this.data, industry: obj.id, industryName: obj.name}
+        this.data = {...this.data, industry: obj.id, industryName: obj.name, redirect_url: obj.redirect_url}
       } catch (e) {
         console.error(e.message)
         this.$toast(e.message)

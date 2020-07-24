@@ -88,7 +88,8 @@ export default {
           type: this.dataInfo.industry,
           region: this.config.city,
           positiveIDPhoto:this.frontObj,
-          negativeIDPhoto:this.backObj
+          negativeIDPhoto:this.backObj,
+          redirect_url: this.dataInfo.redirect_url
         })
         window.location.href = data.data.shortUrl
         toast.hide();
