@@ -95,9 +95,10 @@ export default {
       let data = await vipCostInfo({ token: this.getToken, productId: this.productId });
       if (data.code !== '1' && data.code !== '6' && data.code !== '4') return this.$toast(data.message);
       if (data.code === '6') {
-        return this.$dialog({ content: '请先实名认证' }, () => {
-          return window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?back=' + tools_uri.encode(window.location) + '&token=' + this.getToken;
+          this.$dialog({ content: '请先实名认证' }, () => {
+          this.$router.push({path:'/realName?back=/memberCard'})
         })
+        return false
       }
       if (data.code === '4') {
         return this.$dialog({ content: '可用余额不足' }, () => {

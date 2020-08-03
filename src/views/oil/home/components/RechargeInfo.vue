@@ -78,9 +78,10 @@ export default {
       if (res.code !== '1' && res.code !== '6' && res.code !== '4') return this.$toast(res.message)
       this.data = res.data[0]
       if (res.code === '6') {
-        return this.$dialog({content: '请先实名认证'}, () => {
-          return window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?back=' + tools_uri.encode(window.location) + '&token=' + this.getToken
+        this.$dialog({content: '请先实名认证'}, () => {
+          this.$router.push({path:'/realName?back=/oil'})
         })
+        return false
       } else if (res.code === '4') {
         this.confirmBtn = true
         return this.$toast(res.message)

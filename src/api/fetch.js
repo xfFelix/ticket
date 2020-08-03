@@ -31,7 +31,8 @@ instance.interceptors.response.use((res) => {
     switch(+data.error_code) {
       case 30000:
         dialog({content: data.message, type: 'confirm'}, () => {
-          window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?token=' + store.state.token;
+          this.$router.push({path:'/realName'})
+          // window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?token=' + store.state.token;
         })
         break
       default:
