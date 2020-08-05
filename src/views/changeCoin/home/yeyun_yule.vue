@@ -1,12 +1,10 @@
 <template>
   <div class="changeCoin-home">
-    <header>
-      <i class="cubeic-back back" @click="$router.go(-1)"></i>
-      兑换{{userinfo.coinAlisa ? userinfo.coinAlisa : '金币'}}
-    </header>
     <div class="content">
       <div class="input-wrapper">
-        <img src="~common/images/logo.png" alt="">
+        <div class="logo">
+          <img src="~common/images/logo.png" alt="">
+        </div>
         <input type="text" disabled v-model="userinfo.userName">
       </div>
       <div class="score-wrapper">
@@ -172,35 +170,6 @@ export default {
         this.$toast('getCostCoin 接口失败')
       }
     },
-    // async realMoney(changeFlag, e) {
-    //   if (e) {
-    //     e.target.value = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null;
-    //     this.coinInfo.moneyNum = e.target.value;
-    //   }
-    //   if (!this.coinInfo.moneyNum) {
-    //     this.initData()
-    //     return this.$toast("请输入有效的椰子分")
-    //   }
-    //   let params = { token: this.getToken, integral: this.coinInfo.moneyNum, vendorId: this.vendorId, vendorUid: this.vendorUid }
-    //   let data = await getCostCoin(params);
-    //   if (changeFlag == true) {
-    //     if (data.code !== '1' && data.code !== '6' && data.code !== '4') return this.$toast(data.message);
-    //     if (data.code === '6') {
-    //       return this.$dialog({ content: '请先实名认证' }, () => {
-    //         return window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?back=' + tools_uri.encode(window.location) + '&token=' + this.getToken
-    //       })
-    //     } else if (data.code === '4') {
-    //       return this.$toast(data.message)
-    //     }
-    //     this.showInfo();
-    //   } else {
-    //     if (data.code !== '1' && data.code !== '6' && data.code !== '4') return this.$toast(data.message);
-    //   }
-    //   this.coinInfo = Object.assign(this.coinInfo, data.data[0]);
-    //   if (data.data[0].amount) {
-    //     this.coinInfo.moneyNum = data.data[0].amount
-    //   }
-    // },
     async coinSumbmit(code) {
       let res = await sumbmitCoin({ token: this.getToken, integral: this.coinInfo.moneyNum, code: code, vendorId: this.vendorId, vendorUid: this.vendorUid })
       if (res.code != 1 && res.code != 4) {
@@ -224,6 +193,7 @@ export default {
             moneyNum: ""
           }
           this.getInfo();
+          this.getList()
           return
         })
       }
@@ -276,11 +246,10 @@ export default {
     }
   }
   .content{
-    padding: 0 15px 50px;
+    padding: 20px 15px 50px;
     overflow: hidden;
     box-sizing: border-box;
     background: #fff;
-    margin-top: -30px;
     .input-wrapper{
       height:60px;
       background:rgba(255,255,255,1);
@@ -290,13 +259,20 @@ export default {
       align-items: center;
       position: relative;
       z-index: 2;
-      img{
-        width: 22px;
-        height: 22px;
-        margin: 0 15px;
+      .logo{
+        flex: 0 0 54px;
+        text-align: center;
+        line-height: 60px;
+        img{
+          display: inline-block;
+          vertical-align: middle;
+          width: 22px;
+          height: 22px;
+        }
       }
+
       input{
-        width: 100%;
+        flex: 1;
         height: 100%;
         font-size: 16px;
         border-radius:5px;
@@ -310,7 +286,7 @@ export default {
       color: #4A4A4A;
       margin-top: 20px;
       .score{
-        color: #30CE84;
+        color: #ff7149;
       }
     }
     .list{
@@ -325,7 +301,7 @@ export default {
           height: 49px;
           margin-left: 4.5%;
           margin-top: 15px;
-          background:rgba(48,206,132,1);
+          background:#21AEF6;
           border-radius:5px;
           display: flex;
           justify-content: center;
@@ -358,13 +334,13 @@ export default {
             justify-content: center;
             flex-direction: column;
             align-items: center;
-            color: #30CE84;
+            color: #21AEF6;
             &::after{
               content: '';
               position: absolute;
               top: 0;
               left: 0;
-              border: 1px solid #30CE84;
+              border: 1px solid #21AEF6;
               box-sizing: border-box;
               width: 200%;
               height: 200%;
@@ -374,7 +350,7 @@ export default {
               pointer-events: none;
             }
             &.active{
-              background: #30CE84;
+              background: #21AEF6;
               color: #fff;
               border-radius:5px 5px 0px 0px;
               box-sizing: border-box;
@@ -449,7 +425,7 @@ export default {
     left: 0;
     width: 100%;
     height: 44px;
-    background: #30CE84;
+    background: #21AEF6;
     color: #fff;
     font-size: 15px;
     font-weight:400;
@@ -467,7 +443,7 @@ export default {
     width: auto;
     height: auto;
     &::before{
-      color:#30ce84;
+      color:#21AEF6;
       font-size:60px;
     }
   }
