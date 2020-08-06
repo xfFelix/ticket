@@ -30,7 +30,7 @@
       </div>
       <div class="desc">
         <h2>温馨提示：</h2>
-        <p v-html="desc"></p>
+        <p>1 本会员可享受官方客服1对1VIP售后服务一日，时间自兑换之日起计算1天。<br>2 本会员附赠一定数量糖果。<br>3 本会员可享受周边产品99折特惠折扣。<br>4 本服务不支持7天无理由退款。<br>5 糖果发放问题请咨询客服：微信：xxx</p>
       </div>
     </div>
     <button class="confirm" @click="coinChange">立即兑换</button>
@@ -40,9 +40,9 @@
       <bg-mask v-model="show.mask"></bg-mask>
     </transition>
     <!-- 兑换信息 -->
-    <recharge-info :show="show.info" @handler-show-code="showSms" @go-back="initShow" :coinInfo="coinInfo"></recharge-info>
+    <recharge-info btnBgColor="#21AEF6" :show="show.info" @handler-show-code="showSms" @go-back="initShow" :coinInfo="coinInfo"></recharge-info>
     <!-- 发送短信 -->
-    <sms-code :show="show.sms" @handler-show-info="showInfo" @code-info="codeInfo" :codeError.sync="codeErrFlag" :codeMessage="codeMessage"></sms-code>
+    <sms-code btnBgColor="#21AEF6" :show="show.sms" @handler-show-info="showInfo" @code-info="codeInfo" :codeError.sync="codeErrFlag" :codeMessage="codeMessage"></sms-code>
     <!-- 设置支付密码dialog -->
     <set-password :show.sync="showSetPassword"></set-password>
     <!-- 设置手机号 -->
@@ -448,5 +448,9 @@ export default {
     }
   }
 }
-
+.cube-dialog-btns{
+  .cube-dialog-btn_highlight{
+    color: #21AEF6;
+  }
+}
 </style>
