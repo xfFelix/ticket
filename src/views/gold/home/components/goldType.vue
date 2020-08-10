@@ -7,7 +7,25 @@
     <div class="liHight" v-if="fixedTop==1"></div>
     <ul v-show="goldType.type==3">
       <li v-show="selectIndex==0">
-        <img src="../../../../common/images/gold/bar-01-01.png" alt="金条" width="100%" />
+        <div class="products-intro">
+          <table class="table" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr><td class="left">生产商家</td><td class="right">东莞市皇帝珠宝有限公司</td></tr>
+              <tr><td class="left">交易品种</td><td class="right">黄金金条</td></tr>
+              <tr><td class="left">合约代码</td><td class="right">Au99.99</td></tr>
+              <tr><td class="left">交易方式</td><td class="right">积分兑换</td></tr>
+              <tr><td class="left">交易单位</td><td class="right">10/笔</td></tr>
+              <tr><td class="left">报价单位</td><td class="right">椰子分/克</td></tr>
+              <tr><td class="left">最小笔变动量</td><td class="right">10克</td></tr>
+            </tbody>
+          </table>
+          <div class="tips">
+            <p>特别说明：</p>
+            <p>1、今日金价会随采购国际金价和上海黄金交易所综合报价有调整</p>
+            <p>2、每笔黄金兑换业务提交后，即时向上海黄金交易所提交真实购买交易，无法撤销</p>
+            <p>3、兑换黄金制品属贵金属投资，下单即视您同意兑换当时兑换价格</p>
+          </div>
+        </div>
         <img src="../../../../common/images/gold/bar-01-02.png" alt="金条" width="100%" />
         <img src="../../../../common/images/gold/bar-01-03.png" alt="金条" width="100%" />
         <img src="../../../../common/images/gold/bar-01-04.png" alt="金条" width="100%" />
@@ -18,11 +36,11 @@
           <ul>
             <li class="one-bottom-px">
               <h2><span class="circle"></span><span class="title">回购折损率</span></h2>
-              <p>黄金回购手续费为5%，即回购黄金到账金额=本笔兑换黄金价格×（1-5%）</p>
+              <p>黄金回购手续费为1%，即回购黄金到账金额=本笔兑换黄金积分×1元/椰子分×（1-1%）</p>
             </li>
             <li class="one-bottom-px">
               <h2><span class="circle"></span><span class="title">回购折损说明</span></h2>
-              <p>回购由东莞市皇帝珠宝有限公司提供统一服务，折损包括回购时的提料费用、检测成本、资金占用成本、寻找回购方让利、人工处理成本等综合费用。</p>
+              <p>回购由东莞市皇帝珠宝有限公司提供统一服务，折损包括资金占用成本、回购业务让利的综合费用。</p>
             </li>
             <li class="one-bottom-px">
               <h2><span class="circle"></span><span class="title">回款时间</span></h2>
@@ -60,33 +78,37 @@
               <p>本产品材质为9999足金</p>
             </li>
             <li>
-              <h2><span class="square">Q2</span><span class="title">本产品实物交割标准</span></h2>
-              <p>本产品实物交割包含金条（金砂），产品证书、包装盒和擦试绒布。</p>
+              <h2><span class="square">Q2</span><span class="title">本产品兑换说明</span></h2>
+              <p>本产品由东莞市皇帝珠宝有限公司提供统一服务，兑换手续费包括提料费用、检测成本、人工处理等综合费用，按4%计取。</p>
             </li>
             <li>
-              <h2><span class="square">Q3</span><span class="title">本产品兑换实物费用</span></h2>
-              <p>
-                实物制作周期在21天以内，每件工费如下：</br>
-                金条工费：10克及以上，加收15元/克工费；</br>
-                规格：10克-20克-50克-100克-200克-500克-1000克</br>
-                金砂工费：3克-10克，加收16元/克工费；</br>
-                3克以下，加收50元/件工费；</br>
-                另加收证书费30元/件，木盒45元/个</p>
+              <h2><span class="square">Q3</span><span class="title">证书及包装费用</span></h2>
+              <p>兑换金条或金砂实物，证书与包装盒需额外付费购买，证书30元/件，包装盒50元/件。</p>
             </li>
             <li>
-              <h2><span class="square">Q4</span><span class="title">邮寄说明事项</span></h2>
-              <p>本产品由东莞市皇帝珠宝有限公司供货，邮费和保价由用户承担，请联系客服记录需求；</p>
+              <h2><span class="square">Q4</span><span class="title">本产品兑换实物周期</span></h2>
+              <p>实物制作周期在21天以内，邮费和保价由用户承担，请联系客服记录需求。</p>
             </li>
             <li>
-              <h2><span class="square">Q5</span><span class="title">兑换当时未回购的处理方式</span></h2>
+              <h2><span class="square">Q5</span><span class="title">金条规格</span></h2>
+              <p>金条规格：10g-20g-50g-100g-200g-500g-1000g</p>
+            </li>
+            <li>
+              <h2><span class="square">Q6</span><span class="title">金砂规格</span></h2>
+              <p>10克以下属定制，需额外加收工费：</p>
+              <p>1g--10g，按1克/粒加工为金砂，收50元/件加工费；</p>
+              <p>1g（含）以下，定制金箔，收100元/件工费；</p>
+            </li>
+            <li>
+              <h2><span class="square">Q7</span><span class="title">兑换当时未回购的处理方式</span></h2>
               <p>您的本次兑换以订单方式存在“我的--黄金兑换”中，可打开选择订单继续操作流程</p>
             </li>
             <li>
-              <h2><span class="square">Q6</span><span class="title">兑换及选择实物发送后可退换货吗？</span></h2>
+              <h2><span class="square">Q8</span><span class="title">兑换及选择实物发送后可退换货吗？</span></h2>
               <p>黄金属贵金属交易，无法退换货</p>
             </li>
             <li>
-              <h2><span class="square">Q7</span><span class="title">兑换后黄金供货服务提供方</span></h2>
+              <h2><span class="square">Q9</span><span class="title">兑换后黄金供货服务提供方</span></h2>
               <p>东莞市皇帝珠宝有限公司提供服务</p>
             </li>
           </ul>
@@ -97,7 +119,25 @@
 
    <ul v-show="goldType.type==4">
       <li v-show="selectIndex==0">
-        <img src="../../../../common/images/gold/sand-01-01.png" alt="金砂" width="100%" />
+        <div class="products-intro">
+          <table class="table" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr><td class="left">生产商家</td><td class="right">东莞市皇帝珠宝有限公司</td></tr>
+              <tr><td class="left">交易品种</td><td class="right">黄金金砂</td></tr>
+              <tr><td class="left">合约代码</td><td class="right">Au99.99</td></tr>
+              <tr><td class="left">交易方式</td><td class="right">积分兑换</td></tr>
+              <tr><td class="left">交易单位</td><td class="right">0.05克/笔</td></tr>
+              <tr><td class="left">报价单位</td><td class="right">椰子分/克</td></tr>
+              <tr><td class="left">最小笔变动量</td><td class="right">0.05克</td></tr>
+            </tbody>
+          </table>
+          <div class="tips">
+            <p>特别说明：</p>
+            <p>1、今日金价会随采购国际金价和上海黄金交易所综合报价有调整</p>
+            <p>2、每笔黄金兑换业务提交后，即时向上海黄金交易所提交真实购买交易，无法撤销</p>
+            <p>3、兑换黄金制品属贵金属投资，下单即视您同意兑换当时兑换价格</p>
+          </div>
+        </div>
         <img src="../../../../common/images/gold/bar-01-02.png" alt="金砂" width="100%" />
         <img src="../../../../common/images/gold/bar-01-03.png" alt="金条" width="100%" />
         <img src="../../../../common/images/gold/bar-01-04.png" alt="金条" width="100%" />
@@ -108,11 +148,11 @@
           <ul>
             <li class="one-bottom-px">
               <h2><span class="circle"></span><span class="title">回购折损率</span></h2>
-              <p>黄金回购手续费为5%，即回购黄金到账金额=本笔兑换黄金价格×（1-5%）</p>
+              <p>黄金回购手续费为1%，即回购黄金到账金额=本笔兑换黄金积分×1元/椰子分×（1-1%）</p>
             </li>
             <li class="one-bottom-px">
               <h2><span class="circle"></span><span class="title">回购折损说明</span></h2>
-              <p>回购由东莞市皇帝珠宝有限公司提供统一服务，折损包括回购时的提料费用、检测成本、资金占用成本、寻找回购方让利、人工处理成本等综合费用。</p>
+              <p>回购由东莞市皇帝珠宝有限公司提供统一服务，折损包括资金占用成本、回购业务让利的综合费用。</p>
             </li>
             <li class="one-bottom-px">
               <h2><span class="circle"></span><span class="title">回款时间</span></h2>
@@ -150,33 +190,37 @@
               <p>本产品材质为9999足金</p>
             </li>
             <li>
-              <h2><span class="square">Q2</span><span class="title">本产品实物交割标准</span></h2>
-              <p>本产品实物交割包含金条（金砂），产品证书、包装盒和擦试绒布。</p>
+              <h2><span class="square">Q2</span><span class="title">本产品兑换说明</span></h2>
+              <p>本产品由东莞市皇帝珠宝有限公司提供统一服务，兑换手续费包括提料费用、检测成本、人工处理等综合费用，按4%计取。</p>
             </li>
             <li>
-              <h2><span class="square">Q3</span><span class="title">本产品兑换实物费用</span></h2>
-              <p>
-                实物制作周期在21天以内，每件工费如下：</br>
-                金条工费：10克及以上，加收15元/克工费；</br>
-                规格：10克-20克-50克-100克-200克-500克-1000克</br>
-                金砂工费：3克-10克，加收16元/克工费；</br>
-                3克以下，加收50元/件工费；</br>
-                另加收证书费30元/件，木盒45元/个</p>
+              <h2><span class="square">Q3</span><span class="title">证书及包装费用</span></h2>
+              <p>兑换金条或金砂实物，证书与包装盒需额外付费购买，证书30元/件，包装盒50元/件。</p>
             </li>
             <li>
-              <h2><span class="square">Q4</span><span class="title">邮寄说明事项</span></h2>
-              <p>本产品由东莞市皇帝珠宝有限公司供货，邮费和保价由用户承担，请联系客服记录需求；</p>
+              <h2><span class="square">Q4</span><span class="title">本产品兑换实物周期</span></h2>
+              <p>实物制作周期在21天以内，邮费和保价由用户承担，请联系客服记录需求。</p>
             </li>
             <li>
-              <h2><span class="square">Q5</span><span class="title">兑换当时未回购的处理方式</span></h2>
+              <h2><span class="square">Q5</span><span class="title">金条规格</span></h2>
+              <p>金条规格：10g-20g-50g-100g-200g-500g-1000g</p>
+            </li>
+            <li>
+              <h2><span class="square">Q6</span><span class="title">金砂规格</span></h2>
+              <p>10克以下属定制，需额外加收工费：</p>
+              <p>1g--10g，按1克/粒加工为金砂，收50元/件加工费；</p>
+              <p>1g（含）以下，定制金箔，收100元/件工费；</p>
+            </li>
+            <li>
+              <h2><span class="square">Q7</span><span class="title">兑换当时未回购的处理方式</span></h2>
               <p>您的本次兑换以订单方式存在“我的--黄金兑换”中，可打开选择订单继续操作流程</p>
             </li>
             <li>
-              <h2><span class="square">Q6</span><span class="title">兑换及选择实物发送后可退换货吗？</span></h2>
+              <h2><span class="square">Q8</span><span class="title">兑换及选择实物发送后可退换货吗？</span></h2>
               <p>黄金属贵金属交易，无法退换货</p>
             </li>
             <li>
-              <h2><span class="square">Q7</span><span class="title">兑换后黄金供货服务提供方</span></h2>
+              <h2><span class="square">Q9</span><span class="title">兑换后黄金供货服务提供方</span></h2>
               <p>东莞市皇帝珠宝有限公司提供服务</p>
             </li>
           </ul>
@@ -316,6 +360,44 @@ export default {
 }
 .liHight{
   height: 44px;
+}
+.products-intro {
+  padding: 24px 16px 16px 16px;
+  background-color: #fff;
+  .table {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    tbody {
+      tr {
+        td {
+          padding: 9px 10px;
+          padding-left: 14px;
+          text-align: left;
+          color: #999999;
+          font-size: 12px;
+          border: 1px solid #CCCCCC;
+          border-collapse: collapse;
+          &.left {
+            width: 29.4%
+          }
+          &.right {
+            width: 70.6%;
+          }
+        }
+      }
+    }
+  }
+  .tips {
+    margin-top: 16px;
+    padding: 6px 14px;
+    background-color: #FAF5F5;
+    p {
+      line-height: 24px;
+      font-size: 12px;
+      color: #F23D3D;
+    }
+  }
 }
 .buyBackNotice {
   background-color: #fff;

@@ -37,13 +37,15 @@
                         </div>
                         <div class="reInfoW">
                             <div class="reInfo">
-                                <p>时间：{{item.addDate}}</p>
+                                <p>兑换时间：{{item.addDate}}</p>
                                 <p v-if="item.gtype==1">数量：{{Math.round(item.weight/0.2)+'颗'}}</p>
-                                <p v-if="item.gtype==4">数量：{{Math.round(item.weight/0.1)+'颗'}}</p>
+                                <p v-if="item.gtype==4 && item.transactionFee==null">数量：{{Math.round(item.weight/0.1)+'颗'}}</p>
+                                <p v-if="item.gtype==4 && item.transactionFee!=null">数量：{{Math.round(item.weight/0.05)+'颗'}}</p>
                                 <p v-if="item.gtype==0 || item.gtype==3">数量：{{Math.round(item.weight/10)+'根'}}</p>
                                 <!-- <p>数量： {{item.gtype==0?Math.round(item.weight/10)+'根':Math.round(item.weight/0.1)+'颗'}}</p> -->
                                 <p>{{(item.gtype==0 || item.gtype==3)?'金条价格':'金砂价格'}}：{{item.repaymentAmount|toPrice}}</p>
-                                <p>服务费：{{item.serviceFee|toPrice}}</p>
+                                <p>平台服务费：{{item.serviceFee|toPrice}}</p>
+                                <p>交易手续费：{{item.transactionFee|toPrice}}</p>
                                 <p>税费：{{item.taxFee|toPrice}}</p>
                                 <p class="total">合计：{{item.totalAmount|toPrice}}</p>
                             </div>
@@ -53,6 +55,7 @@
                             </div>
                             <div v-if="(item.buyInfo != null && item.buyInfo)">
                               <div class="gold-bnt-info"  :style="item.statusT?'height:auto':'height:0'">
+                                <p>回购时间：{{item.buyInfo.addDate}}</p>
                                 <p>银行卡号：{{item.buyInfo.cardNum}}</p>
                                 <p>开户行：{{item.buyInfo.bank}}</p>
                                 <p class="backMoney">回购金额：{{(item.buyInfo.buyMoney)|toPrice}}</p>

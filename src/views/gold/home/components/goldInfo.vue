@@ -32,7 +32,7 @@
           @input="$emit('input', $event.target.value)"/>
         </div>
         <span class="goldC-unit">{{gtId==3?'根':'颗'}}</span>
-        <span class="goldC-explain">{{gtId==3?'(1根=10克)':'(1颗=0.1克)'}}</span>
+        <span class="goldC-explain">{{gtId==3?'(1根=10克)':'(1颗=0.05克)'}}</span>
       </div>
     </div>
 
@@ -46,7 +46,8 @@
     <ul class="goldC-msg">
       <li v-if="gtId==3">金条价格<span>{{taxInfo.amount|toPrice}}</span></li>
       <li v-if="gtId==4">金砂价格<span>{{taxInfo.amount|toPrice}}</span></li>
-      <li>服务费<span>{{taxInfo.service_fee|toPrice}}</span></li>
+      <li>平台服务费<span>{{taxInfo.service_fee|toPrice}}</span></li>
+      <li>交易手续费<span>{{taxInfo.transactionFee|toPrice}}</span></li>
       <li>税费<span>{{taxInfo.tax_total|toPrice}}</span></li>
       <li>合计<span>{{taxInfo.total|toPrice}}</span></li>
     </ul>
