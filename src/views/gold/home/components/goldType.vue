@@ -14,7 +14,7 @@
               <tr><td class="left">交易品种</td><td class="right">黄金金条</td></tr>
               <tr><td class="left">合约代码</td><td class="right">Au99.99</td></tr>
               <tr><td class="left">交易方式</td><td class="right">积分兑换</td></tr>
-              <tr><td class="left">交易单位</td><td class="right">10/笔</td></tr>
+              <tr><td class="left">交易单位</td><td class="right">10克/笔</td></tr>
               <tr><td class="left">报价单位</td><td class="right">椰子分/克</td></tr>
               <tr><td class="left">最小笔变动量</td><td class="right">10克</td></tr>
             </tbody>
