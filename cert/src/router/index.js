@@ -100,6 +100,15 @@ const router = new Router({
       ]
     },
     {
+      path: '/sign_info',
+      component: () => import('views/sign_info'),
+      name: 'SignInfo',
+      meta: {
+        title: '签约助手',
+        keepAlive: true
+      }
+    },
+    {
       path: '/face',
       redirect: '/face/user',
       component: () => import('views/face'),
