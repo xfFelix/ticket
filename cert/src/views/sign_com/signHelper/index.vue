@@ -109,8 +109,8 @@ export default {
           cardNo:this.dataInfo.bankCard,
           type: this.dataInfo.industry,
           region: this.config.city,
-          positiveIDPhoto:this.frontObj,
-          negativeIDPhoto:this.backObj,
+          positiveIDPhoto:(this.frontObj && this.frontObj.length) ? this.frontObj : "",
+          negativeIDPhoto:(this.backObj && this.backObj.length) ? this.backObj : "",
           redirect_url: this.dataInfo.redirect_url
         })
         window.location.href = data.data.shortUrl
