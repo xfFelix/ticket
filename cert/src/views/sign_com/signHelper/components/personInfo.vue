@@ -1,12 +1,12 @@
 <template>
   <div>
     <ul class="identity-info-wrap">
-      <li>
+      <li v-if="data.industry !== '26'">
         <span>所属行业</span>
         <input type="text" placeholder="请输入所属行业" v-model.trim="data.industryName" disabled />
         <!-- <i class="cubeic-arrow"></i> -->
       </li>
-      <li @click="$router.push('/sign_geo/geolocation')">
+      <li @click="$router.push('/sign_geo/geolocation')" v-if="data.industry !== '26'">
         <span>工作地区</span>
         <input type="text" placeholder="请选择地区" v-model.trim="config.city" disabled />
         <i class="cubeic-arrow"></i>
@@ -186,7 +186,6 @@ export default {
 .identity-info-wrap {
   background: #fff;
   padding: 0 15px;
-  margin-top: 10px;
   li {
     line-height: 62px;
     height: 62px;
