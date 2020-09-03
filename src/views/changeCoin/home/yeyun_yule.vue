@@ -220,6 +220,9 @@ export default {
     }
     this.getList()
   },
+  created() {
+    console.log('进入椰子娱乐页面')
+  },
   components: {
     BgMask: () => import('components/BgMask'),
     SmsCode: () => import('./components/SmsCode'),
