@@ -21,6 +21,9 @@ module.exports = {
         'import': [
           './src/theme'
         ]
+      },
+      sass: {
+        prependData: `@import "~@/common/css/color.scss";`
       }
     },
   },
