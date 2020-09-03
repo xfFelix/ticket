@@ -15,11 +15,11 @@
       </li>
       <li>
         <span>手机号</span>
-        <input type="tel" placeholder="请填写真实的手机号码" v-model.trim="data.mobile" pattern="[0-9]*" />
+        <input type="tel" placeholder="请填写真实的手机号码" v-model.trim="data.mobile" pattern="[0-9]*" :maxlength="11"/>
       </li>
       <li>
         <span>图形验证码</span>
-        <input type="text" placeholder="验证码" v-model.trim="captcha">
+        <input type="text" placeholder="验证码" v-model.trim="captcha" :maxlength="4">
         <img :src="validateImgSrc" class="img_captcha" @click="validateImgClick()">
       </li>
       <li>
@@ -123,10 +123,12 @@ export default {
     border-bottom: 1px solid #f6f6f6;
     display: flex;
     align-items: center;
+    position: relative;
     span {
       font-size: 14px;
       color: #666;
       width: 86px;
+      white-space: nowrap;
     }
     &:last-of-type {
       border: none;
@@ -164,8 +166,12 @@ export default {
       border: 1px solid #30ce84;
       color: #30ce84;
       background: #fff;
+      position: absolute;
+      right: 0;
     }
-    img{
+    .img_captcha{
+      position: absolute;
+      right: 0;
       width: 90px;
       height: 40px;
     }

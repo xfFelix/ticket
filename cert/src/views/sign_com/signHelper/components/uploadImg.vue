@@ -4,40 +4,14 @@
       <p class="identity-title">请上传您的身份证照片</p>
       <div class="identity-front-back">
         <!-- 身份证正面照 -->
-        <div class="identity-front-img">
-          <cube-upload
-            ref="frontUpload"
-            v-model="frontFiles"
-            @file-submitted="frontGetFile"
-            @files-added="frontHandler"
-          >
-            <div class="clear-fix">
-              <cube-upload-file v-for="(file, i) in frontFiles" :file="file" :key="i"></cube-upload-file>
-              <cube-upload-btn :multiple="false">
-                <div>
-                  <img src="~/common/images/frontImg.png" alt="正面照" />
-                </div>
-              </cube-upload-btn>
-            </div>
-          </cube-upload>
+        <div class="identity-img front" :class="frontImg && 'mask'">
+          <img :src="frontImg" alt="" srcset="">
+          <input type="file" class="input-file" @change="frontHandler" accept="image/*" ref="front">
         </div>
         <!-- 身份证反面照 -->
-        <div class="identity-back-img">
-          <cube-upload
-            ref="backUpload"
-            v-model="backFiles"
-            @files-added="backHandler"
-            @file-submitted="backGetFile"
-          >
-            <div class="clear-fix">
-              <cube-upload-file v-for="(file, i) in backFiles" :file="file" :key="i"></cube-upload-file>
-              <cube-upload-btn :multiple="false">
-                <div>
-                  <img src="~/common/images/backImg.png" alt="反面照" />
-                </div>
-              </cube-upload-btn>
-            </div>
-          </cube-upload>
+        <div class="identity-img back" :class="backImg && 'mask'">
+          <img :src="backImg" alt="" srcset="">
+          <input type="file" class="input-file" @change="backHandler" accept="image/*" ref="back">
         </div>
       </div>
     </div>
@@ -48,38 +22,17 @@ export default {
   data: () => ({
     frontFiles: [],
     backFiles: [],
-
+    frontImg: '',
+    backImg: ''
   }),
   methods: {
-    frontHandler(files) {
-      this.sizeJudge(files);
-      const file = this.frontFiles[0];
-      file && this.$refs.frontUpload.removeFile(file);
+    frontHandler() {
+      this.frontFiles = this.$refs.front.files[0]
+      this.uploadImg(this.frontFiles,'front')
     },
-    backHandler(files) {
-      this.sizeJudge(files);
-      const file = this.backFiles[0];
-      file && this.$refs.backUpload.removeFile(file);
-    },
-    frontGetFile() {
-      const file = this.frontFiles[0].file;
-      this.uploadImg(file,'front')
-    },
-    backGetFile() {
-      const file = this.backFiles[0].file;
-      this.uploadImg(file,'back');
-    },
-    // 图片不能超过10M
-    sizeJudge(files){
-       const maxSize = 10 * 1024* 1024;
-        if(files[0].size>maxSize){
-          files[0].ignore = true;
-          this.$createToast({
-            type: "warn",
-            time: 1000,
-            txt: "图片不能超过10M"
-          }).show();
-        }
+    backHandler() {
+      this.backFiles = this.$refs.back.files[0]
+      this.uploadImg(this.backFiles,'back');
     },
     // 上传图片
     uploadImg(file,imgDir) {
@@ -96,8 +49,10 @@ export default {
           let bdata = e.target.result;
           // let dataBese = bdata.split(',')[1];
           if(imgDir=='front'){
+            that.frontImg = bdata
             that.$emit("front-file", bdata);
           }else{
+            that.backImg = bdata
             that.$emit("back-file", bdata);
           }
         };
@@ -125,8 +80,10 @@ export default {
           // let dataBese = data.split(',')[1];
           //  console.log(data)
           if(imgDir=='front'){
+            that.frontImg = bdata
             that.$emit("front-file", data);
           }else{
+            that.backImg = bdata
             that.$emit("back-file", data);
           }
         };
@@ -149,59 +106,40 @@ export default {
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
-    .identity-front-img,
-    .identity-back-img {
+    .identity-img {
       width: 160px;
       height: 140px;
-      img {
-        width: 100%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &.front{
+        background: url("~@/common/images/frontImg.png") no-repeat;
+        background-size: 100% 100%;
       }
-    }
-  }
-}
-</style>
-<style lang="scss">
-.cube-upload {
-  height: 100%;
-  .clear-fix {
-    height: 100%;
-    .cube-upload-file,
-    .cube-upload-btn {
-      margin: 0;
-      height: 100%;
-      .bgImg {
+      &.back{
+        background: url("~@/common/images/backImg.png") no-repeat;
+        background-size: 100% 100%;
+      }
+      &.mask{
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+      }
+      .input-file{
+        position: absolute;
+        top: 0;
         width: 100%;
         height: 100%;
-        background: url("../../../../common/images/frontImg.png") no-repeat;
-      }
-    }
-    .cube-upload-file {
-      margin: 0;
-      .cube-upload-file-def {
-        position: relative;
-        box-sizing: border-box;
-        background: #fff no-repeat center;
-        background-size: 100% auto;
-        border-radius: 0.053333rem;
-        height: 100%;
-        width: 100%;
-      }
-      + .cube-upload-btn {
+        z-index: 3;
         opacity: 0;
       }
-      .cubeic-wrong {
-        display: none;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
       }
-      .cube-upload-file_stat {
-        display: none;
-      }
-    }
-    .cube-upload-btn {
-      position: absolute;
-      top: 0;
-      opacity: 1;
     }
   }
 }
 </style>
-
