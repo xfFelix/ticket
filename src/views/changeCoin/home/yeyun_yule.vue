@@ -52,7 +52,7 @@
     <!-- 设置支付密码dialog -->
     <set-password :show.sync="showSetPassword"></set-password>
     <!-- 设置手机号 -->
-    <set-mobile :show.sync="showSetMobile"></set-mobile>
+    <set-mobile :show.sync="showSetMobile" btnBgColor="#21AEF6"></set-mobile>
 
   </div>
 </template>
