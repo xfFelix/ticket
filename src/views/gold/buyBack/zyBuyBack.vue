@@ -1,29 +1,49 @@
 <template>
   <div class="goldBuyBack">
     <header>
-      <i class="cubeic-back back" @click="$router.go(-1)"></i>黄金回购
+      <i class="cubeic-back back" @click="$router.go(-1)"></i>黄金提货服务
     </header>
-     <ul class="goldbuy-back-list gbb-form">
-        <li class="goldbuy-back-money">
-          回购金额:
-          <p>
-            <span style="color:#576B95">{{backPrice|toPrice}}</span>
-            <span>元</span>
-          </p>
-        </li>
-        <!-- <li class="l_add">卡密<input type="text" name="code" maxlength="14" placeholder="请输入兑换码"  disabled :value="backInfo.cardCode"/></li> -->
-        <li>联系电话<input type="text" name="mobile" maxlength="12" placeholder="请输入联系人电话" v-model="inpInfo.mobile"/></li>
-        <li>姓名<input type="text" name="name" maxlength="16" placeholder="请输入户主姓名" v-model="inpInfo.name" @blur="checkBank"/></li>
-        <li>银行卡号<input type="text" name="cardNum" maxlength="20" placeholder="请输入银行卡号" v-model="inpInfo.cardNum" @blur="checkBank"/></li>
-        <li>开户行<input type="text" name="bank" maxlength="20" placeholder="请输入开卡银行" v-model="inpInfo.bank" disabled/></li>
-        <li>开户支行<input type="text" name="subBank" maxlength="20" placeholder="请输入开户支行" v-model="inpInfo.subBank" /></li>
-      </ul>
-    <div class="agreement zy-agreement">
-      <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
-      <span style="color: #576B95" @click="show.file=true" class="file">《黄金回购协议》</span>
+    <div class="buyBack-top">
+      <div class="buyBack-top-bg">
+      </div>
+      <div class="intro-card">
+        <img src="~common/images/gold/huangdi-logo.png" alt="">
+        <div><span class="jewelry">皇悦珠宝</span></div>
+        <p>东莞皇悦珠宝有限公司起源于香港皇帝珠宝皇帝珠宝是香港皇帝珠宝旗下的高端珠宝首饰品牌。东莞皇悦珠宝有限公司成立于2002年，是集... <span @click="show.profile=true">更多 ></span></p>
+      </div>
+      <div class="goldbuy-back-money">
+        <p class="title">回购到账金额</p>
+        <p class="price-wrapper">
+          <span class="price">{{backPrice|toPrice}}</span>
+          <span class="yuan">元</span>
+        </p>
+      </div>
     </div>
-    <p class="arrivel-accound-day">工作日预计24小时内到账</p>
-    <div class="backBnt" style="background-color: #576B95" @click="buyBnt()">提交</div>
+    <div class="line"></div>
+     <ul class="goldbuy-back-list gbb-form">
+        <p class="goldbuy-back-info">
+          <span class="square"></span>
+          <span>填写到账银行卡信息</span>
+        </p>
+        <!-- <li class="l_add">卡密<input type="text" name="code" maxlength="14" placeholder="请输入兑换码"  disabled :value="backInfo.cardCode"/></li> -->
+        <li><p class="left-text">联系电话</p><input type="text" name="mobile" maxlength="12" placeholder="请输入联系人电话" v-model="inpInfo.mobile"/></li>
+        <li><p class="left-text">姓名</p><input type="text" name="name" maxlength="16" placeholder="请输入户主姓名" v-model="inpInfo.name" @blur="checkBank"/></li>
+        <li><p class="left-text">银行卡号</p><input type="text" name="cardNum" maxlength="20" placeholder="请输入银行卡号" v-model="inpInfo.cardNum" @blur="checkBank"/></li>
+        <li><p class="left-text">开户行</p><input type="text" name="bank" maxlength="20" placeholder="请输入开卡银行" v-model="inpInfo.bank" disabled/></li>
+        <li><p class="left-text">开户支行</p><input type="text" name="subBank" maxlength="20" placeholder="请输入开户支行" v-model="inpInfo.subBank" /></li>
+
+      </ul>
+      <p class="arrivel-accound-day"><img src="~common/images/gold/icon_notice.png" alt=""><span>09:00---23:00 二小时到账，其它时间兑换次日处理</span></p>
+      <div class="contactW">
+        <div class="contact" @click="contact"><img src="~common/images/gold/icon-service.png" alt=""><span>联系客服</span></div>
+      </div>
+    <div class="backBnt-wrapper">
+      <div class="agreement zy-agreement">
+        <cube-checkbox class="with-click" v-model="checked" shape="circle">我已阅读并同意</cube-checkbox>
+        <span style="color: #FE8B30" @click="show.file=true" class="file">《贵金属闲置回收协议》</span>
+      </div>
+      <div class="backBnt" @click="buyBnt()">提交</div>
+    </div>
 
     <sms-code :show="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder"></sms-code>
     <transition name="fade">
@@ -32,7 +52,7 @@
     <!-- 设置支付密码dialog -->
     <set-password :show.sync="showSetPassword"></set-password>
     <gold-file :show="show.file" @handle-show-file="initShow" :fileType="fileType"></gold-file>
-
+    <gold-conpany :show="show.profile" @handle-show-profile="initShow"></gold-conpany>
 
   </div>
 </template>
@@ -58,7 +78,8 @@ export default {
     show:{
       mask:false,
       code:false,
-      file:false
+      file:false,
+      profile: false
     },
     failText:'',
     id: sessionStorage.getItem('GOLDID'),
@@ -139,7 +160,7 @@ export default {
             return this.failText = res.message;
           }else{
             this.initShow();
-            this.$dialog({content:"回购申请成功，请等候客服审核！工作日（周一至周五）24小时内打款  节假日（周六周天）及法定节假日不打款。"},()=>{
+            this.$dialog({content:"回购申请成功，请等候客服审核！09:00---23:00 二小时到账，其它时间兑换次日处理。"},()=>{
               this.$router.go(-1)
                   // window.location.href = 'http://192.168.0.107:8080/ticket/gold/record?cardId='+ currentId +'&token='+this.getToken+'&back=zygold'
                   // this.$router.replace({name:'goldRecord'})
@@ -173,7 +194,7 @@ export default {
         this.initShow();
       },
     initShow(){
-      this.show={mask:false,code:false,file:false}
+      this.show={mask:false,code:false,file:false,profile:false}
     },
     showDig(){
       this.$dialog({title:'回购说明',content: "<p style='margin-top:-12px;text-align: left;'>本服务由深圳市金宇阳光文化发展有限公司提供。</p><p style='text-align: left;margin: 8px 0 -13px 0;'>回购价格=基础金价-3元/克，基础金价为上海黄金交易所Au99.99当日开盘价。</p>"},() => {})
@@ -198,6 +219,9 @@ export default {
       }else {
         store.dispatch('setUserinfo', res.data)
       }
+    },
+    contact() {
+      window.location.href = `http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481`
     }
   },
   mounted(){
@@ -228,6 +252,7 @@ export default {
     SmsCode: ()=> import('@/components/SmsCode'),
     BgMask: () => import('@/components/BgMask'),
     goldFile: () => import("./components/goldFile"),
+    goldConpany: () => import("./components/goldConpany"),
     SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),
   }
 
@@ -256,53 +281,142 @@ export default {
       padding: 0 0.4rem;
     }
   }
+  .buyBack-top {
+    width: 100%;
+    .buyBack-top-bg {
+      width: 100%;
+      height: 179px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      background: #373C48;
+    }
+    .intro-card {
+      position: relative;
+      margin: 0 auto;
+      margin-top: -91px;
+      width: 343px;
+      height: 150px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 2px 10px 0px rgba(220,220,220,0.6);
+      img {
+        position: absolute;
+        top: -28px;
+        left: 50%;
+        margin-left: -35px;
+        width: 70px;
+        height: 70px;
+      }
+      div {
+        position: absolute;
+        top: 32px;
+        left: 50%;
+        margin-left: -38px;
+        width: 76px;
+        height: 24px;
+        text-align: center;
+        color: #fff;
+        font-family: PingFangSC-Semibold, PingFang SC;
+        font-weight: 600;
+        letter-spacing: 1px;
+        border-radius: 15px;
+        background: #FE8B30;
+        .jewelry {
+          display: inline-block;
+          width: 152px;
+          height: 48px;
+          line-height: 48px;
+          font-size: 28px;
+          transform: scale(0.5);
+          transform-origin: 0% 0%;
+        }
+      }
+      p {
+        padding: 75px 16px 0px 16px;
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        color: #444444;
+        line-height: 21px;
+        span {
+          margin-left: 8px;
+          color: #FE8B30;
+        }
+      }
+    }
+    .goldbuy-back-money {
+      text-align: center;
+      padding-bottom: 25px;
+      .title {
+        margin-top: 32px;
+        font-size: 15px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        color: #444444;
+      }
+      .price-wrapper {
+        margin-top: 12px;
+        .price {
+          font-size: 30px;
+          font-family: DIN-Bold, DIN;
+          font-weight: bold;
+          color: #FE8B30;
+        }
+        .yuan {
+          margin-left: 4px;
+          font-size: 15px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: #FE8B30;
+        }
+      }
+    }
+  }
+  .line {
+    width: 100%;
+    height: 10px;
+    background: #F7F7F7;
+  }
   .goldbuy-back-list{
-    padding: 44px 16px 0 16px;
+    padding: 32px 29px 0 29px;
     color: #4A4A4A;
     font-size: 14px;
-    .goldbuy-back-money{
-      margin-top: 20px;
-      font-size: 12px;
-      display: block;
-      padding: 0 0 20px 0;
-      border: none;
-      line-height: inherit;
-      position: relative;
-      p{
-          text-align: center;
-          margin-top: 18px;
-          span{
-            &:first-of-type{
-              font-size: 36px;
-              color: #30CE84;
-              line-height: 34px;
-            }
-            &:nth-of-type(2){
-              display: inline-block;
-              vertical-align: bottom;
-              color: #999999;
-            }
-            &:nth-of-type(3){
-              border: 1px solid #30CE84;
-              width: 15px;
-              height: 15px;
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
-              border-radius: 50%;
-              color: #30CE84;
-              font-size: 14px;
-              margin: 0px 0 0 10px;
-              font-weight: bold;
-            }
-          }
+    .goldbuy-back-info{
+      margin-bottom: 10px;
+      text-align: left;
+      font-size: 16px;
+      font-family: PingFangSC-Semibold, PingFang SC;
+      font-weight: 600;
+      color: #444444;
+      span {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .square {
+        width: 3px;
+        height: 16px;
+        background: #FE8B30;
+        margin-right: 5px;
       }
     }
     li{
       display: flex;
       justify-content: space-between;
-          line-height: 69px;
+      padding: 16px 0;
+      color: #444444;
       border-bottom: 1px solid #DEDEDE;
+      .left-text {
+        text-align: justify;
+        width: 57px;
+        height: 17px;
+        float: left;
+        font-family: PingFangSC-Regular, PingFang SC;
+        &:after{
+          content:'.';
+          width: 100%;
+          display: inline-block;
+          overflow: hidden;
+          height: 0;
+        }
+      }
       input{
         text-align: right;
         flex: 1;
@@ -332,34 +446,82 @@ export default {
     }
   }
 
-  .agreement {
-    display: flex;
-    align-items: center;
-    .cube-checkbox {
-      padding: 0 0 0 20px;
-    }
-    .file {
-      color: #30CE84;
-      margin-top: -2px;
-    }
-  }
   .arrivel-accound-day{
-    padding: 10px 0 55px 0;
+    padding: 10px 0 0 29px;
     font-size:12px;
     color: #999999;
-    text-align: center;
+    text-align: left;
+    img {
+      display: inline-block;
+      vertical-align: middle;
+      width: 13px;
+      height: 13px;
+      margin-right: 5px;
+    }
+    span {
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
-  .backBnt {
-    line-height: 44px;
+  .contactW {
+    padding-bottom: 128px;
+    .contact {
+      margin: 0 auto;
+      margin-top: 28px;
+      width: 319px;
+      height: 34px;
+      line-height: 34px;
+      text-align: center;
+      color: rgba($color: #000000, $alpha: 0.4);
+      font-size: 15px;
+      background: rgba($color: #000000, $alpha: 0.02);
+      border: 2px;
+      img {
+        display: inline-block;
+        vertical-align: middle;
+        width: 12px;
+        height: 14px;
+        margin-right: 5px;
+      }
+      span {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .backBnt-wrapper {
+    width: 100%;
+    height: 108px;
     position: fixed;
     bottom: 0;
-    background: #30ce84;
-    width: 100%;
-    text-align: center;
-    color: #fff;
-    font-size: 15px;
-    z-index: 1;
+    background-color: #fff;
+    box-shadow: 0px -1px 10px 0px rgba(220,220,220,0.6);
+    .agreement {
+      display: flex;
+      align-items: center;
+      .cube-checkbox {
+        padding: 0 0 0 29px;
+      }
+      .file {
+        color: #FE8B30;
+        margin-top: -2px;
+      }
+    }
+    .backBnt {
+      margin: 0 auto;
+      width: 319px;
+      height: 45px;
+      line-height: 45px;
+      border-radius: 22px;
+      background: #FE8B30;
+      text-align: center;
+      color: #fff;
+      font-size: 15px;
+      z-index: 1;
+    }
   }
+
 }
 </style>
 <style>
@@ -367,13 +529,13 @@ export default {
   margin:20px 0 25px 0;
 }
 .zy-agreement .cube-checkbox_checked .cube-checkbox-ui i {
-  color: #576B95;
+  color: #FE8B30;
 }
 .cube-dialog-btn_highlight {
-  color: #576B95;
+  color: #FE8B30;
 }
 @media screen and (min-width: 600px) {
-  header,.backBnt{
+  header,.backBnt-wrapper{
     max-width: 384px; /*no*/
   }
 }

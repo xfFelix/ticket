@@ -22,9 +22,9 @@
         <p class="goldBnt-left" @click="handlerShowType()" :class="!inpPrice?'bntNo':'bntCan'" >
             立即兑换
         </p>
-        <p class="goldBnt-right" @click="$router.push({name:'goldRecord',query:{cardId:goldType.type}})" v-if="!yingqiudiShow">
+        <!-- <p class="goldBnt-right" @click="$router.push({name:'goldRecord',query:{cardId:goldType.type}})" v-if="!yingqiudiShow">
             立即回购
-        </p>
+        </p> -->
       </div>
     </div>
       <succ-page v-if="suceesShow" v-on:getCData="getCData"></succ-page>

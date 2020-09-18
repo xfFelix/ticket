@@ -10,7 +10,7 @@
         <div class="products-intro">
           <table class="table" cellspacing="0" cellpadding="0">
             <tbody>
-              <tr><td class="left">生产商家</td><td class="right">东莞市皇帝珠宝有限公司</td></tr>
+              <tr><td class="left">生产商家</td><td class="right">海南恒昌金银珠宝实业有限公司</td></tr>
               <tr><td class="left">交易品种</td><td class="right">黄金金条</td></tr>
               <tr><td class="left">合约代码</td><td class="right">Au99.99</td></tr>
               <tr><td class="left">交易方式</td><td class="right">积分兑换</td></tr>
@@ -21,56 +21,23 @@
           </table>
           <div class="tips">
             <p>特别说明：</p>
-            <p>1、今日金价会随采购国际金价和上海黄金交易所综合报价有调整</p>
+            <p>1、兑换金价随国际金价、上海黄金交易所、购买时点影响有浮动</p>
             <p>2、每笔黄金兑换业务提交后，即时向上海黄金交易所提交真实购买交易，无法撤销</p>
             <p>3、兑换黄金制品属贵金属投资，下单即视您同意兑换当时兑换价格</p>
           </div>
         </div>
+        <div class="supplier-intro-wrapper one-bottom-px one-top-px">
+          <p class="supplier-title">黄金提供商介绍</p>
+          <p class="supplier-intro">海南恒昌金银珠宝实业有限公司 是上海黄金交易所首批会员单位，专业从事高档镶嵌首饰研发设计、生产加工、批发零售的综合类珠宝企业。公司先后在上海、天津、武汉、广州、南京、海口、三亚等全国各大中城市设立品牌专营店。旗下珠宝品牌“美瑞德珠宝” “瑞丰金行”“恒昌隆珠宝”“祺汇珠宝”在20年的精心培育及经营下家喻户晓。2009年取得央企黄金第一品牌“中国黄金”海南地区的特许经营权的取得，奠定了珠宝业海南龙头的地位。</p>
+          <img class="supplier-photo" src="~common/images/gold/huangdi-profile.png" alt="">
+        </div>
+        <p class="products-photo">—— 商品图片 ——</p>
         <img src="../../../../common/images/gold/bar-01-02.png" alt="金条" width="100%" />
         <img src="../../../../common/images/gold/bar-01-03.png" alt="金条" width="100%" />
         <img src="../../../../common/images/gold/bar-01-04.png" alt="金条" width="100%" />
         <img src="../../../../common/images/gold/bar-01-05.png" alt="金条" width="100%" />
       </li>
       <li v-show="selectIndex==1">
-        <div class="buyBackNotice">
-          <ul>
-            <li class="one-bottom-px">
-              <h2><span class="circle"></span><span class="title">回购折损率</span></h2>
-              <p>黄金回购手续费为1%，即回购黄金到账金额=本笔兑换黄金积分×1元/椰子分×（1-1%）</p>
-            </li>
-            <li class="one-bottom-px">
-              <h2><span class="circle"></span><span class="title">回购折损说明</span></h2>
-              <p>回购由东莞市皇帝珠宝有限公司提供统一服务，折损包括资金占用成本、回购业务让利的综合费用。</p>
-            </li>
-            <li class="one-bottom-px">
-              <h2><span class="circle"></span><span class="title">回款时间</span></h2>
-              <p>24小时内回款，为保证资金安全及时处理，每天10：30、16：30各处理一次。</p>
-            </li>
-            <li class="one-bottom-px">
-              <h2><span class="circle"></span><span class="title">回款流程</span></h2>
-              <p>兑换后点击“立即回购”，填写银行账户提交即可办理</p>
-            </li>
-            <li class="one-bottom-px">
-              <h2><span class="circle"></span><span class="title">兑换当时未回购的处理方式</span></h2>
-              <p>您的本次兑换以订单方式存在“我的--黄金兑换”中，可打开选择订单继续操作流程</p>
-            </li>
-            <li class="one-bottom-px">
-              <h2><span class="circle"></span><span class="title">超过24小时未收到回款原因</span></h2>
-              <p>约定时间内未收到回款，有可能是您的银行账户填写有误，请点击下方“联系我们”向我们反馈，我们将及时解决您的问题</p>
-            </li>
-            <li class="one-bottom-px">
-              <h2><span class="circle"></span><span class="title">兑换及回购后可退分吗？</span></h2>
-              <p>黄金属贵金属交易，根据第三方服务承诺，无法退回</p>
-            </li>
-            <li>
-              <h2><span class="circle"></span><span class="title">兑换后黄金供货服务提供方</span></h2>
-              <p>东莞市皇帝珠宝有限公司提供服务</p>
-            </li>
-          </ul>
-        </div>
-        <!-- <img src="../../../../common/images/gold/bar-02.png" alt="金条" width="100%" /> -->
-      </li>
-      <li v-show="selectIndex==2">
         <div class="changeNotice">
           <ul>
             <li>
@@ -79,7 +46,7 @@
             </li>
             <li>
               <h2><span class="square">Q2</span><span class="title">本产品兑换说明</span></h2>
-              <p>本产品由东莞市皇帝珠宝有限公司提供统一服务，兑换手续费包括提料费用、检测成本、人工处理等综合费用，按4%计取。</p>
+              <p>本产品由海南恒昌金银珠宝实业有限公司提供兑换服务，兑换手续费包括提料费用、检测成本、人工处理、切割等综合费用，按4%收取。</p>
             </li>
             <li>
               <h2><span class="square">Q3</span><span class="title">证书及包装费用</span></h2>
@@ -107,13 +74,8 @@
               <h2><span class="square">Q8</span><span class="title">兑换及选择实物发送后可退换货吗？</span></h2>
               <p>黄金属贵金属交易，无法退换货</p>
             </li>
-            <li>
-              <h2><span class="square">Q9</span><span class="title">兑换后黄金供货服务提供方</span></h2>
-              <p>东莞市皇帝珠宝有限公司提供服务</p>
-            </li>
           </ul>
         </div>
-        <!-- <img src="../../../../common/images/gold/bar-04.png" alt="金条" width="100%" /> -->
       </li>
     </ul>
 
@@ -122,7 +84,7 @@
         <div class="products-intro">
           <table class="table" cellspacing="0" cellpadding="0">
             <tbody>
-              <tr><td class="left">生产商家</td><td class="right">东莞市皇帝珠宝有限公司</td></tr>
+              <tr><td class="left">生产商家</td><td class="right">海南恒昌金银珠宝实业有限公司</td></tr>
               <tr><td class="left">交易品种</td><td class="right">黄金金砂</td></tr>
               <tr><td class="left">合约代码</td><td class="right">Au99.99</td></tr>
               <tr><td class="left">交易方式</td><td class="right">积分兑换</td></tr>
@@ -133,56 +95,23 @@
           </table>
           <div class="tips">
             <p>特别说明：</p>
-            <p>1、今日金价会随采购国际金价和上海黄金交易所综合报价有调整</p>
+            <p>1、兑换金价随国际金价、上海黄金交易所、购买时点影响有浮动</p>
             <p>2、每笔黄金兑换业务提交后，即时向上海黄金交易所提交真实购买交易，无法撤销</p>
             <p>3、兑换黄金制品属贵金属投资，下单即视您同意兑换当时兑换价格</p>
           </div>
         </div>
+        <div class="supplier-intro-wrapper one-bottom-px one-top-px">
+          <p class="supplier-title">黄金提供商介绍</p>
+          <p class="supplier-intro">海南恒昌金银珠宝实业有限公司 是上海黄金交易所首批会员单位，专业从事高档镶嵌首饰研发设计、生产加工、批发零售的综合类珠宝企业。公司先后在上海、天津、武汉、广州、南京、海口、三亚等全国各大中城市设立品牌专营店。旗下珠宝品牌“美瑞德珠宝” “瑞丰金行”“恒昌隆珠宝”“祺汇珠宝”在20年的精心培育及经营下家喻户晓。2009年取得央企黄金第一品牌“中国黄金”海南地区的特许经营权的取得，奠定了珠宝业海南龙头的地位。</p>
+          <img class="supplier-photo" src="~common/images/gold/huangdi-profile.png" alt="">
+        </div>
+        <p class="products-photo">—— 商品图片 ——</p>
         <img src="../../../../common/images/gold/bar-01-02.png" alt="金砂" width="100%" />
         <img src="../../../../common/images/gold/bar-01-03.png" alt="金条" width="100%" />
         <img src="../../../../common/images/gold/bar-01-04.png" alt="金条" width="100%" />
         <img src="../../../../common/images/gold/bar-01-05.png" alt="金条" width="100%" />
       </li>
       <li v-show="selectIndex==1">
-        <div class="buyBackNotice">
-          <ul>
-            <li class="one-bottom-px">
-              <h2><span class="circle"></span><span class="title">回购折损率</span></h2>
-              <p>黄金回购手续费为1%，即回购黄金到账金额=本笔兑换黄金积分×1元/椰子分×（1-1%）</p>
-            </li>
-            <li class="one-bottom-px">
-              <h2><span class="circle"></span><span class="title">回购折损说明</span></h2>
-              <p>回购由东莞市皇帝珠宝有限公司提供统一服务，折损包括资金占用成本、回购业务让利的综合费用。</p>
-            </li>
-            <li class="one-bottom-px">
-              <h2><span class="circle"></span><span class="title">回款时间</span></h2>
-              <p>24小时内回款，为保证资金安全及时处理，每天10：30、16：30各处理一次。</p>
-            </li>
-            <li class="one-bottom-px">
-              <h2><span class="circle"></span><span class="title">回款流程</span></h2>
-              <p>兑换后点击“立即回购”，填写银行账户提交即可办理</p>
-            </li>
-            <li class="one-bottom-px">
-              <h2><span class="circle"></span><span class="title">兑换当时未回购的处理方式</span></h2>
-              <p>您的本次兑换以订单方式存在“我的--黄金兑换”中，可打开选择订单继续操作流程</p>
-            </li>
-            <li class="one-bottom-px">
-              <h2><span class="circle"></span><span class="title">超过24小时未收到回款原因</span></h2>
-              <p>约定时间内未收到回款，有可能是您的银行账户填写有误，请点击下方“联系我们”向我们反馈，我们将及时解决您的问题</p>
-            </li>
-            <li class="one-bottom-px">
-              <h2><span class="circle"></span><span class="title">兑换及回购后可退分吗？</span></h2>
-              <p>黄金属贵金属交易，根据第三方服务承诺，无法退回</p>
-            </li>
-            <li>
-              <h2><span class="circle"></span><span class="title">兑换后黄金供货服务提供方</span></h2>
-              <p>东莞市皇帝珠宝有限公司提供服务</p>
-            </li>
-          </ul>
-        </div>
-        <!-- <img src="../../../../common/images/gold/bar-02.png" alt="金砂" width="100%" /> -->
-      </li>
-      <li v-show="selectIndex==2">
         <div class="changeNotice">
           <ul>
             <li>
@@ -191,7 +120,7 @@
             </li>
             <li>
               <h2><span class="square">Q2</span><span class="title">本产品兑换说明</span></h2>
-              <p>本产品由东莞市皇帝珠宝有限公司提供统一服务，兑换手续费包括提料费用、检测成本、人工处理等综合费用，按4%计取。</p>
+              <p>本产品由海南恒昌金银珠宝实业有限公司提供兑换服务，兑换手续费包括提料费用、检测成本、人工处理、切割等综合费用，按4%收取。</p>
             </li>
             <li>
               <h2><span class="square">Q3</span><span class="title">证书及包装费用</span></h2>
@@ -218,10 +147,6 @@
             <li>
               <h2><span class="square">Q8</span><span class="title">兑换及选择实物发送后可退换货吗？</span></h2>
               <p>黄金属贵金属交易，无法退换货</p>
-            </li>
-            <li>
-              <h2><span class="square">Q9</span><span class="title">兑换后黄金供货服务提供方</span></h2>
-              <p>东莞市皇帝珠宝有限公司提供服务</p>
             </li>
           </ul>
         </div>
@@ -250,9 +175,6 @@ export default {
     detail: [
       {
         name: "产品介绍"
-      },
-      {
-        name: "回购须知"
       },
       {
         name: "兑换须知"
@@ -321,7 +243,7 @@ export default {
   .gold-select{
     display: flex;
     justify-content: space-between;
-    padding: 0 25px;
+    padding: 0 65px;
     box-sizing: border-box;
     li {
       line-height: 32px;
@@ -398,6 +320,36 @@ export default {
       color: #F23D3D;
     }
   }
+
+}
+.supplier-intro-wrapper {
+    padding: 16px 16px;
+    background-color: #ffffff;
+    .supplier-title {
+      color: #000000;
+      font-size: 16px;
+    }
+    .supplier-intro {
+      margin-top: 10px;
+      color: #4a4a4a;
+      font-size: 14px;
+      line-height: 22px;
+    }
+    .supplier-photo {
+      margin: 0 auto;
+      margin-top: 20px;
+      display: block;
+      width: 200px;
+      height: 260px;
+    }
+  }
+.products-photo {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  text-align: center;
+  background: #ffffff;
+  font-size: 14px;
+  color: #D5A96E;
 }
 .buyBackNotice {
   background-color: #fff;

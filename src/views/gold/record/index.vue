@@ -19,15 +19,15 @@
                 <ul class="recordW">
                     <li v-for="(item,index) in recodeList" :key="index">
                         <div class="reName flex">
-                            <span v-if="item.code">卡密：
-                              {{item.code.length>14?item.code.substring(item.code.length-14):item.code}}
+                            <span v-if="item.code">提取码：
+                              {{item.code.length>15?item.code.substring(item.code.length-15):item.code}}
                               <em class="see" @click="dialogPwd(item.id)" >查看</em>
                             </span>
-                            <span v-else>卡密：— —</span>
+                            <span v-else>提取码：— —</span>
                             <div v-if="item.buyInfo">
-                                <span v-if="item.buyInfo.status==0">回购中</span>
-                                <span v-if="item.buyInfo.status==1">回购成功</span>
-                                <span v-if="item.buyInfo.status==2">回购取消</span>
+                                <span v-if="item.buyInfo.status==0">提货中</span>
+                                <span v-if="item.buyInfo.status==1">提货成功</span>
+                                <span v-if="item.buyInfo.status==2">提货取消</span>
                             </div>
                             <div v-else>
                                 <span v-if="item.status==0">兑换中</span>
@@ -51,14 +51,14 @@
                             </div>
                             <div class="recover"  @click="recovery(item.price,item.id,item.gtype,item.code,item.weight)"
                               v-if="(item.code && (item.buyInfo == null))">
-                                立即回购
+                                立即提货
                             </div>
                             <div v-if="(item.buyInfo != null && item.buyInfo)">
                               <div class="gold-bnt-info"  :style="item.statusT?'height:auto':'height:0'">
-                                <p>回购时间：{{item.buyInfo.addDate}}</p>
+                                <p>提货时间：{{item.buyInfo.addDate}}</p>
                                 <p>银行卡号：{{item.buyInfo.cardNum}}</p>
                                 <p>开户行：{{item.buyInfo.bank}}</p>
-                                <p class="backMoney">回购金额：{{(item.buyInfo.buyMoney)|toPrice}}</p>
+                                <p class="backMoney">提货金额：{{(item.buyInfo.buyMoney)|toPrice}}</p>
                                 <p>姓名：{{item.buyInfo.name}}</p>
                               </div>
                               <div class="gold-bnt"  @click="transClick(item,index)">
@@ -161,7 +161,7 @@ export default {
             if (data.error_code != 0) {
               return this.$toast(data.message);
             }
-            data.data.forEach(item=> {    //回购信息显示
+            data.data.forEach(item=> {    //提货信息显示
               item.statusT = false;
             })
             this.recodeList.push(...data.data);
@@ -248,6 +248,7 @@ export default {
             this.$router.push({name:"goldBuyBack"})
           }else {
             let href = window.location.origin
+            // this.$router.push({name:'goldBuyBackZy',query:{id:id,gtype:gtype,token:this.getToke}})
             if(href == 'https://tmall.cocogc.cn') {
               window.location.href = href+'/ticket/gold/buyBackZy?id='+id+'&gtype='+gtype+'&token='+this.getToken+'&fromType=cocogc'
             }else {
