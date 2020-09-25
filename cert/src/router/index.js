@@ -6,10 +6,10 @@ Vue.use(Router)
 
 const router = new Router({
   routes: [
-    {
-      path: '/',
-      redirect: '/sign'
-    },
+    // {
+    //   path: '/',
+    //   redirect: '/sign'
+    // },
     {
       path: '/sign',
       name: 'signHelper',

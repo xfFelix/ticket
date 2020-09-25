@@ -123,9 +123,10 @@ export default {
       this.userinfo = info.data
       if (this.feeInfo.monthTotal > 30000) {
         if (!this.userinfo.isRealCert) {
-          return this.$dialog({type: 'confirm', content: '请先实名认证'}, () => {
-            return window.location.href = process.env.VUE_APP_INFO_URl + '#!/cert?back=' + tools_uri.encode(window.location) + '&token=' + this.getToken
+          this.$dialog({type: 'confirm', content: '请先实名认证'}, () => {
+            this.$router.push({path:'/realName?back=/settlement'})
           })
+          return false
         }
       }
       this.validateUser()

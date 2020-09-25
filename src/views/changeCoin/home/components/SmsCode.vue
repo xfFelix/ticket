@@ -9,7 +9,7 @@
       </div>
       <h1 v-if="userinfo.payValidType === 1">请输入支付密码</h1>
       <h1 v-else>短信验证码已发送至手机 {{userinfo.userName | formatPhone}}
-        <button class="sms-code" :disabled="btnDisabled" @click="sendCode">{{time>0 ? time + 's': '重新获取'}}</button>
+        <button class="sms-code" :style="{color: btnBgColor}" :disabled="btnDisabled" @click="sendCode">{{time>0 ? time + 's': '重新获取'}}</button>
       </h1>
       <div class="code-input-main">
         <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[0]}}</div>
@@ -41,6 +41,9 @@ export default {
     codeMessage: {
       type:String,
       default:'验证码输入错误，请重新输入'
+    },
+    btnBgColor: {
+      type: String,
     }
   },
   data: () => ({

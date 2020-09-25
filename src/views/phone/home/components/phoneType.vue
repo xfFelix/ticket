@@ -34,7 +34,9 @@
           <!-- 直充 -->
           <div class="phoneBill-direct" v-show="typeIndex==0">
             <ul class="phoneBill-typeU" :class="phoneCan?'phoneCan':''">
-               <li v-for="(item,key,index) in dirList" :key="index" @click="dirClick(index,item,key)" :class="dirIndex==index?'price_actived':''">
+                <li v-for="(item,key,index) in dirList" :key="index" @click="dirClick(index,item,key)"
+                :class="noGoods.indexOf(key)!=-1?'price_gray':(dirIndex==index?'price_actived':'')">
+                <span v-if="noGoods.indexOf(key)!=-1" class="lack" >缺货</span>
                   <p class="pB-tMWrap">
                     <span class="phoneBill-tMoney"> {{key}}</span>
                     <span class="phoneBill-tYuan">元</span>
@@ -92,9 +94,9 @@ export default {
     ],
     typeIndex:0,
     phoneCan:false,
-    dirIndex:'',
+    dirIndex:1,
     carIndex:2,
-    noGoods:['1','5'],
+    noGoods:[],
     yinqiudiShow:false,
     needIntegral: []
   }),
@@ -143,9 +145,17 @@ export default {
       typeSelect(index){
           this.setConfig({type:index})
           this.typeIndex = index;
+          if(index==0) {
+            this.noGoods = ['1']
+          }else {
+            this.noGoods = ['1','5']
+          }
       },
       dirClick(index,price,key){
         if(this.phoneCan==true){
+          if(this.noGoods.indexOf(key)!=-1){
+            return false;
+          }
           this.dirIndex = index;
           this.setConfig({dirPrice:key,realDirP:price[0]})
         }
@@ -194,6 +204,7 @@ export default {
   mounted(){
     this.getDirPrice();
     this.getCarPrice();
+    this.noGoods = ['1']
     // this.specialCustom();
   },
 
@@ -304,6 +315,10 @@ export default {
       background: #4ba1ec;
     }
   }
+  .price_gray{
+    color: #cccccc;
+    border: 1px solid #cccccc;
+  }
 }
 
 
@@ -359,7 +374,11 @@ export default {
     margin-right: 5px;
   }
 }
+.price_gray{
 
+    color: #cccccc;
+    border: 1px solid #cccccc;
+  }
 
 </style>
 <style>

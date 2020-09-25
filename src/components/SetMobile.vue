@@ -4,7 +4,7 @@
       <div class="wrapper" @click.stop="$emit('update:show', true)">
         <h1>绑定手机号码</h1>
         <div class="item">
-          <span class="iconfont">&#xe615;</span>
+          <span class="iconfont" :style="{'color': btnBgColor}">&#xe615;</span>
           <select style="border:none;background:#fff;width: 50px;" v-model="telPlace">
               <option :value="item.telRealVal" v-for="item in telList" :key="item.telRealVal">{{item.telShowVal}}</option>
           </select>
@@ -19,7 +19,7 @@
             autocomplete="off">
         </div>
         <div class="item border-1-px">
-          <span class="iconfont">&#xe62a;</span>
+          <span class="iconfont" :style="{'color': btnBgColor}">&#xe62a;</span>
           <input
             type="tel"
             placeholder="请输入验证码"
@@ -28,10 +28,10 @@
             @focus="iptFocus"
             @blur="iptBlur"
             autocomplete="off">
-          <button class="send-code" @click.stop="sendCode" :disabled="data.codeFlag">{{data.codeText}}</button>
+          <button class="send-code" @click.stop="sendCode" :disabled="data.codeFlag" :style="{'color': btnBgColor,'border-color':btnBgColor}">{{data.codeText}}</button>
         </div>
         <div class="item">
-          <button class="link-mobile" @click.stop="validateMobile">绑定</button>
+          <button class="link-mobile" @click.stop="validateMobile" :style="{'background-color': btnBgColor}">绑定</button>
         </div>
       </div>
     </div>
@@ -48,6 +48,9 @@ export default {
     show: {
       type: Boolean,
       default: false
+    },
+    btnBgColor: {
+      type: String,
     }
   },
   data: () => ({

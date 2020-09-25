@@ -13,7 +13,7 @@
         <li><span class="iconImg identy"></span><input type="text" placeholder="身份证号码" v-model="cardId">
         </li>
         <li class="tip">
-          温馨提示：应税务要求，信用卡还款或者月累计消费超过3万的用户需要实名认证。
+          温馨提示：应税务要求，月累计消费超过3万的用户需要实名认证。
         </li>
       </ul>
       <p class="certBnt" @click="certBnt()">确定</p>

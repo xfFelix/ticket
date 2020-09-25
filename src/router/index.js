@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import getToken from './hook/getToken'
-import changeTitle from './hook/changeTitle';
+import changeTitle from './hook/changeTitle'
+import store from '@/store'
 
 Vue.use(Router)
 
@@ -192,7 +193,15 @@ const router = new Router({
         {
           path: 'home',
           name: 'coinHome',
-          component: () => import(/* webpackChunkName: "group-coin" */ 'views/changeCoin/home'),
+          component: () => {
+            const vendorId = store.getters.getUserinfo.vendorId
+            switch(vendorId) {
+              case process.env.VUE_APP_YEYUN_YULE:
+                return import(/* webpackChunkName: "group-coin" */ 'views/changeCoin/home/yeyun_yule.vue')
+              default:
+                return import(/* webpackChunkName: "group-coin" */ 'views/changeCoin/home')
+            }
+        },
           meta: {
             title: '兑换金币',
             requireAuth: true

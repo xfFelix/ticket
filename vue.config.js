@@ -22,6 +22,9 @@ module.exports = {
           './src/theme'
         ]
       }
+      // sass: {
+      //   prependData: `@import "~@/common/css/color.scss";`
+      // }
     },
   },
   pluginOptions: {

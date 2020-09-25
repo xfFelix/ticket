@@ -35,7 +35,7 @@
         </li>
       </ul>
       <div class="footer">
-        <button class="confirm" @click="handlerShowCode">确认</button>
+        <button class="confirm" :style="{'background-color': btnBgColor}" @click="handlerShowCode">确认</button>
       </div>
     </div>
   </transition>
@@ -52,6 +52,9 @@ export default {
     },
     coinInfo: {
       type: Object
+    },
+    btnBgColor: {
+      type: String,
     }
   },
   computed: {
