@@ -19,11 +19,11 @@
                 <ul class="recordW">
                     <li v-for="(item,index) in recodeList" :key="index">
                         <div class="reName flex">
-                            <span v-if="item.code">提取码：
+                            <span v-if="item.code">提货码：
                               {{item.code.length>15?item.code.substring(item.code.length-15):item.code}}
                               <em class="see" @click="dialogPwd(item.id)" >查看</em>
                             </span>
-                            <span v-else>提取码：— —</span>
+                            <span v-else>提货码：— —</span>
                             <div v-if="item.buyInfo">
                                 <span v-if="item.buyInfo.status==0">提货中</span>
                                 <span v-if="item.buyInfo.status==1">提货成功</span>
