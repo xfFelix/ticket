@@ -133,7 +133,7 @@
             <p>联系我们</p>
           </div>
       </div>
-      <div class="explainW"  v-if="typeIndex!=0">
+      <div class="explainW"  v-if="typeIndex!=0 && isNormalUser">
         <div class="explain-header">
           <img src="../../../../common/images/phone/explain-header.png" alt="">
         </div>
@@ -158,7 +158,7 @@
         </div>
       </div>
 
-      <div class="other-serviceW">
+      <div class="other-serviceW" v-if="isNormalUser">
         <p class="title">更多服务</p>
         <div class="other-service">
           <li @click="$router.push({name:'goldHome'})">
@@ -213,7 +213,8 @@ export default {
     detailInfoShow: false,
     phoneTaxInfo:{},
     isiOS: false,
-    bulletin: "联通充值官方调整，导致联通手机无法充值，恢复时间另行通知。"
+    bulletin: "联通充值官方调整，导致联通手机无法充值，恢复时间另行通知。",
+    isNormalUser: true
   }),
   watch:{
     mobile(val){
@@ -252,14 +253,16 @@ export default {
         let res = await directPrice({token:this.getToken,mobile:newMobile});
         if(res.error_code!=0) return res.message;
         this.dirList = res.data;
-        if(this.mobile){
-          // 填了手机号码，返回的数据格式跟没有填号码时返回的数据格式不一致
-          this.setConfig({dirPrice:Object.keys(this.dirList)[1],realDirP:Object.values(this.dirList)[1][0]})
-          this.phoneTax()
-        }else{
-          this.setConfig({dirPrice:Object.keys(this.dirList)[1],realDirP:Object.values(this.dirList)[1][0]})
-          this.phoneTax()
-        }
+        this.setConfig({dirPrice:Object.keys(this.dirList)[1],realDirP:Object.values(this.dirList)[1][0]})
+        this.phoneTax()
+        // if(this.mobile){
+        //   // 填了手机号码，返回的数据格式跟没有填号码时返回的数据格式不一致
+        //   this.setConfig({dirPrice:Object.keys(this.dirList)[1],realDirP:Object.values(this.dirList)[1][0]})
+        //   this.phoneTax()
+        // }else{
+        //   this.setConfig({dirPrice:Object.keys(this.dirList)[1],realDirP:Object.values(this.dirList)[1][0]})
+        //   this.phoneTax()
+        // }
       },
        async getCarPrice(){
         let res = await cardPrice({token:this.getToken});
@@ -317,13 +320,6 @@ export default {
           this.setConfig({cardPrice:Object.keys(this.cardList)[2],realCarP:Object.values(this.cardList)[2][0]}) //初始值拿下标为1的值
         }
       },
-      // 戴斯商户
-      // specialCustom() {
-      //   if(this.userinfo.vendorId == '5866a9fe52c04bfda0fd00aecda464b1' || this.userinfo.vendorId == 'd0ff41a07f04494ca7753686fb42383a' || this.userinfo.vendorId == '583d192da2734e5b8bd4a3837135c27a'){
-      //     this.typeIndex=1;
-      //     this.$store.dispatch('phone/setConfig',{type: 1})
-      //   }
-      // }
       contact () {
         window.location.href = `http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481`
       },
@@ -431,7 +427,6 @@ export default {
     }),
   },
   created () {
-    // this.isiOS = true
     let u = navigator.userAgent
     let is_iOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
     if(is_iOS) {
@@ -446,19 +441,11 @@ export default {
     this.getDirPrice();
     this.getCarPrice();
     this.noGoods = ['1']
+    if(this.userinfo.vendorId == '3839c796c9574b05a80c87f0adfb1f21') {
+      this.isNormalUser = false
+    }
   },
   mounted(){
-    // let phoneNum = this.userinfo.userName.replace(/\s+/g, "")
-    // if(IsChinaMobile(phoneNum)) {
-    //   this.mobile = phoneNum
-    // }else {
-    //   this.mobile = ''
-    // }
-    // this.getDirPrice();
-    // this.getCarPrice();
-    // this.noGoods = ['1','5']
-    // this.specialCustom();
-
     // 延时滚动
     setTimeout(() => {
         this.runMarquee()

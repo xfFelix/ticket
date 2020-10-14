@@ -40,7 +40,7 @@
         </p>
       </div>
       <div class="check-record" @click="$router.push({name:'phoneCRecord',query:{cardId:1}})">查看兑换记录</div>
-      <div class="changes" @click="changeCard">前往使用充值、转卖 ></div>
+      <div class="changes" @click="changeCard" v-if="isNormalUser">前往使用充值、转卖 ></div>
     </div>
   </div>
 </template>
@@ -56,6 +56,9 @@ export default {
       default: ''
     }
   },
+  data:()=>({
+    isNormalUser: true
+  }),
   computed: {
     ...mapGetters({
       getToken: 'getToken',
@@ -66,6 +69,11 @@ export default {
   methods: {
     changeCard() {
       window.location.href = this.haihangUrl
+    }
+  },
+  created () {
+    if(this.userinfo.vendorId == '3839c796c9574b05a80c87f0adfb1f21') {
+      this.isNormalUser = false
     }
   },
   mounted() {

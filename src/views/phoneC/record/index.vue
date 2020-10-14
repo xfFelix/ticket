@@ -51,10 +51,10 @@
                             </div>
                         </div>
 
-                        <div class="dashed" v-if="typeFlag==1 && item.status!=2"></div>
-                        <div class="reInfo-footer" @click="smsShow(item.orderNum)" v-if="item.cardNum==1 && item.status==1">充值&nbsp;|&nbsp;转卖 </div>
-                        <div class="reInfo-footer recharged" v-if="item.cardNum==1 && item.status==4">已充值</div>
-                        <div class="reInfo-footer recharged" v-if="item.cardNum==1 && item.status==7">已转卖</div>
+                        <div class="dashed" v-if="typeFlag==1 && item.status!=2 && isNormalUser"></div>
+                        <div class="reInfo-footer" @click="smsShow(item.orderNum)" v-if="item.cardNum==1 && item.status==1 && isNormalUser">充值&nbsp;|&nbsp;转卖 </div>
+                        <div class="reInfo-footer recharged" v-if="item.cardNum==1 && item.status==4 && isNormalUser">已充值</div>
+                        <div class="reInfo-footer recharged" v-if="item.cardNum==1 && item.status==7 && isNormalUser">已转卖</div>
                         <!-- <div class="pBUse" @click="smsShow(item.orderNum)" v-if="item.cardNum==1 && item.status==1">立即使用</div> -->
                         <!-- <a class="pBUse" :href="item.orderNum" v-if="item.cardNum==1 && item.status==1">立即使用</a> -->
                         <div v-if="typeFlag==1" class="left-around"></div>
@@ -92,7 +92,8 @@ export default {
           code: false
         },
         failText:undefined,
-        orderNum: ''
+        orderNum: '',
+        isNormalUser: true
     }),
     components: {
         NoData: () => import('components/NoData'),
@@ -197,6 +198,11 @@ export default {
             this.failText = data.message
           }
         }
+    },
+    created () {
+      if(this.userinfo.vendorId == '3839c796c9574b05a80c87f0adfb1f21') {
+        this.isNormalUser = false
+      }
     },
     mounted() {
       if(this.$route.query.cardId==1 || this.userinfo.vendorId=='yingqiudi'){
