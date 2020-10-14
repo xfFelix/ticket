@@ -124,7 +124,7 @@ export default {
         }
         let res = await phoneCharge({token:this.getToken,amount:amount,verify_code:val,type:this.phoneConfig.type+'',mobile:mobile});
         if(res.error_code == 30000){ return this.$dialog({type:'confirm',content:res.message},()=>{
-          this.$router.push({path:'/realName?back=/phoneC'})
+          this.$router.push({path:'/realName?back=/phone'})
         })}
         if(res.error_code!=0)  return this.failText = res.message;
         this.totalAmount = res.data.totalAmount;

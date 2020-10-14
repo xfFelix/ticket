@@ -337,7 +337,7 @@ export default {
             if(this.userinfo.score >= this.phoneTaxInfo.total){
               if(this.phoneTaxInfo.monthTotal > 30000 && isEmpty(this.userinfo.idnum)){
                 this.$dialog({type:'confirm',content:'您消费额度超过3万，请先实名认证！'},()=>{
-                  this.$router.push({path:'/realName?back=/phoneC'})
+                  this.$router.push({path:'/realName?back=/phone'})
                 })
                 return false;
               }else {
@@ -356,7 +356,7 @@ export default {
           if(this.userinfo.score >= this.phoneTaxInfo.total){
               if(this.phoneTaxInfo.monthTotal > 30000 && isEmpty(this.userinfo.idnum)){
                 this.$dialog({type:'confirm',content:'您消费额度超过3万，请先实名认证！'},()=>{
-                  this.$router.push({path:'/realName?back=/phoneC'})
+                  this.$router.push({path:'/realName?back=/phone'})
                 })
                 return false;
               }else {

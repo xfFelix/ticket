@@ -400,45 +400,45 @@ const router = new Router({
 
 
 
+      // {
+      //   path: '/phone',
+      //   name: 'phone',
+      //   component: () => import(/* webpackChunkName: "group-life" */'views/phone'),
+      //   meta: {
+      //     title: '话费充值',
+      //     requireAuth: true
+      //   },
+      //   redirect: '/phone/home',
+      //   children: [
+      //     {
+      //       path: 'home',
+      //       name: 'phoneHome',
+      //       component: () => import(/* webpackChunkName: "group-life" */'views/phone/home'),
+      //       meta: {
+      //         title: '话费充值',
+      //         requireAuth: true
+      //       }
+      //     },
+      //     {
+      //       path: 'record',
+      //       name: 'phoneRecord',
+      //       component: () => import(/* webpackChunkName: "group-life" */'views/phone/record'),
+      //       meta: {
+      //         title: '话费记录',
+      //         requireAuth: true
+      //       }
+      //     }
+      //   ]
+      // },
       {
         path: '/phone',
         name: 'phone',
-        component: () => import(/* webpackChunkName: "group-life" */'views/phone'),
-        meta: {
-          title: '话费充值',
-          requireAuth: true
-        },
-        redirect: '/phone/home',
-        children: [
-          {
-            path: 'home',
-            name: 'phoneHome',
-            component: () => import(/* webpackChunkName: "group-life" */'views/phone/home'),
-            meta: {
-              title: '话费充值',
-              requireAuth: true
-            }
-          },
-          {
-            path: 'record',
-            name: 'phoneRecord',
-            component: () => import(/* webpackChunkName: "group-life" */'views/phone/record'),
-            meta: {
-              title: '话费记录',
-              requireAuth: true
-            }
-          }
-        ]
-      },
-      {
-        path: '/phoneC',
-        name: 'phoneC',
         component: () => import(/* webpackChunkName: "group-life" */'views/phoneC'),
         meta: {
           title: '话费充值',
           requireAuth: true
         },
-        redirect: '/phoneC/home',
+        redirect: '/phone/home',
         children: [
           {
             path: 'home',
