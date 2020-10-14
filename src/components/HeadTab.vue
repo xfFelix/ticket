@@ -5,7 +5,8 @@
       <div class="dialog-content">
         <a :href="getToken?(process+item.linkTo+'?token=' + getToken):(process+item.linkTo)" v-for="(item,index) in dialogList" :key="index">
           <div class="link">
-            <span class="iconfont" :class="item.icon"></span>
+            <img :src="item.icon" alt="">
+            <!-- <span class="iconfont" :class="item.icon"></span> -->
             <span>{{item.name}}</span>
           </div>
         </a>
@@ -18,11 +19,11 @@ import { mapGetters } from 'vuex';
 export default {
   data: () => ({
     dialogList: [
-      { name: '首页', icon: 'icon-xiazai45', linkTo: '/#/layout/home'},
+      { name: '首页', icon: require('../common/images/icon_home.png'), linkTo: '/#/layout/home'},
       // { name: '商城', icon: 'icon-shangcheng', linkTo:'#/layout/shopMall'},
-      { name: '分类', icon: 'icon-fenlei', linkTo:'/#/layout/classify' },
-      { name: '购物车', icon: 'icon-gouwuche', linkTo:'/#/layout/shopCart'},
-      { name: '我的', icon: 'icon-My', linkTo:'/#/layout/account'},
+      { name: '分类', icon: require('../common/images/icon_sort.png'), linkTo:'/#/layout/classify' },
+      { name: '购物车', icon: require('../common/images/icon_shopping.png'), linkTo:'/#/layout/shopCart'},
+      { name: '我的', icon: require('../common/images/icon_personal.png'), linkTo:'/#/layout/account'},
     ],
     process:process.env.VUE_APP_BASE_HOME_URL
   }),
@@ -52,23 +53,26 @@ export default {
       position: absolute;
       right: 14px;
       top: -5px;
-      border-top: 1px solid #dfdfdf;
-      border-left: 1px solid #dfdfdf;
     }
     .dialog-content {
-      border: 1px solid #dfdfdf;
-      border-radius: 7px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 10px 0px rgba(220,220,220,0.6);
       .link {
         background: #fff;
-        padding: 8px 0;
+        padding: 16px 16px;
         border-bottom: 1px solid #dfdfdf;
-        width: 120px;
+        width: 140px;
         display: flex; // justify-content: center;
         align-items: center;
         font-size: 14px;
-        span:first-of-type {
-          margin: 0 12px;
-          font-size: 18px;
+        color: #444444;
+        box-sizing: border-box;
+        img {
+          width: 16px;
+          height: 16px;
+        }
+        span {
+          margin-left: 10px;
         }
       }
       a:first-of-type {

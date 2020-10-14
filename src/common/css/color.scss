@@ -1,0 +1,12 @@
+// $color: red;
+:root {
+  --color-change: red;  //--color-change  ：变量名，css3有规则
+}
+$color: var(--color-change); //用var来盛放变量名
+.color {
+  background-color: purple;
+}
+$theme: #2CCE85;
+// $gold: #ccc;
+$gold: $theme;
+$phone: $theme;

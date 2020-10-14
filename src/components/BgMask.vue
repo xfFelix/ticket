@@ -1,5 +1,5 @@
 <template>
-  <div v-if="open" class="mask" @click="$emit('click', false)" :style="{'background-color':color}"></div>
+  <div v-if="open" class="mask"  @click="closeMask" :style="{'background-color':color}"></div>
 </template>
 
 <script>
@@ -16,7 +16,21 @@ export default {
     },
     color: {
       type: String,
-      default: 'rgba(0,0,0,0.6)'
+      default: 'rgba(0,0,0,0.8)'
+    },
+    isClose: {
+      type: Boolean,
+      default: true
+    }
+  },
+  methods: {
+    closeMask() {
+      console.log('isClose',this.isClose)
+      if(this.isClose) {
+        this.$emit('click', false)
+      }else {
+        this.$emit('click', true)
+      }
     }
   }
 }

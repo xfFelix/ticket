@@ -6,7 +6,8 @@ let defaultConfig = {
   dirPrice:undefined,
   realCarP:undefined,
   cardPrice:undefined,
-  mobile:""
+  mobile:"",
+  phoneTaxInfoTotal: undefined,
 }
 
 // try{
@@ -54,7 +55,8 @@ const mutations = {
       dirPrice:undefined,
       realCarP:undefined,
       cardPrice:undefined,
-      mobile:""
+      mobile:"",
+      phoneTaxInfoTotal: undefined,
     }
   }
 }

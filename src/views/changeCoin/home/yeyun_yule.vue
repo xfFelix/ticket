@@ -285,9 +285,11 @@ export default {
         height: 100%;
         font-size: 16px;
         border-radius:5px;
+        color: #000000 !important;
         &:disabled{
           background: #fff;
-          color: #999;
+          // color: #999;
+          color: #000000 !important;
         }
       }
     }

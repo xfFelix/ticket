@@ -367,6 +367,39 @@ const router = new Router({
           }
         }
       ]},
+
+      // {
+      //   path: '/goldzy',
+      //   name: 'goldzy',
+      //   component: () => import(/* webpackChunkName: "group-life" */'views/goldzy'),
+      //   meta: {
+      //     title: '黄金兑换',
+      //     requireAuth: true
+      //   },
+      //   redirect: '/goldzy/home',
+      //   children: [
+      //     {
+      //       path: 'home',
+      //       name: 'goldZyHome',
+      //       component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/home'),
+      //       meta: {
+      //         title: '黄金兑换',
+      //         requireAuth: true
+      //       }
+      //     },
+      //     {
+      //       path: 'introduce',
+      //       name: 'goldIntroduce',
+      //       component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/introduce'),
+      //       meta: {
+      //         title: '黄金兑换',
+      //         requireAuth: true
+      //       }
+      //     },
+      //   ]},
+
+
+
       {
         path: '/phone',
         name: 'phone',
@@ -397,6 +430,37 @@ const router = new Router({
           }
         ]
       },
+      {
+        path: '/phoneC',
+        name: 'phoneC',
+        component: () => import(/* webpackChunkName: "group-life" */'views/phoneC'),
+        meta: {
+          title: '话费充值',
+          requireAuth: true
+        },
+        redirect: '/phoneC/home',
+        children: [
+          {
+            path: 'home',
+            name: 'phoneCHome',
+            component: () => import(/* webpackChunkName: "group-life" */'views/phoneC/home'),
+            meta: {
+              title: '话费充值',
+              requireAuth: true
+            }
+          },
+          {
+            path: 'record',
+            name: 'phoneCRecord',
+            component: () => import(/* webpackChunkName: "group-life" */'views/phoneC/record'),
+            meta: {
+              title: '话费记录',
+              requireAuth: true
+            }
+          }
+        ]
+      },
+
       {
         path: '/creditCard',
         name: 'creditCard',
