@@ -6,7 +6,6 @@
         <router-view v-if="!$route.meta.keepAlive"/>
   </div>
 </template>
-
 <style lang="scss">
 #app {
   font-family: 'PingFangSC-Regular, PingFang SC','Avenir', Helvetica, Arial, sans-serif;
@@ -15,6 +14,6 @@
   background: #f3f4f6;
 }
 #app{
-  height: 100%;;
+  height: 100%;
 }
 </style>

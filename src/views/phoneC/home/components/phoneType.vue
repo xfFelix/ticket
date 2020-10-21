@@ -14,26 +14,9 @@
                     </div>
                 </li>
             </ul>
-             <!-- <div class="phoneBill-card" v-show="typeIndex!=0">
-                  <p> 椰子分余额：<span class="phoneBill-over">{{userinfo.score}}</span> </p>
-                  <span class="phoneBill-rTit" @click="$router.push({name:'phoneRecord',query:{cardId:typeIndex}})">兑换记录 ></span>
-              </div> -->
+
         </div>
 
-        <!-- <div class="phoneBill-infoW" v-show="typeIndex==0">
-            <div class="phoneBill-info">
-                <div class="phoneBill-inpW phoneBill-direct">
-                    <span class="logoGreen iconImg"></span>
-                    <div class="input-flex">
-                      <input type="tel" pattern="\d*" class="phoneBill-inp" maxlength="11" placeholder="请输入充值手机号码" v-model.trim="mobile"/>
-                    </div>
-                </div>
-                <div class="phoneBill-OR">
-                    <p> 椰子分余额：<span class="phoneBill-over">{{userinfo.score}}</span> </p>
-                    <span class="phoneBill-rTit" @click="$router.push({name:'phoneRecord',query:{cardId:typeIndex}})">兑换记录 ></span>
-                </div>
-            </div>
-        </div> -->
       </div>
        <div class="phoneBill-money" :class="[typeIndex==0?'phone-direct':'phone-indirect']">
          <div class="advert-top" v-if="bulletin">
@@ -169,9 +152,15 @@
             <img src="@/common/images/phone/oil.png" alt="">
             <p>加油卡</p>
           </li>
-          <li @click="$router.push({name:'lifeHome'})">
+          <!-- <li @click="$router.push({name:'lifeHome'})">
             <img src="@/common/images/phone/life.png" alt="">
             <p>生活缴费</p>
+          </li> -->
+          <li @click="$router.push({name:'lifeHome'})" >
+            <a :href="process+'#/layout/channel?id=yeyun'">
+              <img src="@/common/images/phone/shop.png" alt="">
+              <p>小椰超市</p>
+            </a>
           </li>
           <li @click="$router.push({name:'memberHome'})">
             <img src="@/common/images/phone/members.png" alt="">
@@ -213,8 +202,9 @@ export default {
     detailInfoShow: false,
     phoneTaxInfo:{},
     isiOS: false,
-    bulletin: "联通充值官方调整，导致联通手机无法充值，恢复时间另行通知。",
-    isNormalUser: true
+    bulletin: "",
+    isNormalUser: true,
+    process:process.env.VUE_APP_BASE_HOME_URL
   }),
   watch:{
     mobile(val){
@@ -255,14 +245,6 @@ export default {
         this.dirList = res.data;
         this.setConfig({dirPrice:Object.keys(this.dirList)[1],realDirP:Object.values(this.dirList)[1][0]})
         this.phoneTax()
-        // if(this.mobile){
-        //   // 填了手机号码，返回的数据格式跟没有填号码时返回的数据格式不一致
-        //   this.setConfig({dirPrice:Object.keys(this.dirList)[1],realDirP:Object.values(this.dirList)[1][0]})
-        //   this.phoneTax()
-        // }else{
-        //   this.setConfig({dirPrice:Object.keys(this.dirList)[1],realDirP:Object.values(this.dirList)[1][0]})
-        //   this.phoneTax()
-        // }
       },
        async getCarPrice(){
         let res = await cardPrice({token:this.getToken});
@@ -276,11 +258,14 @@ export default {
           if(index==0) {
             this.noGoods = ['1']
             this.phoneTax()
-            this.bulletin = "联通充值官方调整，导致联通手机无法充值，恢复时间另行通知。"
+            this.bulletin = ""
           }else {
             this.noGoods = ['1','5']
             this.phoneTax()
             this.bulletin = "同一个账号在多个渠道进行充值卡充值，每天累计最多5次。"
+            setTimeout(() => {
+              this.runMarquee()
+            }, 500)
           }
       },
       dirClick(index,price,key){
@@ -447,9 +432,9 @@ export default {
   },
   mounted(){
     // 延时滚动
-    setTimeout(() => {
-        this.runMarquee()
-    }, 1000)
+    // setTimeout(() => {
+    //     this.runMarquee()
+    // }, 1000)
   },
 
 }

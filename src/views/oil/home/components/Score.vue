@@ -11,10 +11,10 @@
       </div>
 
     </header>
-    <div class="type">
+    <!-- <div class="type">
       <div class="item" :class="{active: config.rechargeType === 1}" @click="changeRechargeType(1)">直充</div>
       <div class="item" :class="{active: config.rechargeType === 2}" @click="changeRechargeType(2)">充值卡</div>
-    </div>
+    </div> -->
     <div class="footer">
       <span class="score">椰子分余额: <i class="price-color">{{userinfo.score | toPrice}}</i></span>
       <span class="history" @click="$router.push('/oil/oilRecord')">兑换记录 ></span>
@@ -109,7 +109,8 @@ export default {
     }
   }
   .footer {
-    padding: 26px 18px 21px;
+    // padding: 26px 18px 21px;
+    padding: 0px 18px 21px;
     font-size: 13px;
     display: flex;
     justify-content: space-between;

@@ -38,11 +38,11 @@ export default {
     z-index: 10;
     background: #fff;
     height: 95%;
-    width: 375px;
+    width: 100%;
 }
 
 .goback {
-    width: 100%;
+    // width: 100%;
     height: 50px;
     line-height: 50px;
     padding-left: 15px;
@@ -71,7 +71,7 @@ export default {
   .agreeFixed{
     max-width: 384px; /*no*/
     left: 50% !important;
-    transform: translateX(-50%);
+    transform: translateX(-21%);
   }
 }
 </style>

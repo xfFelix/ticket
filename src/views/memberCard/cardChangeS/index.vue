@@ -20,7 +20,7 @@ export default {
       },//要跳转的订单记录页面
       moneyP:undefined,
       pathHomeP:'memberCard',
-      logoIdP:[1,2,3,4]
+      logoIdP:[1,2,3]
     }
   },
   methods: {

@@ -25,6 +25,7 @@ import oil from './modules/oil';
 import life from './modules/life';
 import gold from './modules/gold';
 import phone from './modules/phone';
+import platform from './modules/platform'
 
 import createLogger from 'vuex/dist/logger' // 每次修改会去控制台打一个状态
 
@@ -44,6 +45,7 @@ export default new Vuex.Store({
     life,
     gold,
     phone,
+    platform
   },
   strict: debug,
   plugins: debug ? [createLogger()] : []

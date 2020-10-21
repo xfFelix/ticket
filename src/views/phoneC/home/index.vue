@@ -37,7 +37,7 @@
 import {mapGetters, mapActions } from 'vuex';
 import {setPayType ,IOSFocus ,vipCustom} from '@/mixins'
 import {phoneCharge ,phoneTax} from 'api';
-import { isEmpty  } from "util/common";
+import { isEmpty, getParam} from "util/common";
 export default {
   mixins: [setPayType, IOSFocus ,vipCustom],
   data:()=>({
@@ -74,13 +74,14 @@ export default {
     ...mapGetters({
       getToken: 'getToken',
       phoneConfig: 'phone/getConfig',
-      userinfo: 'getUserinfo'
+      userinfo: 'getUserinfo',
     }),
   },
   methods:{
      ...mapActions({
         checkPassword: 'checkPassword',
-        initConfig: 'phone/initConfig'
+        initConfig: 'phone/initConfig',
+        platform:'platform/setPlatform'
       }),
       // async phoneBnt(name){
       //   if(name == 'dir'){
@@ -171,6 +172,9 @@ export default {
   },
   mounted(){
     window.addEventListener('scroll', this.handleScroll, false)
+    if(getParam().vendorId) {
+      this.platform(1)
+    }
   },
   beforeDestroy() {
     window.removeEventListener('scroll',this.handleScroll);
@@ -254,7 +258,7 @@ export default {
 </style>
 <style>
 @media screen and (min-width: 600px) {
-  .navbar,.goldBnt{
+  .navbar, .phoneHome{
     max-width: 384px; /*no*/
   }
 }

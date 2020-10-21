@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import getToken from './hook/getToken'
 import changeTitle from './hook/changeTitle'
+import getVendorId from './hook/getVendorId'
 import store from '@/store'
 
 Vue.use(Router)
@@ -593,5 +594,6 @@ const router = new Router({
 
 getToken(router)
 changeTitle(router)
+getVendorId(router)
 export default router
 

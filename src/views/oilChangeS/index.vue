@@ -23,7 +23,7 @@ export default {
       }, //要跳转的订单记录页面
       moneyP:undefined,
       pathHomeP:'oil',
-      logoIdP:[1,2,4,5]
+      logoIdP:[1,2,5]
     }
   },
   computed: {

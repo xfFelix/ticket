@@ -123,8 +123,9 @@ export default {
     })
   },
   created () {
+    // 0a1faa45140a4966b574309d95dc15a8  椰子娱乐测试环境商户id
     let vendorId = this.userinfo.vendorId
-    if(vendorId=='3a9e9f3ac2ea493faaa365d8c90f7b43' || vendorId=='yingqiudi' || vendorId=='v-chuanqi') {
+    if(vendorId=='3a9e9f3ac2ea493faaa365d8c90f7b43' || vendorId=='yingqiudi' || vendorId=='v-chuanqi' || vendorId=='0a1faa45140a4966b574309d95dc15a8') {
       this.isVendor = true
     }else {
       this.isVendor = false

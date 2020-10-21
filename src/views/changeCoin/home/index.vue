@@ -44,7 +44,7 @@
     <!-- 兑换信息 -->
     <recharge-info :show="show.info" @handler-show-code="showSms" @go-back="initShow" :coinInfo="coinInfo"></recharge-info>
     <!-- 发送短信 -->
-    <sms-code :show="show.sms" @handler-show-info="showInfo" @code-info="codeInfo" :codeError.sync="codeErrFlag" :codeMessage="codeMessage"></sms-code>
+    <sms-code :show="show.sms" @handler-show-info="showInfo" @submit-order="codeInfo" :failText="codeMessage"></sms-code>
     <!-- 设置支付密码dialog -->
     <set-password :show.sync="showSetPassword"></set-password>
     <!-- 设置手机号 -->

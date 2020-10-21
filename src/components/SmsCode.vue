@@ -13,9 +13,6 @@
         <div v-if="userinfo.payValidType === 1" class="pay-numberW">
           <Code v-model="code" ></Code>
           <div class="fail-text">{{failText}}</div>
-          <!-- <div class="forget-password">
-            <a :href="token?(process+'/#/payPassword'+'?token=' + token):(process+'/#/payPassword')">忘记密码</a>
-          </div> -->
         </div>
         <div v-if="userinfo.payValidType !== 1">
           <div class="inputW">
