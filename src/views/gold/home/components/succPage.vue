@@ -21,7 +21,7 @@ export default {
       },//要跳转的订单记录页面
       moneyP:undefined,
       pathHomeP:'gold',
-      logoIdP:[2,3,4,5]
+      logoIdP:[2,3,5]
     }
   },
   computed:{

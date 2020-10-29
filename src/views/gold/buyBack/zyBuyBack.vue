@@ -8,8 +8,8 @@
       </div>
       <div class="intro-card">
         <img src="~common/images/gold/huangdi-logo.png" alt="">
-        <div><span class="jewelry">皇悦珠宝</span></div>
-        <p>东莞皇悦珠宝有限公司起源于香港皇帝珠宝皇帝珠宝是香港皇帝珠宝旗下的高端珠宝首饰品牌。东莞皇悦珠宝有限公司成立于2002年，是集... <span @click="show.profile=true">更多 ></span></p>
+        <div><span class="jewelry">信达贵金</span></div>
+        <p>海南信达贵金科技有限公司是一家专业服务于互联网金融的贵金属交易公司。公司接受海南省监管机构监督指导，稳健运营；制定有严格的... <span @click="show.profile=true">更多 ></span></p>
       </div>
       <div class="goldbuy-back-money">
         <p class="title">回购到账金额</p>
