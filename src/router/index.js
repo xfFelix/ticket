@@ -359,6 +359,15 @@ const router = new Router({
           }
         },
         {
+          path: 'buyBackGs',
+          name: 'goldBuyBackGs',
+          component: () => import(/* webpackChunkName: "group-life" */'views/gold/buyBack/gsBuyBack'),
+          meta: {
+            title: '竞技黄金回购',
+            requireAuth: true
+          }
+        },
+        {
           path: 'record',
           name: 'goldRecord',
           component: () => import(/* webpackChunkName: "group-life" */'views/gold/record'),
