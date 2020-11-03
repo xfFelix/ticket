@@ -58,7 +58,7 @@ export default {
     },
     logoIdC:{
       type:Array,
-      default:()=>[1,2,3,4]
+      default:()=>[1,2,3,5]
     },
   },
   data(){

@@ -1,11 +1,11 @@
 <template>
     <div class="agreeFixed" v-if="show">
-        <div class="iconfont goback" @click="$emit('handle-show-profile')">&#xe61e;<span>皇悦珠宝有限公司</span></div>
+        <div class="iconfont goback" @click="$emit('handle-show-profile')">&#xe61e;<span>信达贵金有限公司</span></div>
         <div class="goldCompanyW">
           <div class="logo-wrapper"><img src="~common/images/gold/huangdi-logo.png" alt=""></div>
           <div class="profile-wrapper">
             <p class="title"><span class="square"></span><span class="profile">公司介绍</span></p>
-            <p class="content">东莞皇悦珠宝有限公司起源于香港皇帝珠宝,    “LORDGEM 皇帝珠宝”是香港皇帝珠宝旗下的高端珠宝首饰品牌。东莞皇悦珠宝有限公司成立于2002年，是集珠宝款式设计、制作工艺研发、个性专属定制、直营零售和自营进口业务 为一体的大型珠宝品牌公司。本公司追求极致，不断创新精神，致力于为消费者提供极致的产品和完善的体验，深入而广泛地影响着人们的时尚生活。</p>
+            <p class="content">海南信达贵金科技有限公司是一家专业服务于互联网金融的贵金属交易公司。公司接受海南省监管机构监督指导，稳健运营；制定有严格的防范措施，用以保障交易环境及资金安全；拥有专业化的精英运营团队并建立交易风控策略；配置7*24小时私人客服，全时段服务于互联网金融。</p>
             <img class="profile-img" src="~common/images/gold/profile.png" alt="">
           </div>
           <div class="line"></div>
@@ -90,15 +90,15 @@ export default {
           vertical-align: middle;
         }
         .square {
-          margin-right: 3px;
+          margin-right: 10px;
           width: 3px;
-          height: 16px;
+          height: 18px;
           background: #FE8B30;
         }
         .profile {
-          font-size: 16px;
+          font-size: 18px;
           font-family: PingFangSC-Semibold, PingFang SC;
-          font-weight: 600;
+          font-weight: bold;
           color: #444444;
 
         }
@@ -117,8 +117,8 @@ export default {
         display: block;
         margin: 20px auto;
         margin-bottom: 32px;
-        width: 200px;
-        height: 276px;
+        width: 310px;
+        height: 222px;
       }
     }
     .line {
@@ -136,15 +136,15 @@ export default {
           vertical-align: middle;
         }
         .square {
-          margin-right: 3px;
+          margin-right: 10px;
           width: 3px;
-          height: 16px;
+          height: 18px;
           background: #FE8B30;
         }
         .profile {
-          font-size: 16px;
+          font-size: 18px;
           font-family: PingFangSC-Semibold, PingFang SC;
-          font-weight: 600;
+          font-weight: bold;
           color: #444444;
         }
       }
@@ -164,7 +164,7 @@ export default {
               width: 20px;
               height: 20px;
               color: #FFFFFF;
-              font-size: 12px;
+              font-size: 14px;
               line-height: 21px;
               text-align: center;
               background-image: url('../../../../common/images/gold/circular-ring.png');
@@ -182,13 +182,13 @@ export default {
               display: inline-block;
               vertical-align: top;
               margin-left: 13px;
-              margin-top: -4px;
-              font-size: 10px;
+              margin-top: -2px;
+              font-size: 12px;
               color: rgba($color: #000000, $alpha: 0.4);
             }
           }
           .odd {
-            font-size: 12px;
+            font-size: 14px;
             color: #444444;
           }
           .even {
@@ -196,8 +196,8 @@ export default {
           }
           .last {
             margin-left: 23px;
-            margin-top: -4px;
-            font-size: 10px;
+            margin-top: -2px;
+            font-size: 12px;
             color: rgba($color: #000000, $alpha: 0.4);
           }
         }

@@ -11,6 +11,12 @@ export default {
     if (!state.token || isEmpty(state.token)) return undefined
     return state.token
   },
+  // 获取商户平台
+  getPlatform: state => {
+    if (!state.platform || isEmpty(state.platform)) return undefined
+    return state.platform
+  },
+
   getShowSetPassword: state => {
     return state.showSetPassword
   },

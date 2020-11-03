@@ -5,8 +5,8 @@
           <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[1]}}</div>
           <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[2]}}</div>
           <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[3]}}</div>
-          <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}" v-if="userinfo.payValidType === 1">{{code[4]}}</div>
-          <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}" v-if="userinfo.payValidType === 1">{{code[5]}}</div>
+          <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[4]}}</div>
+          <div class="code-input-main-item" :class="{'text-security': userinfo.payValidType === 1}">{{code[5]}}</div>
         </label>
         <input class="code-input-input" id="code" autofocus="autofocus" :value="code" @input="$emit('input', $event.target.value.trim())" :maxlength="userinfo.payValidType === 1 ? 6 : 4" type="number" autocomplete="off" pattern="[0-9]*"/>
     </div>
@@ -45,7 +45,7 @@ export default {
 </script>
 <style scoped>
 .code-input-input {
-  height: 50px;
+  height: 40px;
   outline: none;
   color: transparent;
   text-shadow: 0 0 0 transparent;
@@ -54,35 +54,46 @@ export default {
   z-index: -1;
   /* caret-color: transparent; */
   opacity: 0;
-  width: 345px;
-  height: 50px;
   letter-spacing: 39px;
   margin-left: 15px;
 }
 .code-input-main {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   position: absolute;
   left: 0;
   right: 0;
-    width: 345px;
   height: 50px;
 }
 .code-wrapper{
   position: relative;
-
+  height: 40px;
 }
 .code-input-main-item {
-  width: 50px;
-  height: 50px;
-  opacity: 0.8;
-  border-bottom: solid #000 1px;
-  margin: 0 .05rem;
+  width: 43px;
+  height: 45px;
+  line-height: 40px;
+  border-right: 1px solid rgb(230, 230, 230);
+  border-top: solid #A9A6AA 1px;
+  border-bottom: solid #A9A6AA 1px;
+  /* border-radius: 3px; */
+  /* margin: 0 .05rem; */
   text-align: center;
   padding-bottom: 0;
   font-size: 30px;
-  color: #000;
+  color: #444444;
+  box-sizing: border-box;
+}
+.code-input-main-item:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-left: solid #A9A6AA 1px;
+}
+.code-input-main-item:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-right: solid #A9A6AA 1px;
 }
 .text-security{
   -webkit-text-security: disc;

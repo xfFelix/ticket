@@ -2,7 +2,12 @@
   <header>
     <h1><slot></slot></h1>
     <i class="cubeic-back" v-if="showBack" @click="goBack"></i>
-    <i class="iconfont icon-gengduo-copy" v-if="showMore" @click="toggleFlag = !toggleFlag"></i>
+    <div class="gengduoW" v-if="showMore" @click="toggleFlag = !toggleFlag">
+      <slot name="icon">
+        <i class="icon-gengduo"></i>
+      </slot>
+    </div>
+    <!-- <i class="icon-gengduo" v-if="showMore" @click="toggleFlag = !toggleFlag"></i> -->
     <HeadTab v-show="toggleFlag" class="header-tab"/>
   </header>
 </template>
@@ -51,7 +56,7 @@ export default {
 header{
   position: relative;
   height: 44px;
-  line-height: 44px;
+  line-height: 46px;
   text-align: center;
   background-color: #fff;
   // box-shadow: 0 1px 6px #ccc;
@@ -72,16 +77,20 @@ header{
       font-size: 18px;
     }
   }
-  .icon-gengduo-copy{
+  .icon-gengduo{
     position: absolute;
-    top: 0;
-    right: 6px;
-    font-size: 28px;
+    top: 6px;
+    right: 16px;
+    // font-size: 28px;
+    width: 24px;
+    height: 24px;
+    background-image: url('../common/images/header-moreW.png');
+    background-size: 100% 100%;
   }
   .header-tab{
     line-height: 1;
     top: 44px;
-    right: 2px;
+    right: 8px;
   }
 }
 </style>

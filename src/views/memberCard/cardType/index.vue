@@ -5,7 +5,9 @@
     <!-- 兑换信息 -->
     <charge-info :show="show.info" @go-back="initShow" @send-sms="sendCode" :info="chargeInfo"></charge-info>
     <!-- 短信 -->
-    <sms-code :show="show.sms" :fail-text="failText" @go-back="initShow" @code-info="codeInfo" :codeError.sync="codeErrFlag" @send-sms="sendCode"></sms-code>
+
+    <Sms-code :show="show.sms" :fail-text="failText" @handler-show-info="initShow" @submit-order="codeInfo" ></Sms-code>
+    <!-- <sms-code :show="show.sms" :fail-text="failText" @go-back="initShow" @code-info="codeInfo" :codeError.sync="codeErrFlag" @send-sms="sendCode"></sms-code> -->
     <!-- 遮罩层 -->
     <transition name="fade">
       <bg-mask v-model="show.mask"></bg-mask>
@@ -148,7 +150,8 @@ export default {
   components: {
     ChargeInfo: () => import('./components/ChargeInfo'),
     BgMask: () => import('components/BgMask'),
-    SmsCode: () => import('./components/SmsCode'),
+    // SmsCode: () => import('./components/SmsCode'),
+    SmsCode: ()=> import('@/components/SmsCode'),
     CardSelect: () => import('./components/CardSelect'),
     SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),
     SetMobile: () => import(/* webpackPrefetch: true */ 'components/SetMobile')

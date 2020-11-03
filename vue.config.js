@@ -16,15 +16,15 @@ module.exports = {
     extract: false,
     // css预设器配置项
     loaderOptions: {
+      sass: {
+        prependData: `@import "~@/common/css/color.scss";`
+      },
       stylus: {
         'resolve url': true,
         'import': [
           './src/theme'
         ]
       }
-      // sass: {
-      //   prependData: `@import "~@/common/css/color.scss";`
-      // }
     },
   },
   pluginOptions: {

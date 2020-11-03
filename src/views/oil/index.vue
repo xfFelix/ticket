@@ -15,5 +15,13 @@ export default {
   width: 100%;
   min-height: 100%;
   background-color: #fff;
+  position: absolute;
+}
+</style>
+<style scoped>
+@media screen and (min-width: 600px) {
+  .oil{
+    max-width: 384px; /*no*/
+  }
 }
 </style>

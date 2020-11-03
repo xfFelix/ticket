@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import getToken from './hook/getToken'
 import changeTitle from './hook/changeTitle'
+import getVendorId from './hook/getVendorId'
 import store from '@/store'
 
 Vue.use(Router)
@@ -358,6 +359,15 @@ const router = new Router({
           }
         },
         {
+          path: 'buyBackGs',
+          name: 'goldBuyBackGs',
+          component: () => import(/* webpackChunkName: "group-life" */'views/gold/buyBack/gsBuyBack'),
+          meta: {
+            title: '竞技黄金回购',
+            requireAuth: true
+          }
+        },
+        {
           path: 'record',
           name: 'goldRecord',
           component: () => import(/* webpackChunkName: "group-life" */'views/gold/record'),
@@ -367,10 +377,73 @@ const router = new Router({
           }
         }
       ]},
+
+      // {
+      //   path: '/goldzy',
+      //   name: 'goldzy',
+      //   component: () => import(/* webpackChunkName: "group-life" */'views/goldzy'),
+      //   meta: {
+      //     title: '黄金兑换',
+      //     requireAuth: true
+      //   },
+      //   redirect: '/goldzy/home',
+      //   children: [
+      //     {
+      //       path: 'home',
+      //       name: 'goldZyHome',
+      //       component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/home'),
+      //       meta: {
+      //         title: '黄金兑换',
+      //         requireAuth: true
+      //       }
+      //     },
+      //     {
+      //       path: 'introduce',
+      //       name: 'goldIntroduce',
+      //       component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/introduce'),
+      //       meta: {
+      //         title: '黄金兑换',
+      //         requireAuth: true
+      //       }
+      //     },
+      //   ]},
+
+
+
+      // {
+      //   path: '/phone',
+      //   name: 'phone',
+      //   component: () => import(/* webpackChunkName: "group-life" */'views/phone'),
+      //   meta: {
+      //     title: '话费充值',
+      //     requireAuth: true
+      //   },
+      //   redirect: '/phone/home',
+      //   children: [
+      //     {
+      //       path: 'home',
+      //       name: 'phoneHome',
+      //       component: () => import(/* webpackChunkName: "group-life" */'views/phone/home'),
+      //       meta: {
+      //         title: '话费充值',
+      //         requireAuth: true
+      //       }
+      //     },
+      //     {
+      //       path: 'record',
+      //       name: 'phoneRecord',
+      //       component: () => import(/* webpackChunkName: "group-life" */'views/phone/record'),
+      //       meta: {
+      //         title: '话费记录',
+      //         requireAuth: true
+      //       }
+      //     }
+      //   ]
+      // },
       {
         path: '/phone',
         name: 'phone',
-        component: () => import(/* webpackChunkName: "group-life" */'views/phone'),
+        component: () => import(/* webpackChunkName: "group-life" */'views/phoneC'),
         meta: {
           title: '话费充值',
           requireAuth: true
@@ -379,8 +452,8 @@ const router = new Router({
         children: [
           {
             path: 'home',
-            name: 'phoneHome',
-            component: () => import(/* webpackChunkName: "group-life" */'views/phone/home'),
+            name: 'phoneCHome',
+            component: () => import(/* webpackChunkName: "group-life" */'views/phoneC/home'),
             meta: {
               title: '话费充值',
               requireAuth: true
@@ -388,8 +461,8 @@ const router = new Router({
           },
           {
             path: 'record',
-            name: 'phoneRecord',
-            component: () => import(/* webpackChunkName: "group-life" */'views/phone/record'),
+            name: 'phoneCRecord',
+            component: () => import(/* webpackChunkName: "group-life" */'views/phoneC/record'),
             meta: {
               title: '话费记录',
               requireAuth: true
@@ -397,6 +470,7 @@ const router = new Router({
           }
         ]
       },
+
       {
         path: '/creditCard',
         name: 'creditCard',
@@ -529,5 +603,6 @@ const router = new Router({
 
 getToken(router)
 changeTitle(router)
+getVendorId(router)
 export default router
 

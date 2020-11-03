@@ -19,15 +19,15 @@
                 <ul class="recordW">
                     <li v-for="(item,index) in recodeList" :key="index">
                         <div class="reName flex">
-                            <span v-if="item.code">提取码：
+                            <span v-if="item.code">提货码：
                               {{item.code.length>15?item.code.substring(item.code.length-15):item.code}}
                               <em class="see" @click="dialogPwd(item.id)" >查看</em>
                             </span>
-                            <span v-else>提取码：— —</span>
+                            <span v-else>提货码：— —</span>
                             <div v-if="item.buyInfo">
-                                <span v-if="item.buyInfo.status==0">提货中</span>
                                 <span v-if="item.buyInfo.status==1">提货成功</span>
-                                <span v-if="item.buyInfo.status==2">提货取消</span>
+                                <span v-else-if="item.buyInfo.status==2">提货取消</span>
+                                <span v-else>提货中</span>
                             </div>
                             <div v-else>
                                 <span v-if="item.status==0">兑换中</span>
@@ -56,10 +56,11 @@
                             <div v-if="(item.buyInfo != null && item.buyInfo)">
                               <div class="gold-bnt-info"  :style="item.statusT?'height:auto':'height:0'">
                                 <p>提货时间：{{item.buyInfo.addDate}}</p>
-                                <p>银行卡号：{{item.buyInfo.cardNum}}</p>
-                                <p>开户行：{{item.buyInfo.bank}}</p>
+                                <p v-if="item.buyInfo.buybackType==0">银行卡号：{{item.buyInfo.cardNum}}</p>
+                                <p v-else>支付宝账号：{{item.buyInfo.alipayAccount}}</p>
+                                <p v-if="item.buyInfo.buybackType==0">开户行：{{item.buyInfo.bank}}</p>
                                 <p class="backMoney">提货金额：{{(item.buyInfo.buyMoney)|toPrice}}</p>
-                                <p>姓名：{{item.buyInfo.name}}</p>
+                                <p>姓名：{{item.buyInfo.buybackType==0?item.buyInfo.name:item.buyInfo.alipayName}}</p>
                               </div>
                               <div class="gold-bnt"  @click="transClick(item,index)">
                                 <span class="moreIcon iconImg" :style="item.statusT?'transform:rotate(180deg)':'transform:rotate(360deg)'"></span>
@@ -248,11 +249,11 @@ export default {
             this.$router.push({name:"goldBuyBack"})
           }else {
             let href = window.location.origin
-            // this.$router.push({name:'goldBuyBackZy',query:{id:id,gtype:gtype,token:this.getToke}})
+            // this.$router.push({name:'goldBuyBackGs',query:{id:id,gtype:gtype,token:this.getToke}})
             if(href == 'https://tmall.cocogc.cn') {
-              window.location.href = href+'/ticket/gold/buyBackZy?id='+id+'&gtype='+gtype+'&token='+this.getToken+'&fromType=cocogc'
+              window.location.href = href+'/ticket/gold/buyBackGs?id='+id+'&gtype='+gtype+'&token='+this.getToken+'&fromType=cocogc'
             }else {
-              window.location.href = 'https://t.xiyuma.net/ticket/gold/buyBackZy?id='+id+'&gtype='+gtype+'&token='+this.getToken+'&fromType=cocogc'
+              window.location.href = 'https://t.xiyuma.net/ticket/gold/buyBackGs?id='+id+'&gtype='+gtype+'&token='+this.getToken+'&fromType=cocogc'
             }
           }
         },

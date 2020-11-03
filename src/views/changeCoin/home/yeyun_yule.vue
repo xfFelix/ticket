@@ -48,7 +48,7 @@
     <!-- 兑换信息 -->
     <recharge-info btnBgColor="#21AEF6" :show="show.info" @handler-show-code="showSms" @go-back="initShow" :coinInfo="coinInfo"></recharge-info>
     <!-- 发送短信 -->
-    <sms-code btnBgColor="#21AEF6" :show="show.sms" @handler-show-info="showInfo" @code-info="codeInfo" :codeError.sync="codeErrFlag" :codeMessage="codeMessage"></sms-code>
+    <sms-code btnBgColor="#21AEF6" :show="show.sms" @handler-show-info="showInfo" @submit-order="codeInfo" :failText="codeMessage"></sms-code>
     <!-- 设置支付密码dialog -->
     <set-password :show.sync="showSetPassword"></set-password>
     <!-- 设置手机号 -->
@@ -285,9 +285,11 @@ export default {
         height: 100%;
         font-size: 16px;
         border-radius:5px;
+        color: #000000 !important;
         &:disabled{
           background: #fff;
-          color: #999;
+          // color: #999;
+          color: #000000 !important;
         }
       }
     }

@@ -154,7 +154,7 @@ export default {
   .home-footer{
     position: fixed;
     bottom: 0;
-    left: 0;
+    // left: 0;
     background: #fff;
     width: 100%;
     display: flex;
@@ -181,8 +181,8 @@ export default {
   @media screen and (min-width: 600px){
     .home-footer{
       max-width: 384px;
-      left: 50%;
-      transform: translateX(-50%)
+      // left: 50%;
+      // transform: translateX(-50%)
     }
   }
 }

@@ -4,14 +4,14 @@
 
 /* CSS Document */
 html,body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0;}
-body{font:4.07vw "微软雅黑","Arial Narrow",HELVETICA;height: 100%;}
+body{font:4.07vw "PingFangSC-Regular, sans-serif","微软雅黑","Arial Narrow",HELVETICA;height: 100%;}
 a{text-decoration:none; color:#000000;}
 a:hover{text-decoration:none;color: #30ce84;}
 i,em{font-style:normal;}
 b,strong{font-weight:100;}
 ul,ol{list-style:none;}
 img{border:none;}
-input{outline:none;border: none;}
+input{outline:none;border: none;font-family:"PingFangSC-Regular, sans-serif","微软雅黑","Arial Narrow",HELVETICA;}
 .clear:after{content:'.';display:block;height:0;clear:both;overflow:hidden;visibility:hidden;}
 html{height: 100%;width: 100%;}
 body{
@@ -251,4 +251,22 @@ input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus
 	-webkit-box-shadow: 0 0 0px 1000px white inset !important;
 	-webkit-transition-delay: 9999s;
 	-webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
+}
+
+@font-face {
+  font-family: PingFangSC-Semibold;
+  src: url('../fontPingFang/PingFangSC_2.ttf');
+}
+@font-face {
+  font-family: SourceHanSansCN-Heavy;
+  src: url('../fontPingFang/SourceHanSansCN-Heavy.otf');
+}
+@font-face {
+  font-family: SourceHanSansCN-Bold;
+  src: url('../fontPingFang/SourceHanSansCN-Bold.otf');
+}
+
+@font-face {
+  font-family: DINPro-Bold;
+  src: url('../fontPingFang/DINPro-Bold.otf');
 }
