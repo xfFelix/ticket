@@ -115,7 +115,7 @@ export const getSignStatus = data => fetch({
  * @param {*} data
  */
 export const getInfo = data => fetch({
-  url: `${process.env.VUE_APP_PHOTOINFO_URL}/signature/characterRecognition`,
+  url: `${process.env.VUE_APP_PHOTOINFO_URL}/appletSigning/characterRecognition`,
   method: 'POST',
   data
 })

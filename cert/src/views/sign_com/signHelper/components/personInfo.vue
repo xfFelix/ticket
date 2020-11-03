@@ -90,8 +90,8 @@ export default {
     },
     gainPhotoInfo(val){
       if(Object.keys(val).length !==0){
-        this.data.idNum = val.cardNum;
-        this.data.name = val.name;
+        this.data.idNum = val.idcard;
+        this.data.name = val.realname;
       }else{
         this.data.idNum = '';
         this.data.name = '';
