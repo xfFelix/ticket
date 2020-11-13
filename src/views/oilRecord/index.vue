@@ -74,6 +74,10 @@
                                     <span>税费：</span>
                                     <span>{{item.taxFee|toPrice}}</span>
                                 </p>
+                                <p v-if="item.preferentialFee">
+                                    <span>优惠费用：</span>
+                                    <span style="color:#FF6600">-{{item.preferentialFee|toPrice}}</span>
+                                </p>
 
                             </div>
                             <!-- 项目需求隐藏立即回收功能 -->

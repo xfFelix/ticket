@@ -11,7 +11,11 @@
 
 
 
-    <Sms-code :show="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder" ></Sms-code>
+    <Sms-code :show="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder" @forget="setForget"></Sms-code>
+    <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
+        <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
+        <div slot="btn">联系客服</div>
+      </remindDialog>
 
     <transition name="fade">
       <bg-mask v-model="show.mask" :isClose="showClose"></bg-mask>
@@ -46,7 +50,8 @@ export default {
         code:false,
         mask:false,
         file:false,
-        info:false
+        info:false,
+        dialog: false
       },
       failText:undefined,
       inpPrice:undefined,
@@ -58,7 +63,9 @@ export default {
       showPhoneFile:false,
       showClose: true,
       suceesData: {},
-      haihangUrl: ''
+      haihangUrl: '',
+      link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
+      linkType: 'href'
   }),
   watch: {
     'show.mask': {
@@ -96,6 +103,9 @@ export default {
       //     this.phoneTax()
       //   }
       // },
+      setForget() {
+        this.show = {mask:true,code:false,file:false,info:false,dialog:true}
+      },
       phoneCanP(val){
         this.phoneCan=val
       },
@@ -105,13 +115,13 @@ export default {
         this.$router.go(0)
       },
       initShow(){
-        this.show={mask:false,code:false,file:false,info:false};
+        this.show={mask:false,code:false,file:false,info:false,dialog:false};
       },
       infoShow(){
-        this.show={mask:true,code:false,file:false,info:true};
+        this.show={mask:true,code:false,file:false,info:true,dialog:false};
       },
       smsShow(){
-        this.show={mask:true,code:true,file:false,info:false};
+        this.show={mask:true,code:true,file:false,info:false,dialog:false};
       },
       async submitOrder(val){  //输入短信下单
         let amount = '';
@@ -183,6 +193,7 @@ export default {
     Header: () => import('@/components/Header'),
     phoneType: ()=> import('./components/phoneType'),
     SmsCode: ()=> import('@/components/SmsCode'),
+    remindDialog: ()=> import('@/components/remindDialog'),
     BgMask: () => import('@/components/BgMask'),
     succPage:()=> import('./components/succPage'),
     // phoneInfo:()=> import('./components/phoneInfo')

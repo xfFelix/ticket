@@ -30,14 +30,14 @@ export default {
 .no-data{
   display: flex;
   width: 100%;
-  height: 200px;
+  height: 300px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   img{
     display: block;
-    width: 90px;
-    height: 90px;
+    width: 150px;
+    height: 128px;
   }
 }
 </style>

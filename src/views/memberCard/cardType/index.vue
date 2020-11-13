@@ -6,7 +6,11 @@
     <charge-info :show="show.info" @go-back="initShow" @send-sms="sendCode" :info="chargeInfo"></charge-info>
     <!-- 短信 -->
 
-    <Sms-code :show="show.sms" :fail-text="failText" @handler-show-info="initShow" @submit-order="codeInfo" ></Sms-code>
+    <Sms-code :show="show.sms" :fail-text="failText" @handler-show-info="initShow" @submit-order="codeInfo" @forget="setForget"></Sms-code>
+    <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
+        <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
+        <div slot="btn">联系客服</div>
+      </remindDialog>
     <!-- <sms-code :show="show.sms" :fail-text="failText" @go-back="initShow" @code-info="codeInfo" :codeError.sync="codeErrFlag" @send-sms="sendCode"></sms-code> -->
     <!-- 遮罩层 -->
     <transition name="fade">
@@ -29,7 +33,8 @@ export default {
     show: {
       mask: false,
       info: false,
-      sms: false
+      sms: false,
+      dialog: false
     },
     productId: undefined,
     codeErrFlag: false,
@@ -42,7 +47,9 @@ export default {
       productType: undefined,
       costWay:undefined
     },
-    failText: ''
+    failText: '',
+    link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
+      linkType: 'href'
   }),
   computed: {
     ...mapGetters({
@@ -76,14 +83,17 @@ export default {
     }
   },
   methods: {
+    setForget() {
+        this.show = {mask:true,sms: false,file:false,dialog:true}
+      },
     initShow() {
-      this.show = { mask: false, info: false, sms: false };
+      this.show = { mask: false, info: false, sms: false,dialog:false };
     },
     showInfo() {
-      this.show = { mask: true, info: true, sms: false };
+      this.show = { mask: true, info: true, sms: false,dialog:false };
     },
     showSms() {
-      this.show = { mask: true, info: false, sms: true };
+      this.show = { mask: true, info: false, sms: true,dialog:false };
     },
     infoContent(item) {
       console.log(item.productId)
@@ -152,6 +162,7 @@ export default {
     BgMask: () => import('components/BgMask'),
     // SmsCode: () => import('./components/SmsCode'),
     SmsCode: ()=> import('@/components/SmsCode'),
+    remindDialog: ()=> import('@/components/remindDialog'),
     CardSelect: () => import('./components/CardSelect'),
     SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),
     SetMobile: () => import(/* webpackPrefetch: true */ 'components/SetMobile')

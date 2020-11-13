@@ -78,7 +78,11 @@
     </transition>
 
     <!-- <recovery-Info :show="show.info" @handler-show-code="handlerShowCode" @go-back-init="goBackInit" :recoveryListC="recoveryListP" v-if="show.mask"></recovery-Info> -->
-    <sms-code :show="show.code" @handler-show-success="handlerShowSuccess" @go-back-info="goBackInfo" :recoveryListC="recoveryListP" v-if="show.mask" @go-back-init="goBackInit"></sms-code>
+    <sms-code :show="show.code" @handler-show-success="handlerShowSuccess" @go-back-info="goBackInfo" :recoveryListC="recoveryListP" v-if="show.mask" @go-back-init="goBackInit" @forget="setForget"></sms-code>
+    <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
+        <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
+        <div slot="btn">联系客服</div>
+      </remindDialog>
     <success :show="show.success"></success>
     <agree-file :show="show.file" @handle-show-file="goBackInit"></agree-file>
   </div>
@@ -140,9 +144,12 @@ export default {
       code: false,
       info: false,
       file: false,
-      success: false
+      success: false,
+      dialog: false
     },
-    recoveryListP: {}
+    recoveryListP: {},
+    link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
+      linkType: 'href'
   }),
   computed: {
     ...mapGetters({
@@ -163,21 +170,25 @@ export default {
     // RecoveryInfo: () => import("./components/RecoveryInfo"),
     BgMask: () => import("components/BgMask"),
     SmsCode: () => import("./components/SmsCode"),
+    remindDialog: ()=> import('@/components/remindDialog'),
     AgreeFile: () => import("./components/AgreeFile"),
     Success: () => import(/* webpackPrefetch: true */ './components/Success')
   },
   methods: {
+    setForget() {
+        this.show = {mask:true,code:false,info: false, file: false, success: false,dialog:true}
+      },
     handlerShowCode() {
-      this.show = { mask: true, code: true, info: false, file: false, success: false }
+      this.show = { mask: true, code: true, info: false, file: false, success: false,dialog:false }
     },
     goBackInfo() {
-      this.show = { mask: true, code: false, info: true, file: false, success: false }
+      this.show = { mask: true, code: false, info: true, file: false, success: false ,dialog:false}
     },
     goBackInit() {
-      this.show = { mask: false, code: false, info: false, file: false, success: false }
+      this.show = { mask: false, code: false, info: false, file: false, success: false ,dialog:false}
     },
     handlerShowSuccess() {
-      this.show = { mask: true, code: false, info: false, file: false, success: true }
+      this.show = { mask: true, code: false, info: false, file: false, success: true ,dialog:false}
     },
     showPicker() {
       if (!this.picker) {

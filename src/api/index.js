@@ -107,6 +107,12 @@ export const getCostInfo = (data) => fetch({
   data
 })
 
+// export const getCostInfo = (data) => fetch({
+//   url: 'http://192.168.0.112:9966/' + 'api/ticket/oilcard/getCostInfo',
+//   method: 'POST',
+//   data
+// })
+
 export const submitOilOrder = (data) => fetch({
   url: '/oilcard/submit',
   method: 'POST',
@@ -401,6 +407,13 @@ export const cardPrice = (data) => fetch({
 //话费充值税费计算
 export const phoneTax = (data) => fetch({
   url: process.env.VUE_APP_INFO_URl + 'user/phoneTax',
+  method: 'POST',
+  data
+})
+
+//话费充值+分摊费用税费计算
+export const phoneTaxS = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/phoneTaxs',
   method: 'POST',
   data
 })

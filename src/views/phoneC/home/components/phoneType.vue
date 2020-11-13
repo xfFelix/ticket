@@ -86,12 +86,12 @@
           </div>
 
           <div class="phoneBnt" v-if="typeIndex!=0" @click="phoneBnt('card')">
-            <span class="left">应付积分{{phoneTaxInfo.total}}</span>
+            <span class="left">应付积分{{phoneTaxInfo.total | toPrice}}</span>
             <span class="line"></span>
             <span class="right">立即兑换</span>
           </div>
           <div class="phoneBnt" v-else-if="phoneCan && typeIndex==0" @click="phoneBnt('dir')">
-            <span class="left">应付积分{{phoneTaxInfo.total}}</span>
+            <span class="left">应付积分{{phoneTaxInfo.total | toPrice}}</span>
             <span class="line"></span>
             <span class="right">立即充值</span>
           </div>
@@ -101,9 +101,10 @@
             <span class="right">立即充值</span>
           </div>
           <div class="detailInfoW" v-if="detailInfoShow">
-            <li><span>售价</span><span>{{phoneTaxInfo.amount}}</span></li>
-            <li><span>平台服务费</span><span>{{phoneTaxInfo.service_fee}}</span></li>
-            <li><span>税费</span><p><span>{{phoneTaxInfo.tax_total}}</span><span>{{phoneTaxInfo.tax_total>0?'':'(免税)'}}</span></p></li>
+            <li><span>售价</span><span>{{phoneTaxInfo.amount | toPrice}}</span></li>
+            <li><span>平台服务费</span><span>{{phoneTaxInfo.service_fee | toPrice}}</span></li>
+            <li><span>税费</span><p><span>{{phoneTaxInfo.tax_total | toPrice}}</span><span>{{phoneTaxInfo.tax_total>0?'':'(免税)'}}</span></p></li>
+            <li v-if="phoneTaxInfo.preferentialFee"><span>优惠费用</span><span style="color:#FF6600">-{{phoneTaxInfo.preferentialFee | toPrice}}</span></li>
           </div>
           <div class="phoneInfoW">
             <div class="left"><span>椰子分余额</span><span class="score">{{userinfo.score}}</span></div>
@@ -171,7 +172,7 @@
 </div>
 </template>
 <script >
-import {directPrice,cardPrice, phoneCharge ,phoneTax} from 'api';
+import {directPrice,cardPrice, phoneCharge ,phoneTax, phoneTaxS} from 'api';
 import {mapGetters, mapActions} from 'vuex';
 import { IsMobile, IsChinaMobile } from "util/common";
 import { vipCustom } from '@/mixins';
@@ -354,12 +355,18 @@ export default {
       },
       async phoneTax() {
         let amount = ''
+        let denomination = ''
+        let memo = ''
         if(this.phoneConfig.type==0){
           amount = this.phoneConfig.realDirP;
+          denomination = this.phoneConfig.dirPrice;
+          memo = 'phone';
         }else{
           amount = this.phoneConfig.realCarP;
+          denomination = this.phoneConfig.cardPrice;
+          memo = 'phoneCard'
         }
-        let res = await phoneTax({amount:amount, token: this.getToken})
+        let res = await phoneTaxS({amount:amount, token: this.getToken, memo: memo,denomination: denomination})
         if (res.error_code != 0) return this.$toast(res.message);
         this.phoneTaxInfo = res.data;
         // if(this.userinfo.score >= this.phoneTaxInfo.total){
@@ -967,7 +974,8 @@ export default {
   margin: 0 auto;
   padding: 6px 16px;
   width: 299px;
-  height: 108px;
+  // height: 108px;
+  height: auto;
   background: rgba($color:$phone, $alpha: 0.05);
   box-sizing: border-box;
   li {

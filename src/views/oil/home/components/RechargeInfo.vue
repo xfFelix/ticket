@@ -30,6 +30,10 @@
           <span class="label">税费</span>
           <span class="value">{{data.tax_total | toPrice}}</span>
         </li>
+        <li class="item" v-if="data.preferentialFee">
+          <span class="label">优惠费用</span>
+          <span class="value" style="color:#FF6600">-{{data.preferentialFee | toPrice}}</span>
+        </li>
         <li class="item">
           <span class="label">应付合计</span>
           <span class="value">{{data.total | toPrice}}</span>

@@ -48,7 +48,11 @@
     <!-- 兑换信息 -->
     <recharge-info btnBgColor="#21AEF6" :show="show.info" @handler-show-code="showSms" @go-back="initShow" :coinInfo="coinInfo"></recharge-info>
     <!-- 发送短信 -->
-    <sms-code btnBgColor="#21AEF6" :show="show.sms" @handler-show-info="showInfo" @submit-order="codeInfo" :failText="codeMessage"></sms-code>
+    <sms-code btnBgColor="#21AEF6" :show="show.sms" @handler-show-info="showInfo" @submit-order="codeInfo" :failText="codeMessage" @forget="setForget"></sms-code>
+    <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType" btnBgColor="#21AEF6">
+        <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
+        <div slot="btn">联系客服</div>
+      </remindDialog>
     <!-- 设置支付密码dialog -->
     <set-password :show.sync="showSetPassword"></set-password>
     <!-- 设置手机号 -->
@@ -72,7 +76,8 @@ export default {
       mask: false,
       info: false,
       sms: false,
-      file: false
+      file: false,
+      dialog: false
     },
     coinInfo: {
       num: 0,
@@ -85,7 +90,9 @@ export default {
     vendorUid: undefined,
     storeName: '',
     list: [],
-    desc: ''
+    desc: '',
+    link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
+    linkType: 'href'
   }),
   watch: {
     'show.mask': {
@@ -123,6 +130,9 @@ export default {
       checkPassword: 'checkPassword',
       setUserInfo: 'setUserinfo'
     }),
+    setForget() {
+      this.show = {mask:true,code:false,sms: false,file:false,dialog:true}
+    },
     async getList(){
       const {getChuanQiCoinList} = await import('@/api')
       const { code, data } = await getChuanQiCoinList({catKey: this.vendorId, token: this.getToken})
@@ -138,13 +148,13 @@ export default {
       this.coinSumbmit(code)
     },
     initShow() {
-      this.show = { mask: false, info: false, sms: false, file: false };
+      this.show = { mask: false, info: false, sms: false, file: false,dialog:false };
     },
     showInfo() {
-      this.show = { mask: true, info: true, sms: false, file: false };
+      this.show = { mask: true, info: true, sms: false, file: false, dialog:false };
     },
     showSms() {
-      this.show = { mask: true, info: false, sms: true, file: false };
+      this.show = { mask: true, info: false, sms: true, file: false,dialog: false };
     },
     async coinChange() {
       let res = await this.checkPassword();
@@ -229,6 +239,7 @@ export default {
     RechargeInfo: () => import('./components/RechargeInfo'),
     SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),
     SetMobile: () => import(/* webpackPrefetch: true */ 'components/SetMobile'),
+    remindDialog: ()=> import('@/components/remindDialog'),
   },
 }
 </script>

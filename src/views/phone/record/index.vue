@@ -49,7 +49,11 @@
             </cube-scroll>
             <no-data :data="recodeList"></no-data>
         </div>
-        <Sms-code :show="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder" :showSendCode="show.code"></Sms-code>
+        <Sms-code :show="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder" :showSendCode="show.code" @forget="setForget"></Sms-code>
+        <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
+          <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
+          <div slot="btn">联系客服</div>
+        </remindDialog>
         <transition name="fade">
           <bg-mask v-model="show.mask"></bg-mask>
         </transition>
@@ -74,14 +78,18 @@ export default {
         code: '',
         show: {
           mask: false,
-          code: false
+          code: false,
+          dialog: false
         },
         failText:undefined,
-        orderNum: ''
+        orderNum: '',
+        link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
+        linkType: 'href'
     }),
     components: {
         NoData: () => import('components/NoData'),
         SmsCode: ()=> import('@/components/SmsCode'),
+        remindDialog: ()=> import('@/components/remindDialog'),
         BgMask: () => import('@/components/BgMask'),
     },
     computed: {
@@ -106,6 +114,9 @@ export default {
         }),
     },
     methods: {
+      setForget() {
+        this.show = {mask:true,code:false,dialog:true}
+      },
         initData() {
           this.start=0;
           this.recodeList = [];
@@ -163,11 +174,11 @@ export default {
           if(this.userinfo.payValidType === 1) {
             window.location.href = this.orderNum
           }else {
-            this.show={mask:true,code:true}
+            this.show={mask:true,code:true,dialog:false}
           }
         },
         initShow () {
-          this.show={mask:false,code:false};
+          this.show={mask:false,code:false,dialog:false};
         },
         async submitOrder (val) {
           let data = await checkCode({

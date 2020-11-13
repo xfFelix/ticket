@@ -10,7 +10,11 @@
         </div>
         <gold-type :viewTopC="viewTop" :viewBoxHeightC="viewBoxHeight"></gold-type>
       </div>
-      <sms-code :show="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder" ></sms-code>
+      <sms-code :show="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder" @forget="setForget"></sms-code>
+      <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
+        <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
+        <div slot="btn">联系客服</div>
+      </remindDialog>
       <transition name="fade">
         <bg-mask v-model="show.mask"></bg-mask>
       </transition>
@@ -44,7 +48,8 @@ export default {
       show:{
         code:false,
         mask:false,
-        file:false
+        file:false,
+        dialog: false
       },
       failText:undefined,
       inpPrice:undefined,
@@ -52,6 +57,8 @@ export default {
       taxMoney:{},
       viewTop:0,
       viewBoxHeight:0,
+      link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
+      linkType: 'href'
   }),
   watch: {
     'show.mask': {
@@ -75,6 +82,9 @@ export default {
         setConfig: 'gold/setConfig',
         initConfig:'gold/initConfig'
       }),
+      setForget() {
+        this.show = {mask:true,code:false,file:false,dialog:true}
+      },
       inpClean(){
         this.inpPrice = ''
       },
@@ -101,7 +111,7 @@ export default {
         this.suceesShow=true;
       },
       initShow(){
-        this.show={mask:false,code:false,file:false};
+        this.show={mask:false,code:false,file:false,dialog:false};
       },
       async handlerShowType() {
         let goldWeight = 0
@@ -124,7 +134,7 @@ export default {
             }else{
               let res = await this.checkPassword();
               if (!res) return;
-              this.show = { mask: true,code: true,file:false}
+              this.show = { mask: true,code: true,file:false,dialog:false}
             }
           }else{
             if(this.userinfo.score < this.taxMoney.total) {
@@ -153,6 +163,7 @@ export default {
     goldInfo: ()=> import('./components/goldInfo'),
     goldType: ()=> import('./components/goldType'),
     SmsCode: ()=> import('@/components/SmsCode'),
+    remindDialog: ()=> import('@/components/remindDialog'),
     BgMask: () => import('@/components/BgMask'),
     succPage:()=> import('./components/succPage'),
     goldFile: () => import("./components/goldFile"),
