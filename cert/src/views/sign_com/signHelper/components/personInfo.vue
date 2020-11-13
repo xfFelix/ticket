@@ -1,23 +1,23 @@
 <template>
   <div>
     <ul class="identity-info-wrap">
-      <li>
+      <li v-if="data.industry !== '26'">
         <span>所属行业</span>
         <input type="text" placeholder="请输入所属行业" v-model.trim="data.industryName" disabled />
         <!-- <i class="cubeic-arrow"></i> -->
       </li>
-      <li @click="$router.push('/sign_geo/geolocation')">
+      <li @click="$router.push('/sign_geo/geolocation')" v-if="data.industry !== '26'">
         <span>工作地区</span>
         <input type="text" placeholder="请选择地区" v-model.trim="config.city" disabled />
         <i class="cubeic-arrow"></i>
       </li>
       <li>
         <span>真实姓名</span>
-        <input type="text" placeholder="真实姓名" v-model.trim="data.name" disabled/>
+        <input type="text" placeholder="真实姓名" v-model.trim="data.name" />
       </li>
       <li>
         <span>证件号码</span>
-        <input type="text" placeholder="身份证号码" v-model.trim="data.idNum" disabled/>
+        <input type="text" placeholder="身份证号码" v-model.trim="data.idNum" />
       </li>
       <li>
         <span>银行卡号</span>
@@ -25,11 +25,11 @@
       </li>
       <li>
         <span>手机号</span>
-        <input type="tel" placeholder="请填写真实的手机号码" v-model.trim="data.mobile" pattern="[0-9]*" />
+        <input type="tel" placeholder="请填写真实的手机号码" v-model.trim="data.mobile" pattern="[0-9]*" :maxlength="11"/>
       </li>
       <li>
         <span>图形验证码</span>
-        <input type="text" placeholder="验证码" v-model.trim="captcha">
+        <input type="text" placeholder="验证码" v-model.trim="captcha" :maxlength="4">
         <img :src="validateImgSrc" class="img_captcha" @click="validateImgClick()">
       </li>
       <li>
@@ -90,8 +90,8 @@ export default {
     },
     gainPhotoInfo(val){
       if(Object.keys(val).length !==0){
-        this.data.idNum = val.cardNum;
-        this.data.name = val.name;
+        this.data.idNum = val.idcard;
+        this.data.name = val.realname;
       }else{
         this.data.idNum = '';
         this.data.name = '';
@@ -186,17 +186,18 @@ export default {
 .identity-info-wrap {
   background: #fff;
   padding: 0 15px;
-  margin-top: 10px;
   li {
     line-height: 62px;
     height: 62px;
     border-bottom: 1px solid #f6f6f6;
     display: flex;
     align-items: center;
+    position: relative;
     span {
       font-size: 14px;
       color: #666;
       width: 86px;
+      white-space: nowrap;
     }
     &:last-of-type {
       border: none;
@@ -240,8 +241,12 @@ export default {
       border: 1px solid #30ce84;
       color: #30ce84;
       background: #fff;
+      position: absolute;
+      right: 0;
     }
-    img{
+    .img_captcha{
+      position: absolute;
+      right: 0;
       width: 90px;
       height: 40px;
     }

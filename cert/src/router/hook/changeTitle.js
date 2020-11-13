@@ -3,7 +3,7 @@ export default router => {
     if (to.path.includes("sign")) {
       document.title = '签约助手'
     }else {
-      document.title = '代征系统'
+      document.title = '众包系统'
     }
     next()
   })

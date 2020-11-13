@@ -1,7 +1,7 @@
 <template>
   <div class="sign-helper">
     <form ref="advForm">
-      <upload-img @front-file="frontFiles"  @back-file="backFiles"></upload-img>
+      <upload-img @front-file="frontFiles"  @back-file="backFiles" v-if="id !== '26'"></upload-img>
       <person-info @person-data="personInfoF" :getPersonInfoC.sync="getPersonInfo" :gainPhotoInfo.sync="photoInfo"></person-info>
       <!-- <div class="agreement">
         <cube-checkbox class="with-click" v-model="checked" shape="square">我已阅读并同意</cube-checkbox>
@@ -17,8 +17,10 @@ import { IdentityCodeValid,isEmpty,IsMobile } from "util/common";
 import { checkId,signInfoByCom ,getInfo} from 'api'
 import axios from 'axios'
 import { mapGetters } from 'vuex';
+import { Base64 } from 'js-base64'
 export default {
   data: () => ({
+    id: '',
     checked: true,
     getPersonInfo:false,
     dataInfo:{},
@@ -31,18 +33,38 @@ export default {
       config: 'sign_config'
     })
   },
+  created() {
+    this.getParams()
+  },
   methods: {
+    getParams () {
+      try {
+        let param = location.hash.split('?')[1].toString()
+        let query = Base64.decode(decodeURIComponent(param))
+        var obj = {}
+        var queryArr = query.split("&")
+        queryArr.forEach(function(item){
+            var value = item.split("=")[1]
+            var key = item.split("=")[0]
+            obj[key] = value;
+        })
+        this.id = obj.id
+      } catch (e) {
+        console.error(e.message)
+        this.$toast(e.message)
+      }
+    },
     // 点击确定按钮后不能直接拿到子组件的值，所以得在拿到值后再调接口
     commitInfo() {
       this.getPersonInfo = true;
     },
     //判断是否为空
     judgeEmpty(){
-      if (Object.keys(this.frontObj).length==0) return this.$toast("请上传您的身份证正面照");
-      if (Object.keys(this.backObj).length==0) return this.$toast("请上传您的身份证反面照");
+      if (this.dataInfo.industry !== '26' && Object.keys(this.frontObj).length==0) return this.$toast("请上传您的身份证正面照");
+      if (this.dataInfo.industry !== '26' && Object.keys(this.backObj).length==0) return this.$toast("请上传您的身份证反面照");
       if (isEmpty(this.dataInfo.name)) return this.$toast("请填写您的姓名");
-      if (!this.dataInfo.industry) return this.$toast("请选择行业")
-      if (isEmpty(this.config.city)) return this.$toast("请选择您的地区");
+      if (this.dataInfo.industry !== '26' && !this.dataInfo.industry) return this.$toast("请选择行业")
+      if (this.dataInfo.industry !== '26' && isEmpty(this.config.city)) return this.$toast("请选择您的地区");
       // if (!IdentityCodeValid(this.dataInfo.idNum)) return this.$toast("请填写您的有效身份证号码");
       if (isEmpty(this.dataInfo.bankCard)) return this.$toast("请填写您的银行卡号");
       if (isEmpty(this.dataInfo.mobile)) return this.$toast("请填写您的手机号");
@@ -87,8 +109,8 @@ export default {
           cardNo:this.dataInfo.bankCard,
           type: this.dataInfo.industry,
           region: this.config.city,
-          positiveIDPhoto:this.frontObj,
-          negativeIDPhoto:this.backObj,
+          positiveIDPhoto:(this.frontObj && this.frontObj.length) ? this.frontObj : "",
+          negativeIDPhoto:(this.backObj && this.backObj.length) ? this.backObj : "",
           redirect_url: this.dataInfo.redirect_url
         })
         window.location.href = data.data.shortUrl
