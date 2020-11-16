@@ -71,10 +71,15 @@ export default {
     show(val){
       if (val) {
         if (this.userinfo.payValidType !== 1) {
-          this.sendCode()
+          // this.sendCode()
         }
       }else{
         this.code='';
+      }
+    },
+    failText(val) {
+      if(val) {
+        this.code = ''
       }
     },
     code(val) {
@@ -93,8 +98,10 @@ export default {
   },
   methods: {
     validateCode() {
-      console.log(this.code)
       this.$emit('submit-order',this.code)
+      setTimeout(()=>{
+        this.code = ''
+      },500)
     },
     async sendCode(){
         let res = await sendSmsCode({token: this.token})
@@ -116,6 +123,12 @@ export default {
     forget() {
       this.$emit('forget')
     }
+  },
+  mounted() {
+    if(this.userinfo.payValidType !== 1) {
+      this.sendCode()
+    }
+
   }
 }
 </script>

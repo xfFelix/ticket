@@ -10,7 +10,7 @@
         </div>
         <gold-type :viewTopC="viewTop" :viewBoxHeightC="viewBoxHeight"></gold-type>
       </div>
-      <sms-code :show="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder" @forget="setForget"></sms-code>
+      <sms-code v-if="show.code" :show.sync="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder" @forget="setForget"></sms-code>
       <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
         <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
         <div slot="btn">联系客服</div>
@@ -105,10 +105,16 @@ export default {
           this.$router.push({path:'/realName?back=/gold'})});
           return false;
         }
-        if(res.error_code!=0)  return this.$toast(res.message);
-        this.setConfig({id:res.data.id});
-        this.initShow();
-        this.suceesShow=true;
+        // if(res.error_code!=0)  return this.$toast(res.message);
+        if(res.error_code!=0) {
+          this.failText=res.message;
+
+        }else {
+          this.setConfig({id:res.data.id});
+          this.initShow();
+          this.suceesShow=true;
+        }
+
       },
       initShow(){
         this.show={mask:false,code:false,file:false,dialog:false};
@@ -134,6 +140,7 @@ export default {
             }else{
               let res = await this.checkPassword();
               if (!res) return;
+              this.failText = ''
               this.show = { mask: true,code: true,file:false,dialog:false}
             }
           }else{

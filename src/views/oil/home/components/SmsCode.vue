@@ -79,6 +79,11 @@ export default {
         this.initConfig()
       }
     },
+    failText(val) {
+      if(val) {
+        this.code = ''
+      }
+    },
     code(val) {
       if (val) {
         if(val.length==4 && this.userinfo.payValidType !== 1) {

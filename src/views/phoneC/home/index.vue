@@ -11,7 +11,7 @@
 
 
 
-    <Sms-code :show="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder" @forget="setForget"></Sms-code>
+    <Sms-code v-if="show.code" :show.sync="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder" @forget="setForget"></Sms-code>
     <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
         <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
         <div slot="btn">联系客服</div>
