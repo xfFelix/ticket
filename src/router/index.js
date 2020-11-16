@@ -219,108 +219,108 @@ const router = new Router({
         }
       ]
     },
-    {
-      path: '/life',
-      name: 'life',
-      component: () => import(/* webpackChunkName: "group-life" */'views/life'),
-      meta: {
-        title: '生活缴费',
-        requireAuth: true
-      },
-      redirect: '/life/home',
-      children: [
-        {
-          path: 'home',
-          name: 'lifeHome',
-          component: () => import(/* webpackChunkName: "group-life" */'views/life/home'),
-          meta: {
-            title: '生活缴费首页',
-            requireAuth: true
-          }
-        },
-        {
-          path: 'geolocation',
-          name: 'lifeGeolocation',
-          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/geolocation'),
-          meta: {
-            title: '选择城市',
-            requireAuth: true
-          }
-        },
-        {
-          path: 'account',
-          name: 'lifeAccount',
-          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/addAccount'),
-          meta: {
-            title: '新增缴费账户',
-            requireAuth: true
-          }
-        },
-        {
-          path: 'record',
-          name: 'lifeRecord',
-          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/record'),
-          meta: {
-            title: '兑换记录',
-            requireAuth: true
-          }
-        },
-        {
-          path: 'changeS',
-          name: 'lifeChangeS',
-          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/changeS'),
-          meta: {
-            title: '兑换成功',
-            requireAuth: true
-          }
-        },
-        {
-          path: 'paymentUnit',
-          name: 'paymentUnit',
-          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/paymentUnit'),
-          meta: {
-            title: '选择缴费单位',
-            requireAuth: true
-          }
-        },
-        {
-          path: 'group',
-          name: 'group',
-          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/group'),
-          meta: {
-            title: '选择分组',
-            requireAuth: true
-          }
-        },
-        {
-          path: 'protocol',
-          name: 'Protocol',
-          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/protocol'),
-          meta: {
-            title: '缴费协议',
-            requireAuth: true
-          }
-        },
-        {
-          path: 'payment',
-          name: 'LifePayment',
-          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/payment'),
-          meta: {
-            title: '缴费账户',
-            requireAuth: true
-          }
-        },
-        {
-          path: 'userNumber',
-          name: 'LifeFindNumber',
-          component: () => import(/* webpackChunkName: "group-life" */ 'views/life/userNumber'),
-          meta: {
-            title: '如何查户号',
-            requireAuth: true
-          }
-        }
-      ]
-    },
+    // {
+    //   path: '/life',
+    //   name: 'life',
+    //   component: () => import(/* webpackChunkName: "group-life" */'views/life'),
+    //   meta: {
+    //     title: '生活缴费',
+    //     requireAuth: true
+    //   },
+    //   redirect: '/life/home',
+    //   children: [
+    //     {
+    //       path: 'home',
+    //       name: 'lifeHome',
+    //       component: () => import(/* webpackChunkName: "group-life" */'views/life/home'),
+    //       meta: {
+    //         title: '生活缴费首页',
+    //         requireAuth: true
+    //       }
+    //     },
+    //     {
+    //       path: 'geolocation',
+    //       name: 'lifeGeolocation',
+    //       component: () => import(/* webpackChunkName: "group-life" */ 'views/life/geolocation'),
+    //       meta: {
+    //         title: '选择城市',
+    //         requireAuth: true
+    //       }
+    //     },
+    //     {
+    //       path: 'account',
+    //       name: 'lifeAccount',
+    //       component: () => import(/* webpackChunkName: "group-life" */ 'views/life/addAccount'),
+    //       meta: {
+    //         title: '新增缴费账户',
+    //         requireAuth: true
+    //       }
+    //     },
+    //     {
+    //       path: 'record',
+    //       name: 'lifeRecord',
+    //       component: () => import(/* webpackChunkName: "group-life" */ 'views/life/record'),
+    //       meta: {
+    //         title: '兑换记录',
+    //         requireAuth: true
+    //       }
+    //     },
+    //     {
+    //       path: 'changeS',
+    //       name: 'lifeChangeS',
+    //       component: () => import(/* webpackChunkName: "group-life" */ 'views/life/changeS'),
+    //       meta: {
+    //         title: '兑换成功',
+    //         requireAuth: true
+    //       }
+    //     },
+    //     {
+    //       path: 'paymentUnit',
+    //       name: 'paymentUnit',
+    //       component: () => import(/* webpackChunkName: "group-life" */ 'views/life/paymentUnit'),
+    //       meta: {
+    //         title: '选择缴费单位',
+    //         requireAuth: true
+    //       }
+    //     },
+    //     {
+    //       path: 'group',
+    //       name: 'group',
+    //       component: () => import(/* webpackChunkName: "group-life" */ 'views/life/group'),
+    //       meta: {
+    //         title: '选择分组',
+    //         requireAuth: true
+    //       }
+    //     },
+    //     {
+    //       path: 'protocol',
+    //       name: 'Protocol',
+    //       component: () => import(/* webpackChunkName: "group-life" */ 'views/life/protocol'),
+    //       meta: {
+    //         title: '缴费协议',
+    //         requireAuth: true
+    //       }
+    //     },
+    //     {
+    //       path: 'payment',
+    //       name: 'LifePayment',
+    //       component: () => import(/* webpackChunkName: "group-life" */ 'views/life/payment'),
+    //       meta: {
+    //         title: '缴费账户',
+    //         requireAuth: true
+    //       }
+    //     },
+    //     {
+    //       path: 'userNumber',
+    //       name: 'LifeFindNumber',
+    //       component: () => import(/* webpackChunkName: "group-life" */ 'views/life/userNumber'),
+    //       meta: {
+    //         title: '如何查户号',
+    //         requireAuth: true
+    //       }
+    //     }
+    //   ]
+    // },
     {
       path: '/gold',
       name: 'gold',
@@ -398,6 +398,33 @@ const router = new Router({
       //       }
       //     },
       //     {
+      //       path: 'buyBack',
+      //       name: 'goldJyBuyBack',
+      //       component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/buyBack'),
+      //       meta: {
+      //         title: '黄金回购',
+      //         requireAuth: true
+      //       }
+      //     },
+      //     {
+      //       path: 'buyBackZy',
+      //       name: 'goldZyBuyBack',
+      //       component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/buyBack/zyBuyBack'),
+      //       meta: {
+      //         title: '黄金回购',
+      //         requireAuth: true
+      //       }
+      //     },
+      //     {
+      //       path: 'buyBackGs',
+      //       name: 'goldGsBuyBack',
+      //       component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/buyBack/gsBuyBack'),
+      //       meta: {
+      //         title: '竞技黄金回购',
+      //         requireAuth: true
+      //       }
+      //     },
+      //     {
       //       path: 'introduce',
       //       name: 'goldIntroduce',
       //       component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/introduce'),
@@ -406,6 +433,15 @@ const router = new Router({
       //         requireAuth: true
       //       }
       //     },
+      //     {
+      //       path: 'record',
+      //       name: 'goldZyRecord',
+      //       component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/record'),
+      //       meta: {
+      //         title: '黄金兑换记录',
+      //         requireAuth: true
+      //       }
+      //     }
       //   ]},
 
 
@@ -537,6 +573,15 @@ const router = new Router({
         },
         component: () => import(/* webpackChunkName: "group-ticket" */ 'views/userInfo/realName')
       },
+      // {
+      //   path: '/realNameF',
+      //   name: 'realNameF',
+      //   meta: {
+      //     title: '实名认证',
+      //     requireAuth: true
+      //   },
+      //   component: () => import(/* webpackChunkName: "group-ticket" */ 'views/userInfo/realName/realNameF')
+      // },
       {
         path: '/bind',
         name: 'userBind',
@@ -570,6 +615,15 @@ const router = new Router({
           requireAuth: true
         },
         component: () => import(/* webpackChunkName: "group-ticket" */ 'views/userInfo/integrallog')
+      },
+      {
+        path: '/helpCenter',
+        name: 'helpCenter',
+        meta: {
+          title: '帮助中心',
+          requireAuth: true
+        },
+        component: () => import(/* webpackChunkName: "group-ticket" */ 'views/userInfo/helpCenter')
       },
       {
         path: '/reCharge',
