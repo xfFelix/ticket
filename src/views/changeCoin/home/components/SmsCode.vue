@@ -104,7 +104,7 @@ export default {
     show(val){
       if (val) {
         if (this.userinfo.payValidType !== 1) {
-          this.sendCode()
+          // this.sendCode()
         }
       }else{
         this.code='';
@@ -180,6 +180,9 @@ export default {
     // },
     validateCode() {
       this.$emit('submit-order',this.code)
+      setTimeout(()=>{
+        this.code = ''
+      },500)
     },
     async sendCode() {
       clearInterval(this.timeout);
@@ -202,6 +205,12 @@ export default {
     forget() {
       this.$emit('forget')
     }
+  },
+  mounted() {
+    if(this.userinfo.payValidType !== 1) {
+      this.sendCode()
+    }
+
   }
 }
 </script>
