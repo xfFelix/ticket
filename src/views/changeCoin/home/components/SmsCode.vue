@@ -180,9 +180,9 @@ export default {
     // },
     validateCode() {
       this.$emit('submit-order',this.code)
-      setTimeout(()=>{
-        this.code = ''
-      },500)
+      // setTimeout(()=>{
+      //   this.code = ''
+      // },500)
     },
     async sendCode() {
       clearInterval(this.timeout);

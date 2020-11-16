@@ -99,9 +99,9 @@ export default {
   methods: {
     validateCode() {
       this.$emit('submit-order',this.code)
-      setTimeout(()=>{
-        this.code = ''
-      },500)
+      // setTimeout(()=>{
+      //   this.code = ''
+      // },500)
     },
     async sendCode(){
         let res = await sendSmsCode({token: this.token})
