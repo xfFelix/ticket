@@ -3,7 +3,7 @@
     <!-- 选择卡券 -->
     <card-select @info-content="infoContent"></card-select>
     <!-- 兑换信息 -->
-    <charge-info :show="show.info" @go-back="initShow" @send-sms="sendCode" :info="chargeInfo"></charge-info>
+    <charge-info v-if="show.info" :show.sync="show.info" @go-back="initShow" @send-sms="sendCode" :info="chargeInfo"></charge-info>
     <!-- 短信 -->
 
     <Sms-code :show.sync="show.sms" v-if="show.sms" :fail-text="failText" @handler-show-info="initShow" @submit-order="codeInfo" @forget="setForget"></Sms-code>
@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     setForget() {
-        this.show = {mask:true,sms: false,file:false,dialog:true}
+        this.show = {mask:true,info: false,sms: false,file:false,dialog:true}
       },
     initShow() {
       this.show = { mask: false, info: false, sms: false,dialog:false };
@@ -127,13 +127,13 @@ export default {
     },
     //发送短信
     async sendSmsCode() {
-      if (this.userinfo.payValidType !== 1) {
-        let res = await sendSmsCode({ token: this.getToken })
-        if (res.error_code) {
-          this.initShow();
-          return this.$toast(res.message);
-        };
-      }
+      // if (this.userinfo.payValidType !== 1) {
+      //   let res = await sendSmsCode({ token: this.getToken })
+      //   if (res.error_code) {
+      //     this.initShow();
+      //     return this.$toast(res.message);
+      //   };
+      // }
       this.showSms()
     },
     sendCode() {
