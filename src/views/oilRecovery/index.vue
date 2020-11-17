@@ -78,7 +78,7 @@
     </transition>
 
     <!-- <recovery-Info :show="show.info" @handler-show-code="handlerShowCode" @go-back-init="goBackInit" :recoveryListC="recoveryListP" v-if="show.mask"></recovery-Info> -->
-    <sms-code :show="show.code" @handler-show-success="handlerShowSuccess" @go-back-info="goBackInfo" :recoveryListC="recoveryListP" v-if="show.mask" @go-back-init="goBackInit" @forget="setForget"></sms-code>
+    <sms-code :show.sync="show.code" v-if="show.code" @handler-show-success="handlerShowSuccess" @go-back-info="goBackInfo" :recoveryListC="recoveryListP"  @go-back-init="goBackInit" @forget="setForget"></sms-code>
     <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
         <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
         <div slot="btn">联系客服</div>

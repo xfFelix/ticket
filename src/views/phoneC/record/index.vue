@@ -64,7 +64,7 @@
             </cube-scroll>
             <no-data :data="recodeList"></no-data>
         </div>
-        <Sms-code :show="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder" :showSendCode="show.code" @forget="setForget"></Sms-code>
+        <Sms-code :show.sync="show.code" v-if="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder" :showSendCode="show.code" @forget="setForget"></Sms-code>
         <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
         <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
         <div slot="btn">联系客服</div>

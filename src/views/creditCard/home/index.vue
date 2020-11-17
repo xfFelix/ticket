@@ -15,7 +15,7 @@
     <transition name="fade">
       <bg-mask v-model="show.mask"></bg-mask>
     </transition>
-    <sms-code :show="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder" @forget="setForget"></sms-code>
+    <sms-code :show.sync="show.code" v-if="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder" @forget="setForget"></sms-code>
     <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
       <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
       <div slot="btn">联系客服</div>

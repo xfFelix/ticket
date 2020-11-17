@@ -6,7 +6,7 @@
     <charge-info :show="show.info" @go-back="initShow" @send-sms="sendCode" :info="chargeInfo"></charge-info>
     <!-- 短信 -->
 
-    <Sms-code :show="show.sms" :fail-text="failText" @handler-show-info="initShow" @submit-order="codeInfo" @forget="setForget"></Sms-code>
+    <Sms-code :show.sync="show.sms" v-if="show.sms" :fail-text="failText" @handler-show-info="initShow" @submit-order="codeInfo" @forget="setForget"></Sms-code>
     <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
         <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
         <div slot="btn">联系客服</div>

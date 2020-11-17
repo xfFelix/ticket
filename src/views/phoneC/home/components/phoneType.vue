@@ -383,6 +383,8 @@ export default {
       },
       cleanInput() {
         this.mobile = ''
+        this.dirIndex = 1
+        this.carIndex = 2
       },
       toPhoneFile() {
         this.$emit('hand-phoneFile', true)

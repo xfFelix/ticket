@@ -48,7 +48,7 @@
     <!-- 兑换信息 -->
     <recharge-info btnBgColor="#21AEF6" :show="show.info" @handler-show-code="showSms" @go-back="initShow" :coinInfo="coinInfo"></recharge-info>
     <!-- 发送短信 -->
-    <sms-code btnBgColor="#21AEF6" :show="show.sms" @handler-show-info="showInfo" @submit-order="codeInfo" :failText="codeMessage" @forget="setForget"></sms-code>
+    <sms-code btnBgColor="#21AEF6" v-if="show.sms" :show.sync="show.sms" @handler-show-info="showInfo" @submit-order="codeInfo" :failText="codeMessage" @forget="setForget"></sms-code>
     <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType" btnBgColor="#21AEF6">
         <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
         <div slot="btn">联系客服</div>
