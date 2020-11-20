@@ -11,7 +11,7 @@
   font-family: 'PingFangSC-Regular, PingFang SC','Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #f3f4f6;
+  background: #F5F5F5;
 }
 #app{
   height: 100%;

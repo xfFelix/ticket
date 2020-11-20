@@ -96,6 +96,11 @@ export default {
       }
     }
   },
+  created() {
+    if(this.failText) {
+      this.code = ''
+    }
+  },
   methods: {
     validateCode() {
       this.$emit('submit-order',this.code)

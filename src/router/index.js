@@ -321,128 +321,128 @@ const router = new Router({
     //     }
     //   ]
     // },
-    {
-      path: '/gold',
-      name: 'gold',
-      component: () => import(/* webpackChunkName: "group-life" */'views/gold'),
-      meta: {
-        title: '黄金兑换',
-        requireAuth: true
-      },
-      redirect: '/gold/home',
-      children: [
-        {
-          path: 'home',
-          name: 'goldHome',
-          component: () => import(/* webpackChunkName: "group-life" */'views/gold/home'),
-          meta: {
-            title: '黄金兑换',
-            requireAuth: true
-          }
-        },
-        {
-          path: 'buyBack',
-          name: 'goldBuyBack',
-          component: () => import(/* webpackChunkName: "group-life" */'views/gold/buyBack'),
-          meta: {
-            title: '黄金回购',
-            requireAuth: true
-          }
-        },
-        {
-          path: 'buyBackZy',
-          name: 'goldBuyBackZy',
-          component: () => import(/* webpackChunkName: "group-life" */'views/gold/buyBack/zyBuyBack'),
-          meta: {
-            title: '黄金回购',
-            requireAuth: true
-          }
-        },
-        {
-          path: 'buyBackGs',
-          name: 'goldBuyBackGs',
-          component: () => import(/* webpackChunkName: "group-life" */'views/gold/buyBack/gsBuyBack'),
-          meta: {
-            title: '竞技黄金回购',
-            requireAuth: true
-          }
-        },
-        {
-          path: 'record',
-          name: 'goldRecord',
-          component: () => import(/* webpackChunkName: "group-life" */'views/gold/record'),
-          meta: {
-            title: '黄金兑换记录',
-            requireAuth: true
-          }
-        }
-      ]},
+    // {
+    //   path: '/gold',
+    //   name: 'gold',
+    //   component: () => import(/* webpackChunkName: "group-life" */'views/gold'),
+    //   meta: {
+    //     title: '黄金兑换',
+    //     requireAuth: true
+    //   },
+    //   redirect: '/gold/home',
+    //   children: [
+    //     {
+    //       path: 'home',
+    //       name: 'goldHome',
+    //       component: () => import(/* webpackChunkName: "group-life" */'views/gold/home'),
+    //       meta: {
+    //         title: '黄金兑换',
+    //         requireAuth: true
+    //       }
+    //     },
+    //     {
+    //       path: 'buyBack',
+    //       name: 'goldBuyBack',
+    //       component: () => import(/* webpackChunkName: "group-life" */'views/gold/buyBack'),
+    //       meta: {
+    //         title: '黄金回购',
+    //         requireAuth: true
+    //       }
+    //     },
+    //     {
+    //       path: 'buyBackZy',
+    //       name: 'goldBuyBackZy',
+    //       component: () => import(/* webpackChunkName: "group-life" */'views/gold/buyBack/zyBuyBack'),
+    //       meta: {
+    //         title: '黄金回购',
+    //         requireAuth: true
+    //       }
+    //     },
+    //     {
+    //       path: 'buyBackGs',
+    //       name: 'goldBuyBackGs',
+    //       component: () => import(/* webpackChunkName: "group-life" */'views/gold/buyBack/gsBuyBack'),
+    //       meta: {
+    //         title: '竞技黄金回购',
+    //         requireAuth: true
+    //       }
+    //     },
+    //     {
+    //       path: 'record',
+    //       name: 'goldRecord',
+    //       component: () => import(/* webpackChunkName: "group-life" */'views/gold/record'),
+    //       meta: {
+    //         title: '黄金兑换记录',
+    //         requireAuth: true
+    //       }
+    //     }
+    //   ]},
 
-      // {
-      //   path: '/goldzy',
-      //   name: 'goldzy',
-      //   component: () => import(/* webpackChunkName: "group-life" */'views/goldzy'),
-      //   meta: {
-      //     title: '黄金兑换',
-      //     requireAuth: true
-      //   },
-      //   redirect: '/goldzy/home',
-      //   children: [
-      //     {
-      //       path: 'home',
-      //       name: 'goldZyHome',
-      //       component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/home'),
-      //       meta: {
-      //         title: '黄金兑换',
-      //         requireAuth: true
-      //       }
-      //     },
-      //     {
-      //       path: 'buyBack',
-      //       name: 'goldJyBuyBack',
-      //       component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/buyBack'),
-      //       meta: {
-      //         title: '黄金回购',
-      //         requireAuth: true
-      //       }
-      //     },
-      //     {
-      //       path: 'buyBackZy',
-      //       name: 'goldZyBuyBack',
-      //       component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/buyBack/zyBuyBack'),
-      //       meta: {
-      //         title: '黄金回购',
-      //         requireAuth: true
-      //       }
-      //     },
-      //     {
-      //       path: 'buyBackGs',
-      //       name: 'goldGsBuyBack',
-      //       component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/buyBack/gsBuyBack'),
-      //       meta: {
-      //         title: '竞技黄金回购',
-      //         requireAuth: true
-      //       }
-      //     },
-      //     {
-      //       path: 'introduce',
-      //       name: 'goldIntroduce',
-      //       component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/introduce'),
-      //       meta: {
-      //         title: '黄金兑换',
-      //         requireAuth: true
-      //       }
-      //     },
-      //     {
-      //       path: 'record',
-      //       name: 'goldZyRecord',
-      //       component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/record'),
-      //       meta: {
-      //         title: '黄金兑换记录',
-      //         requireAuth: true
-      //       }
-      //     }
-      //   ]},
+      {
+        path: '/gold',
+        name: 'gold',
+        component: () => import(/* webpackChunkName: "group-life" */'views/goldzy'),
+        meta: {
+          title: '黄金兑换',
+          requireAuth: true
+        },
+        redirect: '/gold/home',
+        children: [
+          {
+            path: 'home',
+            name: 'goldZyHome',
+            component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/home'),
+            meta: {
+              title: '黄金兑换',
+              requireAuth: true
+            }
+          },
+          {
+            path: 'buyBack',
+            name: 'goldJyBuyBack',
+            component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/buyBack'),
+            meta: {
+              title: '黄金回购',
+              requireAuth: true
+            }
+          },
+          {
+            path: 'buyBackZy',
+            name: 'goldZyBuyBack',
+            component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/buyBack/zyBuyBack'),
+            meta: {
+              title: '黄金回购',
+              requireAuth: true
+            }
+          },
+          {
+            path: 'buyBackGs',
+            name: 'goldGsBuyBack',
+            component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/buyBack/gsBuyBack'),
+            meta: {
+              title: '竞技黄金回购',
+              requireAuth: true
+            }
+          },
+          {
+            path: 'introduce',
+            name: 'goldIntroduce',
+            component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/introduce'),
+            meta: {
+              title: '黄金兑换',
+              requireAuth: true
+            }
+          },
+          {
+            path: 'record',
+            name: 'goldZyRecord',
+            component: () => import(/* webpackChunkName: "group-life" */'views/goldzy/record'),
+            meta: {
+              title: '黄金兑换记录',
+              requireAuth: true
+            }
+          }
+        ]},
 
 
 
@@ -573,15 +573,15 @@ const router = new Router({
         },
         component: () => import(/* webpackChunkName: "group-ticket" */ 'views/userInfo/realName')
       },
-      // {
-      //   path: '/realNameF',
-      //   name: 'realNameF',
-      //   meta: {
-      //     title: '实名认证',
-      //     requireAuth: true
-      //   },
-      //   component: () => import(/* webpackChunkName: "group-ticket" */ 'views/userInfo/realName/realNameF')
-      // },
+      {
+        path: '/realNameF',
+        name: 'realNameF',
+        meta: {
+          title: '实名认证',
+          requireAuth: true
+        },
+        component: () => import(/* webpackChunkName: "group-ticket" */ 'views/userInfo/realName/realNameF')
+      },
       {
         path: '/bind',
         name: 'userBind',

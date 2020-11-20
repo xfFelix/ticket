@@ -271,8 +271,8 @@ export default {
       },
       dirClick(index,price,key){
         if(this.phoneCan==true){
-          console.log(this.noGoods)
-          console.log(key)
+          // console.log(this.noGoods)
+          // console.log(key)
           if(this.noGoods.indexOf(key)!=-1){
             return false;
           }

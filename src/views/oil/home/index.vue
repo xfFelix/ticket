@@ -33,6 +33,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import { getParam } from "util/common";
 export default {
   components: {
     Score: () => import('./components/Score'),
@@ -70,6 +71,11 @@ export default {
   },
   created() {
     this.initConfig()
+  },
+  mounted(){
+    if(getParam().vendorId) {
+      this.platform(1)
+    }
   },
   computed: {
     ...mapGetters({
@@ -152,7 +158,8 @@ export default {
     },
     ...mapActions({
       initConfig: 'oil/initConfig',
-      checkPassword: 'checkPassword'
+      checkPassword: 'checkPassword',
+      platform:'platform/setPlatform'
     })
   }
 }

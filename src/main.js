@@ -15,11 +15,13 @@ import './common/css/index.scss'
 import 'mint-ui/lib/style.css'
 import 'swiper/dist/css/swiper.css'
 import infiniteScroll from 'vue-infinite-scroll'
+import { Field } from 'vant'
 import {
   Spinner,
 } from "mint-ui";
 Vue.component(Spinner.name, Spinner);
-Vue.use(infiniteScroll)
+Vue.use(infiniteScroll);
+Vue.use(Field)
 // import Vconsole from 'vconsole';
 // new Vconsole();
 

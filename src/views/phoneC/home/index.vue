@@ -204,6 +204,7 @@ export default {
 <style lang="scss" scoped>
 .phoneHome{
   height: 100%;
+  min-height: 100vh;
   padding-bottom: 16px;
   background: linear-gradient(225deg, #1A63FC 0%, #3296FA 100%);
   .navbar{
