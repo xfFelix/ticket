@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters,mapActions } from 'vuex';
 import { getParam } from "util/common";
 export default {
   data: () => ({

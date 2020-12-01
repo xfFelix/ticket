@@ -7,8 +7,9 @@
 <script>
 export default {
   components: {
+    HeadTop: () => import('./components/HeadTop.vue'),
     CardSelect: () => import('./components/CardSelect'),
-    HeadTop:() => import('./components/HeadTop'),
+
   },
 
 }

@@ -315,6 +315,12 @@ export const goldTax = (data) => fetch({
   data
 })
 
+export const goldTaxAll = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'gold/maxGoldExchange',
+  method: 'POST',
+  data
+})
+
 //黄金兑换接口
 // export const goldBuy = (data) => fetch({
 //   url: process.env.VUE_APP_INFO_URl + 'user/gold',
@@ -538,7 +544,7 @@ export const taxes = (data) => fetch({
  * @param {*} data
  */
 export const checkBankAndName = (data) => fetch({
-  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/checkCardInfo',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/user/checkCardInfo':process.env.VUE_APP_INFO_URl + 'gold/checkCardInfo'}`,
   method: 'POST',
   data
 })

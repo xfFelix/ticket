@@ -36,7 +36,7 @@
               <p><span class="icon"></span>本产品兑换说明</p>
               <div class="order-number">02</div>
             </div>
-            <p class="detail">需使用椰子分兑换黄金，兑换手续费包括提料费用、检测成本、人工处理等综合费用，按每笔收取4%交易手续费</p>
+            <p class="detail">需使用椰子分兑换黄金，兑换手续费包括提料费用、检测成本、人工处理等综合费用，按每笔收取2%交易手续费</p>
           </div>
         </div>
         <div class="products-change-detail-wrapper">

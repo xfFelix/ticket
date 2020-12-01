@@ -67,6 +67,7 @@
                 <li :class="[inpPrice==item? 'active': '']" v-for="(item,index) in specialNum" :key="index" @click="setAmount(item)">
                   <span>{{item}}</span><span>{{gtId==3?'根':'颗'}}</span>
                 </li>
+                <li class="all-changes" @click="setAmountAll">全部兑换</li>
               </ul>
             </div>
           </div>
@@ -182,7 +183,7 @@
   </div>
 </template>
 <script>
-import { goldPrice,goldTax, goldLog, goldUntreated } from "api";
+import { goldPrice,goldTax, goldTaxAll, goldLog, goldUntreated } from "api";
 import { mapGetters,mapActions} from 'vuex';
 import { IsInteger,isEmpty } from "util/common";
 export default {
@@ -221,7 +222,7 @@ export default {
     pullUpLoadNoMoreTxt: '没有更多数据了~~',
     tenFlag: true,
     selectAmount: 0,
-    specialNum:[4,7,10,20],
+    specialNum:[4,7,10],
     notSetDec: true,
     notSetInc: false,
     untreated: 0
@@ -319,12 +320,12 @@ export default {
       this.gtActive = id
       this.$emit('input', '1')
       if(id==0) {
-        this.specialNum = [4,7,10,20]
+        this.specialNum = [4,7,10]
         this.notSetDec = true
         this.type = 4
         this.gtId = 4
       }else {
-        this.specialNum = [2,3,4,7]
+        this.specialNum = [2,3,4]
         this.notSetDec = true
         this.type = 3
         this.gtId = 3
@@ -352,10 +353,31 @@ export default {
       // console.log("this.taxInfo",this.taxInfo)
       this.$emit('tax-money',this.taxInfo)
     },
+    // 获取用户可兑换的全部金条或金砂
+
+    async getTaxAll(val) {
+      let res = await goldTaxAll({ type: val,token: this.getToken});
+      if(res.error_code!=0){
+        this.$toast(res.message);
+        this.$emit('input', '1')
+      }else {
+        this.taxInfo = res.data;
+        // console.log(this.taxInfo)
+        let num = res.data.convertNum
+        this.$emit('input', num.toString())
+      }
+      let resStock = await goldPrice({ id: this.gtId });
+      if(resStock.error_code!=0) return this.$toast(resStock.message);
+      this.taxInfo.goldStock = resStock.data.goldStock;
+      // console.log("this.taxInfo",this.taxInfo)
+      this.$emit('tax-money',this.taxInfo)
+    },
+    setAmountAll() {
+      this.getTaxAll(this.gtId)
+    },
     setAmount (num) {
-      this.getTax(num)
-      // this.selectAmount = num
-      this.$emit('input', num.toString())
+        this.getTax(num)
+        this.$emit('input', num.toString())
     },
     decrease() {
       let num = this.inpPrice
@@ -730,13 +752,13 @@ export default {
         .special-num {
           margin-top: 16px;
           ul {
-            padding: 0 35px;
+            padding: 0 6px;
             display: flex;
             justify-content: space-between;
             li {
-              width: 50px;
-              height: 24px;
-              line-height: 27px;
+              width: 64px;
+              height: 28px;
+              line-height: 31px;
               color: #444444;
               font-size: 12px;
               text-align: center;
@@ -746,6 +768,10 @@ export default {
                 color: #FFFFFF;
                 background: linear-gradient(180deg, #EACCA2 0%, #D3A668 100%);
               }
+            }
+            .all-changes {
+              color: #444444;
+              background-color: rgba(213, 169, 110, 0.1);
             }
           }
         }
