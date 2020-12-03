@@ -33,61 +33,7 @@
           </div>
           <div class="buyBackPayT">
             <p class="pay-title">请选择回购方式</p>
-            <div class="item">
-              <li class="buyBackType buyBackType-gray" v-if="!isWithin">
-                <img src="@/common/images/gold/alipay-gray.png" alt="">
-                <p class="text">支付宝</p>
-                <div class="titleW">
-                  <p class="title" style="color:#D2D2D2">仅支持不超过{{aliLimit}}元</p>
-                  <p class="sub-title" style="color:#D2D2D2">预计半个小时内</p>
-                </div>
-                <div class="select-icon select-icon-disabled"></div>
-              </li>
-              <li class="buyBackType" v-if="isWithin">
-                <img src="@/common/images/gold/alipay.png" alt="">
-                <p class="text">支付宝</p>
-                <div class="titleW">
-                  <p class="title">仅支持不超过{{aliLimit}}元</p>
-                  <p class="sub-title">预计半个小时内</p>
-                </div>
-                <div class="select-icon" @click="selectType(1)" :class="[selected==1?'selected-icon':'']"></div>
-              </li>
-              <div class="detailW" v-if="isWithin && selected==1">
-              <div class="main">
-                 <div class="icon"><img src="@/common/images/gold/icon_phone.png" alt=""></div>
-                  <li>
-                    <div class="left">
-                      手机号码
-                    </div>
-                    <div class="right">
-                      <input type="tel" v-model="aliInfo.mobile" name="aliMobile" maxlength="12" placeholder="请输入手机号码" />
-                    </div>
-                  </li>
-              </div>
-              <div class="main">
-                <div class="icon"><img src="@/common/images/gold/icon_name.png" alt=""></div>
-                <li>
-                  <div class="left">
-                    真实姓名
-                  </div>
-                  <div class="right">
-                    <input type="text" v-model="aliInfo.name" name="nameName" maxlength="12" placeholder="请输入支付宝认证的姓名" />
-                  </div>
-                </li>
-              </div>
-              <div class="main">
-                <div class="icon"><img src="@/common/images/gold/icon_zhanghao.png" alt=""></div>
-                <li>
-                  <div class="left">
-                    支付宝账号
-                  </div>
-                  <div class="right">
-                    <input type="text" v-model="aliInfo.account" name="nameAccount" placeholder="请输入支付宝邮箱或手机号" />
-                  </div>
-                </li>
-              </div>
-            </div>
-          </div>
+
           <div class="item">
             <li class="buyBackType">
               <img src="@/common/images/gold/unionpay.png" alt="">
@@ -122,6 +68,67 @@
 
             </div>
           </div>
+
+          <div class="item">
+              <li class="buyBackType buyBackType-gray">
+                <img src="@/common/images/gold/alipay-gray.png" alt="">
+                <p class="text">支付宝</p>
+                <div class="titleW">
+                  <!-- <p class="title" style="color:#D2D2D2">仅支持不超过{{aliLimit}}元</p>
+                  <p class="sub-title" style="color:#D2D2D2">预计半个小时内</p> -->
+                  <p>正在升级中</p>
+                </div>
+                <div class="select-icon select-icon-disabled"></div>
+              </li>
+              <!-- <li class="buyBackType" v-if="isWithin">
+                <img src="@/common/images/gold/alipay.png" alt="">
+                <p class="text">支付宝</p>
+                <div class="titleW">
+                  <p class="title">仅支持不超过{{aliLimit}}元</p>
+                  <p class="sub-title">预计半个小时内</p>
+                </div>
+                <div class="select-icon" @click="selectType(1)" :class="[selected==1?'selected-icon':'']"></div>
+              </li> -->
+              <!-- <div class="detailW" v-if="isWithin && selected==1">
+                <div class="main">
+                 <div class="icon"><img src="@/common/images/gold/icon_phone.png" alt=""></div>
+                  <li>
+                    <div class="left">
+                      手机号码
+                    </div>
+                    <div class="right">
+                      <input type="tel" v-model="aliInfo.mobile" name="aliMobile" maxlength="12" placeholder="请输入手机号码" />
+                    </div>
+                  </li>
+              </div>
+              <div class="main">
+                <div class="icon"><img src="@/common/images/gold/icon_name.png" alt=""></div>
+                <li>
+                  <div class="left">
+                    真实姓名
+                  </div>
+                  <div class="right">
+                    <input type="text" v-model="aliInfo.name" name="nameName" maxlength="12" placeholder="请输入支付宝认证的姓名" />
+                  </div>
+                </li>
+              </div>
+              <div class="main">
+                <div class="icon"><img src="@/common/images/gold/icon_zhanghao.png" alt=""></div>
+                <li>
+                  <div class="left">
+                    支付宝账号
+                  </div>
+                  <div class="right">
+                    <input type="text" v-model="aliInfo.account" name="nameAccount" placeholder="请输入支付宝邮箱或手机号" />
+                  </div>
+                </li>
+              </div>
+            </div> -->
+          </div>
+
+
+
+
             <!-- <p class="pay-title">请填写联系方式</p>
             <div class="item">
               <input class="mobile-input" name="mobile" type="tel" placeholder="请输入手机号码（必填）">
@@ -193,7 +200,6 @@
           <div class="detailW">
             <div><img src="@/common/images/gold-hd/shiwu_tips.png" alt=""></div>
             <div class="main">
-                 <!-- <div class="icon"></div> -->
                   <li>
                     <div class="leftW">
                       <div class="left">
@@ -415,10 +421,6 @@ export default {
               }else{
                 this.initShow();
                 this.suceesShow=true
-                // console.log("银行卡支付")
-                // this.$dialog({content:"回购申请成功，请等候客服审核！09:00---23:00 二小时到账，其它时间兑换次日处理。"},()=>{
-                //   this.$router.go(-1)
-                //   })
               }
           }else {
             let res= await zygoldbuyback({
@@ -572,13 +574,14 @@ export default {
         this.backInfoList = res.data
         this.backPrice = res.data.buyMoney
         this.aliLimit = res.data.aliPayLimitAmount
-        if(res.data.buyMoney>res.data.aliPayLimitAmount) {
-          this.isWithin = false
-          this.selected=0
-        }else {
-          this.isWithin = true
-          this.selected=1
-        }
+        // if(res.data.buyMoney>res.data.aliPayLimitAmount) {
+        //   this.isWithin = false
+        //   this.selected=0
+        // }else {
+        //   this.isWithin = true
+        //   this.selected=1
+        // }
+        this.selected=0
       }
     },
     async getUserToken() {
