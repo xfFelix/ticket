@@ -133,10 +133,59 @@ const router = new Router({
         }
       ]
     },
+    // {
+    //   path: '/memberCard',
+    //   name: 'memberCard',
+    //   component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCard'),
+    //   meta: {
+    //     title: '会员卡券',
+    //     requireAuth: true
+    //   },
+    //   redirect: '/memberCard/home',
+    //   children: [
+    //     {
+    //       path: 'home',
+    //       name: 'memberHome',
+    //       component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCard/home'),
+    //       meta: {
+    //         title: '会员卡券首页',
+    //         requireAuth: true
+    //       }
+    //     }
+    //   ]
+    // },
+    // {
+    //   path: '/memberCard/cardType',
+    //   name: 'cardType',
+    //   component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCard/cardType'),
+    //   meta: {
+    //     title: '充值类型',
+    //     requireAuth: true
+    //   }
+    // },
+    // {
+    //   path: '/memberCard/cardRecord',
+    //   name: 'cardRecord',
+    //   component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCard/cardRecord'),
+    //   meta: {
+    //     title: '兑换记录',
+    //     requireAuth: true
+    //   }
+    // },
+    // {
+    //   path: '/memberCard/cardChangeS',
+    //   name: 'cardChangeS',
+    //   component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCard/cardChangeS'),
+    //   meta: {
+    //     title: '充值成功',
+    //     requireAuth: true
+    //   }
+    // },
+
     {
       path: '/memberCard',
-      name: 'memberCard',
-      component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCard'),
+      name: 'memberCardC',
+      component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCardC'),
       meta: {
         title: '会员卡券',
         requireAuth: true
@@ -145,42 +194,43 @@ const router = new Router({
       children: [
         {
           path: 'home',
-          name: 'memberHome',
-          component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCard/home'),
+          name: 'memberHomeC',
+          component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCardC/home'),
           meta: {
             title: '会员卡券首页',
             requireAuth: true
           }
-        }
+        },
+        {
+          path: '/memberCard/memberDetail',
+          name: 'memberDetail',
+          component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCardC/detail'),
+          meta: {
+            title: '会员卡券详情',
+            requireAuth: true
+          }
+        },
+        {
+          path: '/memberCard/cardRecord',
+          name: 'memberRecord',
+          component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCardC/record'),
+          meta: {
+            title: '会员卡券记录',
+            requireAuth: true
+          }
+        },
+        {
+          path: '/memberCard/recordDetail',
+          name: 'recordDetail',
+          component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCardC/record/RecordDetail'),
+          meta: {
+            title: '会员卡券记录',
+            requireAuth: true
+          }
+        },
       ]
     },
-    {
-      path: '/memberCard/cardType',
-      name: 'cardType',
-      component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCard/cardType'),
-      meta: {
-        title: '充值类型',
-        requireAuth: true
-      }
-    },
-    {
-      path: '/memberCard/cardRecord',
-      name: 'cardRecord',
-      component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCard/cardRecord'),
-      meta: {
-        title: '兑换记录',
-        requireAuth: true
-      }
-    },
-    {
-      path: '/memberCard/cardChangeS',
-      name: 'cardChangeS',
-      component: () => import(/* webpackChunkName: "group-vip" */ 'views/memberCard/cardChangeS'),
-      meta: {
-        title: '充值成功',
-        requireAuth: true
-      }
-    },
+
     {
       path: '/changeCoin',
       name: 'changeCoin',

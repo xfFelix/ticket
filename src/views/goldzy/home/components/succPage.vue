@@ -2,7 +2,9 @@
   <div class="success-pageW">
     <div class="success-page">
     <div class="headerW">
-      <p class="finish-text" @click="changeGlod">完成</p>
+      <p class="finish-text">
+        <span @click="changeGlod">完成</span>
+      </p>
       <div class="finishW">
         <img src="@/common/images/gold-hd/success.png" alt="">
         <div>

@@ -4,9 +4,9 @@
   <div class="gold-home" ref='viewBox'>
       <Header class="navbar" :class="[viewTop>0?'whiteBg':'']" :show-more="!yingqiudiShow">黄金兑换
         <i slot="icon" class="icon-gengduo-black"></i></Header>
-      <div class="introduce" @click="goIntroduce">
+      <!-- <div class="introduce" @click="goIntroduce">
         <img src="../../../common/images/gold-hd/topbanner.png" alt="">
-      </div>
+      </div> -->
       <div class="main-absolute" >
         <gold-info  v-model.trim="inpPrice" @tax-money="taxInfo" ref="goldInfo"></gold-info>
       </div>
@@ -349,13 +349,14 @@ export default {
 }
 
 .main-absolute{
-  margin-top: 16px;
+  // margin-top: 16px;
   width: 100%;
   // overflow-y: scroll;    /*使之可以滚动*/
 　-webkit-overflow-scrolling:touch;
   scrollbar-width: none;
   overflow-x: hidden;
   padding: 0 16px;
+  padding-top: 50px;
   box-sizing: border-box;
   // margin-bottom: 112px !important;
   // background-color: #f5f5f5;

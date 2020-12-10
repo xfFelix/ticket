@@ -49,7 +49,7 @@ export default {
     },
     failText: '',
     link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
-      linkType: 'href'
+    linkType: 'href'
   }),
   computed: {
     ...mapGetters({

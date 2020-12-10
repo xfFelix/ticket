@@ -162,8 +162,13 @@ export const buyBackCommitOrder= (data) => fetch({
 })
 
 //会员卡券类型
+// export const getVipList= (params) => fetch({
+//    url: '/mbscard/getProductList',
+//   method: 'GET',
+//   params
+// })
 export const getVipList= (params) => fetch({
-   url: '/mbscard/getProductList',
+   url: '/mbscard/findProductList',
   method: 'GET',
   params
 })
@@ -173,6 +178,13 @@ export const vipCostInfo= (data) => fetch({
   url: '/mbscard/getCostInfo',
   method: 'POST',
   data
+})
+
+//会员卡券详情
+export const vipCardInfo= (params) => fetch({
+  url: '/mbscard/findProduct',
+ method: 'GET',
+ params
 })
 
 //会员卡券提交订单
@@ -190,6 +202,12 @@ export const vipOrderList= (data) => fetch({
   data
 })
 
+//会员卡券订单详情
+export const vipOrderDetail= (data) => fetch({
+  url: '/mbscard/getOrder',
+  method: 'POST',
+  data
+})
 
 export const checkPayPwd = (data) => fetch({
   url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/editPayPwd',

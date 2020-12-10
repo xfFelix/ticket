@@ -152,7 +152,7 @@ export default {
   border-radius: 10px;
   margin-left: -144px;
   margin-top: -107px;
-  z-index: 11;
+  z-index: 14;
   .main {
     position: relative;
     padding: 24px;

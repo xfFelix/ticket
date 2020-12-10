@@ -1,5 +1,5 @@
 <template>
-  <div v-if="open" class="mask"  @click="closeMask" :style="{'background-color':color}"></div>
+  <div v-if="open" class="mask"  @click="closeMask" :style="{'background-color':color,'z-index':zIndex}"></div>
 </template>
 
 <script>
@@ -21,6 +21,10 @@ export default {
     isClose: {
       type: Boolean,
       default: true
+    },
+    zIndex: {
+      type: Number,
+      default: 10
     }
   },
   methods: {
