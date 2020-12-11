@@ -145,7 +145,7 @@
       <div class="other-serviceW" v-if="isNormalUser">
         <p class="title">更多服务</p>
         <div class="other-service">
-          <li @click="$router.push({name:'goldHome'})">
+          <li @click="$router.push({name:'goldZyHome'})">
             <img src="@/common/images/phone/gold.png" alt="">
             <p>黄金兑换</p>
           </li>
@@ -157,13 +157,13 @@
             <img src="@/common/images/phone/life.png" alt="">
             <p>生活缴费</p>
           </li> -->
-          <li @click="$router.push({name:'lifeHome'})" >
+          <li>
             <a :href="process+'#/layout/channel?id=yeyun'">
               <img src="@/common/images/phone/shop.png" alt="">
               <p>小椰超市</p>
             </a>
           </li>
-          <li @click="$router.push({name:'memberHome'})">
+          <li @click="$router.push({name:'memberHomeC'})">
             <img src="@/common/images/phone/members.png" alt="">
             <p>会员卡券</p>
           </li>
