@@ -418,6 +418,8 @@ export default {
       getToken: 'getToken',
       userinfo: 'getUserinfo',
       phoneConfig: 'phone/getConfig',
+      platform: 'platform/getPlatform',
+      vendorId: 'platform/getVendorId',
     }),
   },
   created () {
@@ -435,8 +437,9 @@ export default {
     this.getDirPrice();
     this.getCarPrice();
     this.noGoods = ['1']
-    if(this.userinfo.vendorId == '3839c796c9574b05a80c87f0adfb1f21') {
+    if (this.platform && this.vendorId=='3839c796c9574b05a80c87f0adfb1f21') {
       this.isNormalUser = false
+      this.type[1].tip = "话费充值"
     }
   },
   mounted(){

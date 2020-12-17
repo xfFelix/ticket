@@ -76,7 +76,11 @@ class Storage {
     if (key === 'token') {
       return JSON.parse(this.store[this.prefix + key])
     }
-    var data = this.store[this.prefix + key];
+    if(key === 'platform' || key === 'vendorId' || key === 'yeyun_vendorId' || key === 'yeyun_platform') {
+      var data = this.store[key];
+    }else {
+      var data = this.store[this.prefix + key];
+    }
     if (!data || data === "null") {
       return null;
     }
