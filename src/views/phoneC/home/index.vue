@@ -2,7 +2,7 @@
 <template>
 <div class="phoneHome">
   <div>
-    <Header class="navbar" :class="[viewTop>0?'whiteBg':'']"  :show-more="!yingqiudiShow" >话费充值
+    <Header class="navbar" :class="[viewTop>0?'whiteBg':'']"  :show-more="!yingqiudiShow && !haofang" >话费充值
       <i slot="icon" class="icon-gengduo-white"></i>
     </Header>
     <phone-type @hand-phoneCan="phoneCanP" @hand-smsShow="smsShow" @hand-phoneFile="phoneFileShow"></phone-type>
@@ -87,8 +87,7 @@ export default {
   methods:{
      ...mapActions({
         checkPassword: 'checkPassword',
-        initConfig: 'phone/initConfig',
-        platform:'platform/setPlatform'
+        initConfig: 'phone/initConfig'
       }),
       // async phoneBnt(name){
       //   if(name == 'dir'){
@@ -182,9 +181,6 @@ export default {
   },
   mounted(){
     window.addEventListener('scroll', this.handleScroll, false)
-    if(getParam().vendorId) {
-      this.platform(1)
-    }
   },
   beforeDestroy() {
     window.removeEventListener('scroll',this.handleScroll);

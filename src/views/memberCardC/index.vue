@@ -5,8 +5,19 @@
 </template>
 
 <script>
+import {mapGetters, mapActions } from 'vuex';
+import { getParam} from "util/common";
 export default {
-
+  methods:{
+    ...mapActions({
+        platform:'platform/setPlatform'
+      }),
+  },
+  created(){
+    if(getParam().vendorId) {
+      this.platform(1)
+    }
+  },
 }
 </script>
 

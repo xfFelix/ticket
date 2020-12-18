@@ -369,17 +369,6 @@ export default {
         let res = await phoneTaxS({amount:amount, token: this.getToken, memo: memo,denomination: denomination})
         if (res.error_code != 0) return this.$toast(res.message);
         this.phoneTaxInfo = res.data;
-        // if(this.userinfo.score >= this.phoneTaxInfo.total){
-        //   if(this.phoneTaxInfo.monthTotal > 30000 && isEmpty(this.userinfo.idnum)){
-        //     this.$dialog({type:'confirm',content:'您消费额度超过3万，请先实名认证！'},()=>{
-        //       this.$router.push({path:'/realName?back=/phoneC'})
-        //     })
-        //     return false;
-        //   }
-        // }else{
-        //   this.$dialog({content:'您的积分不足！'},()=>{});
-        //   return false;
-        // }
       },
       cleanInput() {
         this.mobile = ''
@@ -437,12 +426,16 @@ export default {
     this.getDirPrice();
     this.getCarPrice();
     this.noGoods = ['1']
-    if (this.platform && this.vendorId=='3839c796c9574b05a80c87f0adfb1f21') {
+    // if (this.platform && this.vendorId=='3839c796c9574b05a80c87f0adfb1f21') {
+    //   this.isNormalUser = false
+    //   this.type[1].tip = "话费充值"
+    // }
+  },
+  mounted(){
+    if(this.haofang) {
       this.isNormalUser = false
       this.type[1].tip = "话费充值"
     }
-  },
-  mounted(){
     // 延时滚动
     // setTimeout(() => {
     //     this.runMarquee()

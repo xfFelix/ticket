@@ -2,7 +2,7 @@
 <div class="gold-home-wrapper" >
   <div class="gold-home-bg">
   <div class="gold-home" ref='viewBox'>
-      <Header class="navbar" :class="[viewTop>0?'whiteBg':'']" :show-more="!yingqiudiShow">黄金兑换
+      <Header class="navbar" :class="[viewTop>0?'whiteBg':'']" :show-more="!yingqiudiShow && !haofang">黄金兑换
         <i slot="icon" class="icon-gengduo-black"></i></Header>
       <!-- <div class="introduce" @click="goIntroduce">
         <img src="../../../common/images/gold-hd/topbanner.png" alt="">
@@ -101,8 +101,7 @@ export default {
         checkPassword: 'checkPassword',
         setConfig: 'gold/setConfig',
         setUserInfo: 'setUserinfo',
-        initConfig:'gold/initConfig',
-        platform:'platform/setPlatform'
+        initConfig:'gold/initConfig'
       }),
       setForget() {
         this.show = {mask:true,code:false,file:false,dialog:true}
@@ -229,9 +228,6 @@ export default {
   },
   mounted(){
     window.addEventListener('scroll', this.handleScroll, false)
-    if(getParam().vendorId) {
-      this.platform(1)
-    }
   },
   beforeDestroy() {
     window.removeEventListener('scroll',this.handleScroll);

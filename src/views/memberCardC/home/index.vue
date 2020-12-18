@@ -1,7 +1,7 @@
 <template>
   <div class="cardHome">
     <div class="header-topW">
-      <Header class="navbar" :class="[viewTop>0?'blackBg':'']"  :show-more="!yingqiudiShow" >会员卡券
+      <Header class="navbar" :class="[viewTop>0?'blackBg':'']"  :show-more="!yingqiudiShow && !haofang" >会员卡券
         <i slot="icon" class="icon-gengduo-white"></i>
       </Header>
       <div class="block" ref="blockW"></div>
@@ -95,9 +95,6 @@ export default {
     }),
   },
   methods: {
-    ...mapActions({
-        platform:'platform/setPlatform'
-      }),
     selectType(id) {
       this.productType = id
       if(id==1) {
@@ -153,9 +150,6 @@ export default {
   },
   mounted(){
     window.addEventListener('scroll', this.handleScroll, false)
-    if(getParam().vendorId) {
-      this.platform(1)
-    }
     this.$nextTick(()=>{
       this.scrollHeight = this.$refs.blockW.clientHeight
     })
