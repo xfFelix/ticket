@@ -107,12 +107,6 @@ export const getCostInfo = (data) => fetch({
   data
 })
 
-// export const getCostInfo = (data) => fetch({
-//   url: 'http://192.168.0.112:9966/' + 'api/ticket/oilcard/getCostInfo',
-//   method: 'POST',
-//   data
-// })
-
 export const submitOilOrder = (data) => fetch({
   url: '/oilcard/submit',
   method: 'POST',
@@ -339,12 +333,6 @@ export const goldTaxAll = (data) => fetch({
   data
 })
 
-//黄金兑换接口
-// export const goldBuy = (data) => fetch({
-//   url: process.env.VUE_APP_INFO_URl + 'user/gold',
-//   method: 'POST',
-//   data
-// })
 export const goldBuy = (data) => fetch({
   url: `${fromType=='cocotc'?'https://api.cocotc.cn/user/zyGold':process.env.VUE_APP_INFO_URl + 'gold/zyGold'}`,
   method: 'POST',
@@ -593,3 +581,38 @@ export const getChuanQiCoinList = (data) => fetch({
   data
 })
 
+/****************************  京东E卡 ******************************/
+// 京东e卡产品信息查询
+export const JDECardPriceList = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/JDECardProductCode',
+  method: 'POST',
+  data
+})
+
+// 京东e卡税率查询
+export const JDECardTaxs = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/JDECardTaxs',
+  method: 'POST',
+  data
+})
+
+// 京东e卡下单
+export const JDECardRecharge = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/JDECardRecharge',
+  method: 'POST',
+  data
+})
+
+//京东e卡订单记录
+export const queryJDECardRecharge = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/queryJDECardRecharge',
+  method: 'POST',
+  data
+})
+
+// 查看卡密
+export const JDECardCode = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/JDECardCode',
+  method: 'POST',
+  data
+})

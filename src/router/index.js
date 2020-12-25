@@ -133,6 +133,38 @@ const router = new Router({
         }
       ]
     },
+
+    // {
+    //   path: '/oil',
+    //   name: 'oilC',
+    //   component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilC'),
+    //   meta: {
+    //     title: '加油卡',
+    //     requireAuth: true
+    //   },
+    //   redirect: '/oil/home',
+    //   children: [
+    //     {
+    //       path: 'home',
+    //       name: 'oilHomeC',
+    //       component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilC/home'),
+    //       meta: {
+    //         title: '加油卡首页',
+    //         requireAuth: true
+    //       }
+    //     },
+    //     {
+    //       path: 'record',
+    //       name: 'oilRecordC',
+    //       component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilC/record'),
+    //       meta: {
+    //         title: '加油卡记录',
+    //         requireAuth: true
+    //       }
+    //     },
+    //   ]
+    // },
+
     // {
     //   path: '/memberCard',
     //   name: 'memberCard',
@@ -551,6 +583,37 @@ const router = new Router({
             component: () => import(/* webpackChunkName: "group-life" */'views/phoneC/record'),
             meta: {
               title: '话费记录',
+              requireAuth: true
+            }
+          }
+        ]
+      },
+
+      {
+        path: '/jdCard',
+        name: 'jdCard',
+        component: () => import(/* webpackChunkName: "group-life" */'views/jdCard'),
+        meta: {
+          title: '京东E卡',
+          requireAuth: true
+        },
+        redirect: '/jdCard/home',
+        children: [
+          {
+            path: 'home',
+            name: 'jdCardHome',
+            component: () => import(/* webpackChunkName: "group-life" */'views/jdCard/home'),
+            meta: {
+              title: '京东E卡',
+              requireAuth: true
+            }
+          },
+          {
+            path: 'record',
+            name: 'jdCardRecord',
+            component: () => import(/* webpackChunkName: "group-life" */'views/jdCard/record/index.vue'),
+            meta: {
+              title: '京东E卡记录',
               requireAuth: true
             }
           }

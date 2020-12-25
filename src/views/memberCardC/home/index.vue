@@ -10,9 +10,9 @@
           <img v-if="mId==index" :src="require('../../../common/images/memberCard/'+item.imgIcon+'_active.png')" alt="">
           <img v-else :src="require('../../../common/images/memberCard/'+item.imgIcon+'.png')" alt="" >
           <p>{{item.name}}</p>
-          <div class="shadowW">
+          <!-- <div class="shadowW">
             <img class="no-products" v-if="index==2||index==3" src="../../../common/images/memberCard/icon_lock.png" alt="">
-          </div>
+          </div> -->
 
         </li>
 
@@ -95,28 +95,37 @@ export default {
     }),
   },
   methods: {
+    // selectType(id) {
+    //   this.productType = id
+    //   if(id==1) {
+    //     this.noProducts = false
+    //     this.mId = id
+    //     this.productList = []
+    //     this.videoTypeShow = true
+    //     this.vId = 0
+    //     this.vipVideoList(3)
+    //   }else if(id==0) {
+    //     this.noProducts = false
+    //     this.mId = id
+    //     this.productList = []
+    //     this.videoTypeShow = false
+    //     this.vipOrderList()
+    //   }else {
+    //     this.noProducts = true
+    //   }
+    // },
     selectType(id) {
       this.productType = id
+      this.mId = id
+      this.productList = []
       if(id==1) {
-        this.noProducts = false
-        this.mId = id
-        this.productList = []
         this.videoTypeShow = true
         this.vId = 0
         this.vipVideoList(3)
-      }else if(id==0) {
-        this.noProducts = false
-        this.mId = id
-        this.productList = []
+      }else{
         this.videoTypeShow = false
         this.vipOrderList()
-      }else {
-        this.noProducts = true
-        // this.videoTypeShow = false
-        // this.vipOrderList()
       }
-      // this.productList = []
-      // this.vipOrderList()
     },
     selectVideo(id,categoryId) {
       this.vId = id
@@ -236,19 +245,19 @@ export default {
           border-color: #FFD673 transparent transparent ;
         }
       }
-      .shadow {
-        position: relative;
-        .shadowW {
-          position: absolute;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          background: rgba($color: #000000, $alpha: 0.6);
-          border-radius: 10px;
-        }
-      }
+      // .shadow {
+      //   position: relative;
+      //   .shadowW {
+      //     position: absolute;
+      //     top: 0;
+      //     width: 100%;
+      //     height: 100%;
+      //     display: flex;
+      //     align-items: center;
+      //     background: rgba($color: #000000, $alpha: 0.6);
+      //     border-radius: 10px;
+      //   }
+      // }
     }
     .select-typeW-fixed {
       height: 118px;

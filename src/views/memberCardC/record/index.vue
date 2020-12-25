@@ -20,7 +20,7 @@
             <li class="dateW">
               <div class="date" >
                 <img v-if="item.sendDate" src="@/common/images/memberCard/icon_time.png" alt="">
-                <span class="exp" v-if="item.sendDate">有效期至：{{item.sendDate}}</span>
+                <span class="exp" v-if="item.memo">有效期至：{{item.memo.split("|")[2]}}</span>
               </div>
             </li>
             <div class="icon_changing" v-if="item.status == 0">
@@ -146,7 +146,6 @@ export default {
         &.title {
           padding-left: 12px;
           height: 84px;
-          // line-height: 84px;
           display: flex;
           align-items: center;
 
@@ -208,13 +207,6 @@ export default {
         border-radius: 50%;
       }
     }
-    // .icon_success {
-    //   position: absolute;
-    //   right: 10px;
-    //   bottom: -12px;
-    //   width: 80px;
-    //   height: 80px;
-    // }
     .icon_success {
       position: absolute;
       right: 10px;
@@ -237,11 +229,6 @@ export default {
   transform: rotate(0deg); // fix 子元素超出边框圆角部分不隐藏的问题
   overflow: hidden
 }
-// .cube-pullup-wrapper {
-//   .before-trigger {
-//     color: #9C9C9C !important;
-//   }
-// }
 </style>
 <style>
 .cube-pullup-wrapper .before-trigger {

@@ -3,6 +3,9 @@ import {sessionStorage } from 'common/storage'
 let defaultConfig = {
   realCarP:undefined,
   cardPrice:undefined,
+  salesPrice:undefined,
+  productCode: undefined,
+  num: undefined
 }
 
 
@@ -38,6 +41,9 @@ const mutations = {
     state.config = {
       realCarP:undefined,
       cardPrice:undefined,
+      salesPrice:undefined,
+      productCode: undefined,
+      num: undefined
     }
   }
 }

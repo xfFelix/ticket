@@ -25,8 +25,8 @@
                 立即使用
               </div>
               <div class="order-codeW" v-else>
-                <!-- <div class="order-code"><span class="order-code-left">卡号：</span><span class="order-code-right">1643154618463158</span></div> -->
-                <div class="order-code"><span class="order-code-left">卡密：</span><span class="order-code-right">{{detailInfo.memo}}</span></div>
+                <div class="order-code"><span class="order-code-left">卡号：</span><span class="order-code-right">{{detailInfo.cardNum}}</span></div>
+                <div class="order-code order-code-last"><span class="order-code-left">卡密：</span><span class="order-code-right">{{detailInfo.memo}}</span></div>
                 <div class="copy-code" @click="handleCopy(detailInfo.memo,$event)">复制</div>
               </div>
             </div>
@@ -71,6 +71,7 @@ export default {
        10: 'QQ音乐',
        21: '哈根达斯',
        23: '瑞幸咖啡',
+       24: '滴滴出行',
        25: '星巴克',
        26: '猫眼电影',
        27: '咪咕中信书店'
@@ -88,6 +89,14 @@ export default {
     async getOrderDetail() {
       let data = await vipOrderDetail({id: this.$route.query.id, token: this.getToken})
       this.detailInfo = data.data
+      if(data.data.memo) {
+        let memo = data.data.memo
+        if(memo.indexOf('|')>-1) {
+          this.detailInfo.cardNum = memo.split("|")[0];
+          this.detailInfo.memo = memo.split("|")[1];
+          this.detailInfo.sendDate = memo.split("|")[2];
+        }
+      }
     },
     handleCopy(text, event) {
       clip(text, event)
@@ -99,9 +108,6 @@ export default {
   created() {
     this.getOrderDetail()
   }
-  // mounted() {
-  //   this.getOrderDetail()
-  // }
 }
 </script>
 <style lang="scss" scoped>
@@ -112,7 +118,6 @@ export default {
   .navbar{
     background: transparent;
     color: #fff;
-    // position: fixed;
     width: 100%;
     .icon-gengduo-white {
       position: absolute;
@@ -130,8 +135,6 @@ export default {
     .order-typeW {
       background: #fff;
       border-radius: 10px;
-      // padding: 0 8px;
-      // padding-left: 16px;
       .title {
         display: flex;
         align-items: center;
@@ -180,7 +183,7 @@ export default {
             border-radius: 14px;
           }
           .info-btn {
-            // margin-top: 36px;
+            margin: 0 auto;
             width: 311px;
             height: 44px;
             line-height: 44px;
@@ -214,7 +217,9 @@ export default {
                 text-align: left;
                 color: #21D398;
               }
-
+            }
+            .order-code-last {
+              margin-top: 8px;
             }
             .code-secret {
               margin-top: 8px;
@@ -236,12 +241,6 @@ export default {
           }
         }
 
-        // .sub-title {
-        //   margin-top: 12px;
-        //   font-size: 14px;
-        //   color: #999999;
-        // }
-
       }
       .order-exp {
         padding: 20px 16px;
@@ -255,12 +254,6 @@ export default {
           .right {
             color: #1A1A1A;
           }
-          // &:last-child {
-          //   margin-top: 12px;
-          // }
-          // &:first-child {
-          //   margin-top: 0px;
-          // }
         }
       }
     }
