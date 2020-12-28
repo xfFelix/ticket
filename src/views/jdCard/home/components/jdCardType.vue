@@ -172,6 +172,7 @@ export default {
           this.dirIndex = index;
           this.setConfig({cardPrice:item.productPrices,realCarP:item.total,productCode:item.productCode})
           this.jdCardTaxInfo = item
+          this.jdCardTax()
         }
       },
       contact () {
