@@ -113,7 +113,7 @@ export default {
       if(href == 'https://tmall.cocogc.cn') {
         window.location.href = href+'/ticket/gold/buyBackGs?id='+this.successInfo.id+'&gtype='+this.successInfo.gtype+'&token='+this.getToken+'&fromType=cocogc'
       }else {
-        window.location.href = 'https://t.xiyuma.net/ticket/gold/buyBackGs?id='+this.successInfo.id+'&gtype='+this.successInfo.gtype+'&token='+this.getToken+'&fromType=cocogc'
+        window.location.href = 'https://t.xindaguijin.cn/ticket/gold/buyBackGs?id='+this.successInfo.id+'&gtype='+this.successInfo.gtype+'&token='+this.getToken+'&fromType=cocogc'
       }
     }
   },
