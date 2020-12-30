@@ -2,8 +2,8 @@ import {isEmpty} from 'util/common';
 
 const state = {
   typeList: [
-    {label: '中石化', value: 1},
-    {label: '中石油', value: 2},
+    {label: '中国石化', value: 1},
+    {label: '中国石油', value: 2},
   ],
   config: {
     cardNum: undefined,
@@ -12,7 +12,9 @@ const state = {
     token: undefined,
     mobile: '',
     code: '',
-    rechargeType: 1 // 充值方式： 1 直充 2 加油卡充值
+    total: '',
+    rechargeType: 1, // 充值方式： 1 直充 2 加油卡充值
+    monthTotal: undefined
   },
   statusList: [
     { label: '兑换成功', value: 0 },
@@ -78,7 +80,9 @@ const mutations = {
       mobile: '',
       token: undefined,
       code: '',
-      rechargeType: 1 // 充值方式： 1 直充 2 加油卡充值
+      total: '',
+      rechargeType: 1, // 充值方式： 1 直充 2 加油卡充值
+      monthTotal: undefined
     }
   }
 }

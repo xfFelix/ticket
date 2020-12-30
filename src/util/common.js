@@ -168,3 +168,21 @@ export const luhnCheck = (bankno) => {
   }
 }
 
+// 验证中石化油卡
+export const IsZhongshihua = (num) => {
+  var reg = /^1[0-9]\d{17}$/g;
+  if (reg.test(num)) {
+    return true
+  } else {
+    return false
+  }
+}
+// 验证中石油油卡
+export const IsZhongshiyou = (num) => {
+  var reg = /^9[0-9]\d{14}$/g;
+  if (reg.test(num)) {
+    return true
+  } else {
+    return false
+  }
+}

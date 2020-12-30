@@ -47,6 +47,8 @@ export default {
         return this.$router.push('home')
       }else if(route.path.includes('/memberCard/home')) {
         return window.location.href = process.env.VUE_APP_BASE_HOME_URL
+      }else if(route.path.includes('/oil/home')) {
+        return window.location.href = process.env.VUE_APP_BASE_HOME_URL
       }
       this.$router.back()
     }

@@ -5,7 +5,8 @@ let defaultConfig = {
   cardPrice:undefined,
   salesPrice:undefined,
   productCode: undefined,
-  num: undefined
+  num: undefined,
+  monthTotal:undefined
 }
 
 
@@ -43,7 +44,8 @@ const mutations = {
       cardPrice:undefined,
       salesPrice:undefined,
       productCode: undefined,
-      num: undefined
+      num: undefined,
+      monthTotal: undefined
     }
   }
 }

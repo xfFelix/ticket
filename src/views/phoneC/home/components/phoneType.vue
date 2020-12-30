@@ -149,7 +149,7 @@
             <img src="@/common/images/phone/gold.png" alt="">
             <p>黄金兑换</p>
           </li>
-          <li @click="$router.push({name:'oilHome'})">
+          <li @click="$router.push({name:'oilHomeC'})">
             <img src="@/common/images/phone/oil.png" alt="">
             <p>加油卡</p>
           </li>

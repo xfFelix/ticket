@@ -85,7 +85,7 @@
           <img src="@/common/images/jdCard/gold.png" alt="">
           <p>黄金兑换</p>
         </li>
-        <li @click="$router.push({name:'oilHome'})">
+        <li @click="$router.push({name:'oilHomeC'})">
           <img src="@/common/images/jdCard/oil.png" alt="">
           <p>加油卡</p>
         </li>
@@ -161,7 +161,7 @@ export default {
         this.dirList = res.data;
         this.setConfig({cardPrice:res.data[0].productPrices,realCarP:res.data[0].total,productCode:res.data[0].productCode,num:'1',salesPrice:res.data[0].salePrice})
         this.jdCardTaxInfo = res.data[0]
-        console.log(this.jdCardTaxInfo)
+        this.jdCardTax()
       },
       dirClick(index,item){
         if(this.phoneCan==true){
@@ -183,7 +183,7 @@ export default {
       },
       async phoneBnt(){
           if(this.userinfo.score >= this.jdCardTaxInfo.total){
-            if(this.jdCardTaxInfo.monthTotal > 30000 && isEmpty(this.userinfo.idnum)){
+            if(this.jdCardConfig.monthTotal > 30000 && isEmpty(this.userinfo.idnum)){
               this.$dialog({type:'confirm',content:'您消费额度超过3万，请先实名认证！'},()=>{
                 this.$router.push({path:'/realName?back=/jdCard'})
               })
@@ -203,7 +203,7 @@ export default {
         let res = await JDECardTaxs({token: this.getToken, productCode: this.jdCardConfig.productCode,num: this.inpNum})
         if (res.error_code != 0) return this.$toast(res.message);
         this.jdCardTaxInfo = res.data;
-        this.setConfig({realCarP:res.data.total,salesPrice: res.data.amount})
+        this.setConfig({realCarP:res.data.total,salesPrice: res.data.amount,monthTotal:res.data.monthTotal})
       },
       cleanInput() {
         this.mobile = ''

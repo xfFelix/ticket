@@ -67,77 +67,46 @@ const router = new Router({
         requireAuth: true
       }
     },
-    {
-      path: '/oil/oilRecovery',
-      name: 'oilRecovery',
-      component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilRecovery'),
-      meta: {
-        title: '加油卡回收',
-        requireAuth: true
-      }
-    },
-    {
-      path: '/oil/oilRecord',
-      name: 'oilRecord',
-      component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilRecord'),
-      meta: {
-        title: '加油卡充值',
-        // requireAuth: true
-      }
-    },
-    {
-      path: '/oil/oilChangeS',
-      name: 'oilChangeS',
-      component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilChangeS'),
-      meta: {
-        title: '兑换成功',
-        // requireAuth: true
-      }
-    },
-    {
-      path: '/oil/oilRecoveryS',
-      name: 'oilRecoveryS',
-      component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilRecoveryS'),
-      meta: {
-        title: '回购成功',
-        // requireAuth: true
-      }
-    },
-    {
-      path: '/oil',
-      name: 'oil',
-      component: () => import(/* webpackChunkName: "group-oil" */ 'views/oil'),
-      meta: {
-        title: '加油卡',
-        requireAuth: true
-      },
-      redirect: '/oil/home',
-      children: [
-        {
-          path: 'home',
-          name: 'oilHome',
-          component: () => import(/* webpackChunkName: "group-oil" */ 'views/oil/home'),
-          meta: {
-            title: '加油卡首页',
-            requireAuth: true
-          }
-        },
-        {
-          path: 'recovery',
-          name: 'recoveryList',
-          component: () => import(/* webpackChunkName: "group-oil" */ 'views/oil/recovery'),
-          meta: {
-            title: '加油卡回收列表',
-            requireAuth: true
-          }
-        }
-      ]
-    },
-
+    // {
+    //   path: '/oil/oilRecovery',
+    //   name: 'oilRecovery',
+    //   component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilRecovery'),
+    //   meta: {
+    //     title: '加油卡回收',
+    //     requireAuth: true
+    //   }
+    // },
+    // {
+    //   path: '/oil/oilRecord',
+    //   name: 'oilRecord',
+    //   component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilRecord'),
+    //   meta: {
+    //     title: '加油卡充值',
+    //     // requireAuth: true
+    //   }
+    // },
+    // {
+    //   path: '/oil/oilChangeS',
+    //   name: 'oilChangeS',
+    //   component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilChangeS'),
+    //   meta: {
+    //     title: '兑换成功',
+    //     // requireAuth: true
+    //   }
+    // },
+    // {
+    //   path: '/oil/oilRecoveryS',
+    //   name: 'oilRecoveryS',
+    //   component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilRecoveryS'),
+    //   meta: {
+    //     title: '回购成功',
+    //     // requireAuth: true
+    //   }
+    // },
     // {
     //   path: '/oil',
-    //   name: 'oilC',
-    //   component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilC'),
+    //   name: 'oil',
+    //   component: () => import(/* webpackChunkName: "group-oil" */ 'views/oil'),
     //   meta: {
     //     title: '加油卡',
     //     requireAuth: true
@@ -146,24 +115,55 @@ const router = new Router({
     //   children: [
     //     {
     //       path: 'home',
-    //       name: 'oilHomeC',
-    //       component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilC/home'),
+    //       name: 'oilHome',
+    //       component: () => import(/* webpackChunkName: "group-oil" */ 'views/oil/home'),
     //       meta: {
     //         title: '加油卡首页',
     //         requireAuth: true
     //       }
     //     },
     //     {
-    //       path: 'record',
-    //       name: 'oilRecordC',
-    //       component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilC/record'),
+    //       path: 'recovery',
+    //       name: 'recoveryList',
+    //       component: () => import(/* webpackChunkName: "group-oil" */ 'views/oil/recovery'),
     //       meta: {
-    //         title: '加油卡记录',
+    //         title: '加油卡回收列表',
     //         requireAuth: true
     //       }
-    //     },
+    //     }
     //   ]
     // },
+
+    {
+      path: '/oil',
+      name: 'oilC',
+      component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilC'),
+      meta: {
+        title: '加油卡',
+        requireAuth: true
+      },
+      redirect: '/oil/home',
+      children: [
+        {
+          path: 'home',
+          name: 'oilHomeC',
+          component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilC/home'),
+          meta: {
+            title: '加油卡首页',
+            requireAuth: true
+          }
+        },
+        {
+          path: 'record',
+          name: 'oilRecordC',
+          component: () => import(/* webpackChunkName: "group-oil" */ 'views/oilC/record'),
+          meta: {
+            title: '加油卡记录',
+            requireAuth: true
+          }
+        },
+      ]
+    },
 
     // {
     //   path: '/memberCard',
