@@ -384,8 +384,6 @@ export default {
             marquee = this.$refs.marqueeBox,
             disx = 0, // 位移距离
             bodyWith = this.$refs.marqueeWrap.clientWidth;
-        console.log(width)
-        console.log(bodyWith)
         if (width > bodyWith){
         //设置位移
         setInterval(() => {
@@ -426,15 +424,19 @@ export default {
     this.getDirPrice();
     this.getCarPrice();
     this.noGoods = ['1']
-    // if (this.platform && this.vendorId=='3839c796c9574b05a80c87f0adfb1f21') {
-    //   this.isNormalUser = false
-    //   this.type[1].tip = "话费充值"
-    // }
   },
   mounted(){
     if(this.haofang) {
       this.isNormalUser = false
       this.type[1].tip = "话费充值"
+    }
+    if(this.huanlejiao) {
+      this.type = [
+        {id:0,name:'话费充值 - 直充',tip:'预计24小时内充值成功',show:true,
+          imgPath: require('../../../../common/images/phone/chonghuafei_normal.png'),
+          imgPathNone: require('../../../../common/images/phone/chonghuafei_none.png'),
+        }
+      ]
     }
     // 延时滚动
     // setTimeout(() => {

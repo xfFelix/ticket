@@ -3,7 +3,8 @@ import {mapGetters} from 'vuex'
 export default {
   data:()=>({
     yingqiudiShow:false,
-    haofang:false
+    haofang:false,
+    huanlejiao:false
   }),
   computed: {
     ...mapGetters({
@@ -23,6 +24,9 @@ export default {
     }
     if (this.platform && this.vendorId=='3839c796c9574b05a80c87f0adfb1f21') {
       this.haofang = true
+    }
+    if (this.platform && this.vendorId=='d420e723ce814d788d8f6dbfb2e79c7e') {
+      this.huanlejiao = true
     }
   }
 }
