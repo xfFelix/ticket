@@ -127,6 +127,7 @@ export default {
           height: 100%;
           flex: 1;
           border-radius:0 50px 50px 0;
+          color:#000000;
         }
         .img_captcha{
           width: 54px;
