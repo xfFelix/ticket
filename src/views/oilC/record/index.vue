@@ -19,8 +19,10 @@
 
                             <div>
                                 <span v-if="item.status==0" class="order-status bg-orange">{{changeFlag? '提交成功，待充值': '兑换成功'}}</span>
-                                <span v-else-if="item.status==1" class="order-status bg-green">{{changeFlag? '充值成功': '已回收'}}</span>
-                                <span v-else-if="item.status==2" class="order-status bg-red">{{changeFlag? '充值失败': '回收失败'}}</span>
+                                <span v-if="item.status==99" class="order-status bg-orange">{{changeFlag? '待商户确认': ''}}</span>
+                                <span v-if="item.status==1" class="order-status bg-green">{{changeFlag? '充值成功': '已回收'}}</span>
+                                <span v-if="item.status==2" class="order-status bg-red">{{changeFlag? '充值失败': '回收失败'}}</span>
+                                <span v-if="item.status==88" class="order-status bg-red">{{changeFlag? '商户取消订单': ''}}</span>
                                 <!-- <span v-else-if="item.status==3">回收中</span>
                                 <span v-else-if="item.status==4">兑换失败</span> -->
                             </div>

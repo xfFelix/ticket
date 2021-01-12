@@ -24,7 +24,7 @@
         <div class="charge"  @click="$emit('get-close',false)">再充值一笔</div>
       </div>
     </div>
-    <div class="success-page-card" v-if="phoneConfig.type===1">
+    <div class="success-page-card" v-if="phoneConfig.type===1 && !businessValidate">
       <div class="icon-wrapper">
         <img src="@/common/images/phone/success-icon.png" alt="">
       </div>
@@ -42,6 +42,18 @@
       <div class="check-record" @click="$router.push({name:'phoneCRecord',query:{cardId:1}})">查看兑换记录</div>
       <div class="changes" @click="changeCard" v-if="isNormalUser">前往使用充值、转卖 ></div>
     </div>
+    <div class="success-page-card-business" v-if="phoneConfig.type===1 && businessValidate">
+      <div class="order-infoW">
+        <li class="order-info-item">
+          <span class="num">{{phoneConfig.cardPrice}}</span><span class="unit">元</span>
+        </li>
+        <li class="order-info-item">
+          <span class="num">{{phoneConfig.phoneTaxInfoTotal}}</span>
+        </li>
+      </div>
+      <div class="changes" @click="$emit('get-close',false)">完成</div>
+      <div class="check-record" @click="$router.push({name:'phoneCRecord',query:{cardId:1}})">查看兑换记录<span class="right-arrow"></span></div>
+    </div>
   </div>
 </template>
 <script>
@@ -54,6 +66,10 @@ export default {
     haihangUrl: {
       type: String,
       default: ''
+    },
+    businessValidate: {
+      type: Boolean,
+      default: false
     }
   },
   data:()=>({
@@ -118,8 +134,6 @@ export default {
           color: #ffffff;
           border-radius: 50%;
           background: $theme;
-          // background: transparent;
-          // border: 1px solid $theme;
           box-sizing: border-box;
 
           .tick-text {
@@ -184,7 +198,6 @@ export default {
       }
     }
     .tips {
-      // margin-top: -2px;
       margin-left: 30px;
       color: rgba($color: #000000, $alpha: 0.4);
       font-size: 14px;
@@ -294,6 +307,74 @@ export default {
       box-sizing: border-box;
     }
   }
+  .success-page-card-business {
+    position: fixed;
+    margin:auto;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    // padding: 24px;
+    width: 288px;
+    height: 438px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    z-index: 11;
+    background-image: url('../../../../common/images/phone/success-bg.png');
+    background-size: 100% 100%;
+    .order-infoW {
+      padding-top: 102px;
+      display: flex;
+      align-items: center;
+      .order-info-item {
+        flex: 1;
+        text-align: center;
+        color: #ffffff;
+        font-size: 12px;
+        .num {
+          font-size: 26px;
+        }
+        .unit {
+          margin-left: 4px;
+        }
+      }
+    }
+    .check-record {
+      margin: 0 auto;
+      margin-top: 10px;
+      width: 180px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 5px;
+      color: #ffffff;
+      font-size: 16px;
+      text-align: center;
+      font-weight: 600;
+      border: 1px solid #ffffff;
+      box-sizing: border-box;
+      letter-spacing: 1px;
+      .right-arrow {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background-image: url('../../../../common/images/record-arrow.png');
+        background-size: 100% 100%;
+      }
+    }
+    .changes {
+      margin: 0 auto;
+      margin-top: 190px;
+      width: 180px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 5px;
+      font-size: 16px;
+      color:#ffffff;
+      text-align: center;
+      background: linear-gradient(270deg, #1ED688 0%, #0CC391 100%);
+    }
+  }
 }
+
 
 </style>

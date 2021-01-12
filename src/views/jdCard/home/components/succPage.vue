@@ -1,11 +1,21 @@
 <template>
   <div class="success-pageW">
     <div class="success-page-dir">
-      <div class="success-page-dir-topW">
+      <div class="success-page-dir-topW" v-if="!businessValidate">
         <p class="jdCard-num"><span>获得{{jdCardConfig.cardPrice}}元京东E卡</span><span class="num">×{{jdCardConfig.num}}</span></p>
         <p class="priceW"><span class="rmb">¥ </span><span class="price">{{jdCardConfig.cardPrice}}</span></p>
       </div>
       <div class="success-page-dir-bottomW">
+        <div class="finish" @click="$router.push({name:'jdCardRecord'})">查看兑换记录</div>
+        <div class="charge"  @click="$emit('get-close',false)">再兑一张</div>
+      </div>
+    </div>
+    <div class="success-page-business" v-if="businessValidate">
+      <div class="success-page-topW">
+        <p class="jdCard-num"><span>获得{{jdCardConfig.cardPrice}}元京东E卡</span><span class="num">×{{jdCardConfig.num}}</span></p>
+        <p class="priceW"><span class="rmb">¥ </span><span class="price">{{jdCardConfig.cardPrice}}</span></p>
+      </div>
+      <div class="success-page-bottomW">
         <div class="finish" @click="$router.push({name:'jdCardRecord'})">查看兑换记录</div>
         <div class="charge"  @click="$emit('get-close',false)">再兑一张</div>
       </div>
@@ -15,6 +25,12 @@
 <script>
 import {mapGetters, mapActions } from 'vuex';
 export default {
+  props: {
+    businessValidate: {
+      type: Boolean,
+      default: false
+    }
+  },
   data:()=>({
     isNormalUser: true
   }),
@@ -79,6 +95,69 @@ export default {
     }
 
     .success-page-dir-bottomW {
+      margin-top: 34px;
+      div {
+        margin: 0 auto;
+        width: 200px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 16px;
+        text-align: center;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      .finish {
+        color: #ffffff;
+        background: linear-gradient(270deg, #FE3215 0%, #FF7434 100%);
+      }
+      .charge {
+        margin-top: 8px;
+        color: #FF7300;
+        border: 1px solid #FF7300;
+      }
+    }
+  }
+  .success-page-business {
+    position: fixed;
+    margin:auto;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    // padding: 24px;
+    width: 300px;
+    height: 370px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    z-index: 11;
+    background-image: url('../../../../common/images/jdCard/success-business-bg.png');
+    background-size: 100% 100%;
+    .success-page-topW {
+      .jdCard-num {
+        padding-top: 64px;
+        text-align: center;
+        font-size: 14px;
+        color: #ffffff;
+        .num {
+          margin-left: 12px;
+        }
+      }
+      .priceW {
+        margin-top: 55px;
+        text-align: center;
+        color: #ED6725;
+        .rmb {
+          font-size: 20px;
+          font-weight: bold;
+        }
+        .price {
+          font-size: 48px;
+          font-family: DINPro-Bold;
+        }
+      }
+    }
+
+    .success-page-bottomW {
       margin-top: 34px;
       div {
         margin: 0 auto;

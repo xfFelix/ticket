@@ -1,72 +1,73 @@
 <template>
-  <div class="success-pageW">
-    <div class="success-page">
-    <div class="headerW">
-      <p class="finish-text">
-        <span @click="changeGlod">完成</span>
-      </p>
-      <div class="finishW">
-        <img src="@/common/images/gold-hd/success.png" alt="">
-        <div>
-          <p>兑换成功！</p>
-          <p>感谢您的兑换</p>
-        </div>
-      </div>
-      <div class="line"></div>
-    </div>
-    <div class="success-mainW">
-      <div class="success-main">
-        <div class="success-info">
-          <li>
-            <span>兑换数量</span>
-            <span>{{successInfo.gtype==3?'金条':'金砂'}}，{{successInfo.weight}}克</span>
-          </li>
-          <li>
-            <span>消耗积分</span>
-            <span>{{successInfo.totalAmount}}</span>
-          </li>
-          <div class="line"></div>
-          <p class="order-id">订单号：{{successInfo.id}}</p>
-        </div>
-        <div class="success-detail">
-          <p class="code-title">—  您的黄金提货码  —</p>
-          <p class="code-text">{{successInfo.code}}</p>
-          <img class="code-icon" src="@/common/images/gold-hd/success_gold.png" alt="">
-          <p class="gold-weight">{{successInfo.gtype==3?'金条':'金砂'}}{{successInfo.weight}}克</p>
-          <div class="gold-info">
-            <p>
-              <img src="@/common/images/gold-hd/icon_yeyun.png" alt="">
-              <span>椰云网络</span>
-            </p>
-            <p class="gold-hc">恒昌黄金</p>
+  <div class="wrapper">
+    <div class="success-pageW" v-if="!businessValidate">
+      <div class="success-page">
+      <div class="headerW">
+        <p class="finish-text">
+          <span @click="changeGlod">完成</span>
+        </p>
+        <div class="finishW">
+          <img src="@/common/images/gold-hd/success.png" alt="">
+          <div>
+            <p>兑换成功！</p>
+            <p>感谢您的兑换</p>
           </div>
-          <p class="gold-yeyun">椰云网络联手恒昌黄金提供黄金兑换服务</p>
+        </div>
+        <div class="line"></div>
+      </div>
+      <div class="success-mainW">
+        <div class="success-main">
+          <div class="success-info">
+            <li>
+              <span>兑换数量</span>
+              <span>{{successInfo.gtype==3?'金条':'金砂'}}，{{successInfo.weight}}克</span>
+            </li>
+            <li>
+              <span>消耗积分</span>
+              <span>{{successInfo.totalAmount}}</span>
+            </li>
+            <div class="line"></div>
+            <p class="order-id">订单号：{{successInfo.id}}</p>
+          </div>
+          <div class="success-detail">
+            <p class="code-title">—  您的黄金提货码  —</p>
+            <p class="code-text">{{successInfo.code}}</p>
+            <img class="code-icon" src="@/common/images/gold-hd/success_gold.png" alt="">
+            <p class="gold-weight">{{successInfo.gtype==3?'金条':'金砂'}}{{successInfo.weight}}克</p>
+            <div class="gold-info">
+              <p>
+                <img src="@/common/images/gold-hd/icon_yeyun.png" alt="">
+                <span>椰云网络</span>
+              </p>
+              <p class="gold-hc">恒昌黄金</p>
+            </div>
+            <p class="gold-yeyun">椰云网络联手恒昌黄金提供黄金兑换服务</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="success-footerW">
-      <div class="footerBtn">
-        <button class="left" @click="$router.push({name: 'goldZyRecord'})">兑换记录</button>
-        <button class="right" @click="goldback">前往提货 ></button>
+      <div class="success-footerW">
+        <div class="footerBtn">
+          <button class="left" @click="$router.push({name: 'goldZyRecord'})">兑换记录</button>
+          <button class="right" @click="goldback">前往提货 ></button>
+        </div>
+        <div class="tips">
+          <p>注：黄金提货由第三方，海南信达贵金科技有限公司</p>
+          <p>提供实物黄金物流和黄金回收服务</p>
+        </div>
       </div>
-      <div class="tips">
-        <p>注：黄金提货由第三方，海南信达贵金科技有限公司</p>
-        <p>提供实物黄金物流和黄金回收服务</p>
       </div>
     </div>
-    <!-- <div class="success-info">
-      <p class="one-bottom-px">
-        <span>兑换数量</span>
-        <span>{{getData.type==3?'金条':'金砂'}}，{{getData.type==3?getData.amount*10:(getData.amount*0.05).toFixed(2)}}克</span>
-      </p>
-      <p>
-        <span>消耗积分</span>
-        <span>{{getData.cost}}</span>
-      </p>
-    </div>
-    <div class="buy-back">直接回购</div>
-    <div class="check-buyBack">查看可回购</div>
-    <div class="changes" @click="changeGlod">兑换实物黄金 ></div> -->
+    <div class="success-page-business" v-if="businessValidate">
+      <div class="order-infoW">
+        <li class="order-info-item">
+          <span class="num">{{successInfo.weight}}</span><span class="unit">克，{{successInfo.gtype==3?'金条':'金砂'}}</span>
+        </li>
+        <li class="order-info-item">
+          <span class="num">{{successInfo.totalAmount}}</span>
+        </li>
+      </div>
+      <div class="changes" @click="changeGlod">完成</div>
+      <div class="check-record" @click="$router.push({name: 'goldZyRecord'})">查看兑换记录<span class="right-arrow"></span></div>
     </div>
   </div>
 </template>
@@ -74,11 +75,12 @@
 import {goldInfo} from 'api';
 import {mapGetters} from 'vuex'
 export default {
-  // props: {
-  //   getData: {
-  //     type: Object
-  //   }
-  // },
+  props: {
+    businessValidate: {
+      type: Boolean,
+      default: false
+    }
+  },
   data(){
     return{
       // pathP:{
@@ -123,6 +125,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '~@/common/css/color.scss';
 .success-pageW {
   margin:auto;
   width: 100%;
@@ -319,4 +322,71 @@ export default {
     }
   }
 }
+.success-page-business {
+    position: fixed;
+    margin:auto;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    // padding: 24px;
+    width: 288px;
+    height: 438px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    z-index: 11;
+    background-image: url('../../../../common/images/gold-hd/success-bg.png');
+    background-size: 100% 100%;
+    .order-infoW {
+      padding-top: 102px;
+      display: flex;
+      align-items: center;
+      .order-info-item {
+        flex: 1;
+        text-align: center;
+        color: #ffffff;
+        font-size: 12px;
+        .num {
+          font-size: 26px;
+        }
+        .unit {
+          margin-left: 4px;
+        }
+      }
+    }
+    .check-record {
+      margin: 0 auto;
+      margin-top: 10px;
+      width: 180px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 5px;
+      color: #ffffff;
+      font-size: 16px;
+      text-align: center;
+      font-weight: 600;
+      border: 1px solid #ffffff;
+      box-sizing: border-box;
+      letter-spacing: 1px;
+      .right-arrow {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background-image: url('../../../../common/images/record-arrow.png');
+        background-size: 100% 100%;
+      }
+    }
+    .changes {
+      margin: 0 auto;
+      margin-top: 190px;
+      width: 180px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 5px;
+      font-size: 16px;
+      color:#ffffff;
+      text-align: center;
+      background: linear-gradient(270deg, #1ED688 0%, #0CC391 100%);
+    }
+  }
 </style>

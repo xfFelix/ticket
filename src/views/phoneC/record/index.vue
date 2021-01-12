@@ -21,11 +21,13 @@
                         <div class="reName flex">
                           <p>{{item.cardNum==0?item.cardBank+'元话费直充':'三网全国通用'+item.cardBank +'元充值卡'}}</p>
                           <p class="status-recharge" v-if="item.status==0">提交成功，待充值</p>
+                          <p class="status-recharge" v-if="item.status==99">待商户确认</p>
                           <p class="status-success" v-if="item.status==1 || item.status==4 || item.status==7">{{typeFlag==0?'充值':'兑换'}}成功</p>
                           <p class="status-failed" v-if="item.status==2">{{typeFlag==0?'充值':'兑换'}}失败</p>
+                          <p class="status-failed" v-if="item.status==88">商户取消订单</p>
                           <p class="status-failed" v-if="item.status==5">已过期</p>
                           <p class="status-failed" v-if="item.status==6">已废弃</p>
-                          <p class="score-back" v-if="item.status==2">积分已退回</p>
+                          <p class="score-back" v-if="item.status==2 || item.status==88">积分已退回</p>
 
 <!--
                             <span>产品名称：{{item.cardNum==0?item.cardBank+'元话费直充':item.cardBank+'元话费充值卡'}}</span>

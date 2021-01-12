@@ -31,7 +31,7 @@
     </div> -->
   </div>
   <phone-file :show.sync="showPhoneFile" @handle-phonefile="phoneFileShow" ></phone-file>
-  <succ-page :haihangUrl="haihangUrl" v-if="suceesShow" @get-close="getCData"> </succ-page>
+  <succ-page :haihangUrl="haihangUrl" v-if="suceesShow" @get-close="getCData" :businessValidate="businessValidate"> </succ-page>
   <!-- <succ-page  :moneyP="totalAmount" v-if="suceesShow" v-on:getCData="getCData" :getData="suceesData"> </succ-page> -->
 </div>
 
@@ -65,7 +65,8 @@ export default {
       suceesData: {},
       haihangUrl: '',
       link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
-      linkType: 'href'
+      linkType: 'href',
+      businessValidate:false
   }),
   watch: {
     'show.mask': {
@@ -89,19 +90,6 @@ export default {
         checkPassword: 'checkPassword',
         initConfig: 'phone/initConfig'
       }),
-      // async phoneBnt(name){
-      //   if(name == 'dir'){
-      //     if(this.phoneCan){
-      //       let res = await this.checkPassword();
-      //       if (!res) return false;
-      //       this.phoneTax()
-      //     }
-      //   }else{
-      //     let res = await this.checkPassword();
-      //     if (!res) return false;
-      //     this.phoneTax()
-      //   }
-      // },
       setForget() {
         this.show = {mask:true,code:false,file:false,info:false,dialog:true}
       },
@@ -137,6 +125,9 @@ export default {
           this.$router.push({path:'/realName?back=/phone'})
         })}
         if(res.error_code!=0)  return this.failText = res.message;
+        if(res.data.status === 99) {
+          this.businessValidate = true
+        }
         this.totalAmount = res.data.totalAmount;
         this.haihangUrl = res.haiHang
         this.initShow();

@@ -25,7 +25,7 @@
     <set-mobile :show.sync="showSetMobile"></set-mobile>
 
   </div>
-  <succ-page v-if="suceesShow" @get-close="getCData"> </succ-page>
+  <succ-page v-if="suceesShow" @get-close="getCData" :businessValidate="businessValidate"> </succ-page>
 
 </div>
 
@@ -55,7 +55,8 @@ export default {
       showClose: true,
       suceesData: {},
       link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
-      linkType: 'href'
+      linkType: 'href',
+      businessValidate: false
   }),
   watch: {
     'show.mask': {
@@ -99,6 +100,9 @@ export default {
       async submitOrder(val){  //输入短信下单
         let res = await JDECardRecharge({token:this.getToken,productCode:this.jdCardConfig.productCode,verify_code:val,num:this.jdCardConfig.num});
         if(res.error_code!=0)  return this.failText = res.message;
+        if(res.data.status === 99) {
+          this.businessValidate = true
+        }
         this.initShow();
         this.suceesShow=true;
         this.show.mask = true;

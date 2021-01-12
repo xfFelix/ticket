@@ -18,6 +18,12 @@
           <div class="info-status" v-if="detailInfo.status == 2">
             <span>兑换失败</span>
           </div>
+          <div class="info-status" v-if="detailInfo.status == 99">
+            <span>待商户确认</span>
+          </div>
+          <div class="info-status" v-if="detailInfo.status == 88">
+            <span>商户取消订单</span>
+          </div>
           <div class="info-status"  v-if="detailInfo.status == 1">
             <span v-if="detailInfo.cardBank!=6">兑换成功</span>
             <div v-else>

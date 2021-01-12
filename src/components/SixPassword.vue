@@ -28,7 +28,6 @@ export default {
   },
   methods: {
     setScroll() {
-      console.log('1111')
       window.scrollTo(0, 0)
     }
   }

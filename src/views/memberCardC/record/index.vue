@@ -18,8 +18,17 @@
               <span class="status" v-else>兑换失败</span> -->
             </li>
             <li class="dateW">
-              <div class="date" >
-                <img v-if="item.sendDate" src="@/common/images/memberCard/icon_time.png" alt="">
+              <div class="date" v-if="item.status == 99">
+                <img src="@/common/images/memberCard/icon_business_green.png" alt="">
+                <span class="exp" style="color:#21D398;font-weight:bold;">待商户确认</span>
+              </div>
+              <div class="date" v-else-if="item.status == 88">
+                <img src="@/common/images/memberCard/icon_business_gray.png" alt="">
+                <span class="exp">商户取消订单</span>
+                <span class="exp" style="margin-left:auto;margin-right:0">积分已退回</span>
+              </div>
+              <div class="date" v-else>
+                <img v-if="item.memo" src="@/common/images/memberCard/icon_time.png" alt="">
                 <span class="exp" v-if="item.memo">有效期至：{{item.memo.split("|")[2]}}</span>
               </div>
             </li>

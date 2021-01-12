@@ -9,7 +9,6 @@
                 <li v-for="(item,index) in list" :key="index" :class="typeFlag==item.index?'whoSelectLogo':''" @click="typeCharge(item.index)">
                   {{item.name}}
                 </li>
-
             </div>
         </div>
         <div class="scroll-list-wrap">
@@ -19,10 +18,9 @@
                         <div class="reName flex">
                             <span v-if="item.code" class="text-bold">提货码：
                               <span class="reCode">{{item.code.length>15?item.code.substring(item.code.length-15):item.code}}</span>
-                              <em class="see" @click="dialogPwd(item.id)" >查看</em>
+                              <em class="see" @click="showSms(item.id)">查看</em>
                             </span>
                             <span v-else class="text-bold">提货码：— —</span>
-
                             <div v-if="item.buyInfo" style="color:#D5A96E;font-weight:bold">
                                 <span class="text-bold">兑换成功</span>
                                 <!-- <span v-if="item.buyInfo.status==1">提货成功</span>
@@ -30,7 +28,10 @@
                                 <span v-else>提货中</span> -->
                             </div>
                             <div v-else style="color:#D5A96E;font-weight:bold">
-                                <span class="text-bold">兑换成功</span>
+                                <span class="text-bold" v-if="item.status==99">待商户确认</span>
+                                <span class="text-bold" style="color:#FF6600;" v-else-if="item.status==88">商户取消订单</span>
+                                <span class="text-bold" v-else>兑换成功</span>
+
                                 <!-- <span v-if="item.status==0">兑换中</span>
                                 <span v-if="item.status==1">兑换成功</span>
                                 <span v-if="item.status==2">兑换失败</span> -->
@@ -82,7 +83,6 @@
                                 <p v-if="item.buyInfo.buybackType==0">开户行：{{item.buyInfo.bank}}</p>
                                 <p>姓名：{{item.buyInfo.buybackType==0?item.buyInfo.name:item.buyInfo.alipayName}}</p>
                               </div>
-
                             </div>
                             <!-- 黄金实物提取 -->
                             <div v-if="(item.buyInfo != null && item.buyInfo && item.buyInfo.type==1)">
@@ -104,10 +104,18 @@
             </cube-scroll>
             <no-data :data="recodeList"></no-data>
         </div>
+        <transition name="fade">
+          <bg-mask v-model="show.mask"></bg-mask>
+        </transition>
+        <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
+          <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
+          <div slot="btn">联系客服</div>
+        </remindDialog>
+        <sms-code :show.sync="show.code" v-if="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder" @forget="setForget"></sms-code>
     </div>
 </template>
 <script>
-import { goldLog,jygoldPrice } from 'api';
+import { goldLog,jygoldPrice, goldCode } from 'api';
 import { mapGetters ,mapActions } from 'vuex';
 import { vipCustom } from '@/mixins';
 import clip from 'util/clipboard';
@@ -143,10 +151,32 @@ export default {
             index: 3,
           },
         ],
-        detailInfoShow: false
+        detailInfoShow: false,
+        show:{
+          mask:false,
+          code:false,
+          dialog: false
+        },
+        failText:'',
+        link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
+        linkType: 'href',
+        recordId: '',
     }),
+    watch: {
+      'show.mask': {
+        handler(val) {
+          if (!val) {
+            this.initShow();
+            this.failText = undefined;
+          }
+        }
+      },
+    },
     components: {
-        NoData: () => import('components/NoData')
+      NoData: () => import('components/NoData'),
+      SmsCode: ()=> import('components/SmsCode'),
+      remindDialog: ()=> import('components/remindDialog'),
+      BgMask: () => import('components/BgMask'),
     },
     computed: {
         options() {
@@ -177,6 +207,12 @@ export default {
         transClick(item,index){
             this.recodeList[index].statusT = !item.statusT;
         },
+        setForget() {
+          this.show = {mask:true,code:false,dialog:true}
+          },
+        initShow(){
+          this.show={mask:false,code:false,dialog:false}
+        },
         initData() {
           this.start=0;
           this.recodeList = [];
@@ -187,18 +223,6 @@ export default {
           this.initData()
           this.getScenicList();
         },
-        // directCharge() {
-        //     this.typeFlag = 0;
-        //     this.initData();
-        //     this.getScenicList();
-        //     this.getPrice()
-        // },
-        // cardCharge() {
-        //     this.typeFlag = 1;
-        //     this.initData();
-        //     this.getScenicList();
-        //     this.getPrice()
-        // },
         async getPrice(gtype) {
           let res = await jygoldPrice({ id: gtype });
           if(res.error_code!=0) return this.$toast(res.message);
@@ -226,63 +250,16 @@ export default {
                 this.tenFlag = false;
             }
         },
-        dialogPwd(id) {
-          this.$createDialog({
-            type: 'alert',
-            confirmBtn: {
-              text: '提交',
-              active: true
-            },
-            onConfirm: () => { this.handerConfirm(id) },
-            showClose: true,
-            onClose: () => {}
-          }, (h) => {
-            if (this.userinfo.payValidType === 1) {
-              return [
-                h('div', { class: { 'title-wrapper': true }, slot: 'title' }, [h('p',{ class: { text: true }}, '请输入支付密码')]),
-                h('div', { class: { 'content-wrapper': true }, slot: 'content' }, [h('cube-input', { class: { 'input-code': true }, attrs: {type: 'password', eye: {reverse: false, open : false} , autofocus: true, maxlength: 6, placeholder: '请输入支付密码' , pattern: '[0-9]*', value: this.code},
-                  on: { input: (val) => { this.code = val.trim() }}
-                })])
-              ]
-            } else {
-              return [
-                h('div', { class: { 'title-wrapper': true }, slot: 'title' }, [h('p',{ class: { text: true }}, '请输入验证码')]),
-                h('div', { class: { 'content-wrapper': true }, slot: 'content' },
-                [
-                  h('cube-input', { class: { 'input-code': true }, attrs: {type: 'tel', autofocus: true, maxlength: 4, placeholder: '请输入验证码' , pattern: '[0-9]*', value: this.code},
-                    on: { input: (val) => { this.code = val.trim() }}
-                  }),
-                  h('button', { class:{ 'sms-code': true }, on: { click: this.handlerSendCode }, attrs: { disabled: this.btnDisabledCode } }, this.time > 0? this.time + 's': '发送验证码')
-                ])
-              ]
-            }
-          }).show()
-        },
-        async handlerSendCode() {
-          const { sendSmsCode } = await import(/* webpackPrefetch: true */ 'api')
-          const { error_code, data, message } = await sendSmsCode({token: this.getToken})
-          if (error_code) return this.$toast(message)
-          this.$toast('验证码已发送')
-          this.btnDisabledCode = true;
-          this.time = 60;
-          this.interval = window.setInterval(() => {
-            if (this.time > 0) {
-              this.time--
-            } else {
-              this.btnDisabledCode = false
-              window.clearInterval(this.interval)
-            }
-          }, 1000)
-        },
-        async handerConfirm(id) {
-          if (!this.code) return this.$toast('请输入数字')
-          const { goldCode } = await import(/* webpackPrefetch: true */ 'api')
-          const { error_code , data, message } = await goldCode({ token: this.getToken, verify_code: this.code, id: id})
-          if (error_code != 0) return this.$toast(message)
-          this.code = ''
-          this.$dialog({type:'confirm',content: data,title:'您的黄金兑换码是：',confirmBtn:{text:'复制'}},($event) => {
-              this.handleCopy(data,$event)
-          })
+        async submitOrder(val) {
+          let res = await goldCode({token:this.getToken,verify_code:val,id:this.recordId})
+          if(res.error_code != 0){
+            return this.failText = res.message;
+          }else{
+            this.initShow();
+            this.$dialog({type:'alert',showClose: true,content: res.data,title:'您的卡密',confirmBtn:{text:'复制'}},($event) => {
+              this.handleCopy(res.data,$event)
+            })
+          }
         },
         onPullingUp() {
             if (this.tenFlag === true) {
@@ -315,19 +292,19 @@ export default {
             }
           }
         },
+        showSms(id) {
+          this.recordId = id
+          this.show = {mask:true,code:true,dialog:false}
+        },
+        handlerShowInfo(){
+          this.initShow();
+        },
         handleCopy(text, event) {
           clip(text, event)
         },
     },
     mounted() {
-      // if(this.$route.query.cardId==3){
-      //   this.typeFlag = 0;
-      // }
-      // if(this.$route.query.cardId==4){
-      //   this.typeFlag = 1;
-      // }
       this.getScenicList();
-      // this.getPrice();
       this.initConfig();
     }
 }
@@ -367,38 +344,11 @@ export default {
         background: #444444;
       }
     }
-    // p{
-    //     width: 50%;
-    //     text-align: center;
-    //     color: #fff;
-    //     height: 100%;
-    //     font-size: 15px;
-    //     display: inline-block;
-    //     span{
-    //         height: 34px;
-    //         width: 110px;
-    //         display: inline-block;
-    //         text-align: center;
-    //     }
-    //     &:nth-of-type(2){
-    //       &::before{
-    //         color: #b1b1b1;
-    //         font-size: 18px;
-    //         content: '';
-    //         display: inline-block;
-    //         width: 1px;
-    //         height: 22px;
-    //         background: #fff;
-    //         float: left;
-    //       }
-    //     }
-    // }
 
 }
 
 .recordW {
     li {
-        // border: 1px solid #DEDEDE;
         padding-bottom: 16px;
         padding-top: 5px;
         background: #fff;
@@ -429,7 +379,6 @@ export default {
           }
         }
         .reInfoW {
-            // background: #F4F4F4;
             color: rgb(74, 74, 74);
             .reInfo {
               padding: 0 10px 20px 10px;
@@ -491,9 +440,6 @@ export default {
                   margin-top: 16px;
                   position: relative;
                   height: 20px;
-                  // margin-left: auto;
-                  // margin-right: 0;
-                  // text-align: right;
                   .preferentialFee {
                     position: absolute;
                     right: 120px;
@@ -503,7 +449,6 @@ export default {
                     right: 0;
                     display: inline-block;
                     font-family: PingFangSC-Semibold;
-                    // text-align: right;
                     font-size: 14px;
                     color: #D5A96E;
                   }
@@ -512,8 +457,6 @@ export default {
             }
             .recover{
               margin: 0 16px;
-              // width: 100%;
-              // background: #30CE84;
               color: #fff;
               text-align: center;
               line-height: 40px;
@@ -522,8 +465,6 @@ export default {
               letter-spacing: 1px;
               font-weight: bold;
               font-size: 16px;
-              // border-radius:0px 0px 5px 5px; /*no*/
-              // font-size: 14px;
               &.recoverNo{
                 background: #DEDEDE;
                 color: #4A4A4A;
@@ -559,7 +500,6 @@ header {
     text-align: center;
     font-size: 18px;
     color: #444444;
-    // padding-bottom: 5px;
     .cubeic-back {
         position: absolute;
         top: 0;
@@ -763,5 +703,16 @@ header {
       }
     }
   }
+}
+</style>
+<style>
+.cube-popup-mask {
+  background-color: rgba(0,0,0,0.9);
+  opacity: 0.8;
+}
+.cube-dialog-close {
+  top: 4px;
+  right: 4px;
+  font-size: 0.56rem;
 }
 </style>

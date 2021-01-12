@@ -37,8 +37,13 @@
                 </div>
                 <div class="info-detail">
                   <div class="changing" v-if="item.status!=1 ">
-                    <div class="changing-btn">{{item.status==0?'兑换中':'兑换失败'}}</div>
-                    <div class="notice">{{item.status==0?'预计10分钟内发放卡密，刷新页面查看结果':'积分已返还'}}</div>
+                    <div class="changing-btn" v-if="item.status==0">兑换中</div>
+                    <div class="changing-btn" v-if="item.status==99">待商户确认</div>
+                    <div class="changing-btn" v-if="item.status==88">商户取消订单</div>
+                    <div class="changing-btn" v-if="item.status==2">兑换失败</div>
+                    <div class="notice" v-if="item.status==0">预计10分钟内发放卡密，刷新页面查看结果</div>
+                    <div class="notice" v-if="item.status==99">商户确认后发放卡密</div>
+                    <div class="notice" v-if="item.status==2 || item.status==88">积分已返还</div>
                   </div>
                   <div v-if="item.status==1 && item.cardInfos">
                     <div class="change-successW"  v-for="(icardInfo,index) in item.cardInfos" :key="index" :class="[index>1&&!item.showALL?'hide':'show']">
@@ -192,9 +197,6 @@ export default {
     handlerShowInfo(){
         this.initShow();
       },
-    setForget() {
-      this.show = {mask:true,code:false,dialog:true}
-    },
     async submitOrder(val) {
       let res = await JDECardCode({token:this.getToken,cardCode: this.recordCode,verify_code:val,id:this.recordId})
       if(res.error_code != 0){

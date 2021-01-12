@@ -49,7 +49,7 @@
     </div>
 
 
-      <succ-page v-if="suceesShow" @getCData="getCData"></succ-page>
+      <succ-page v-if="suceesShow" @getCData="getCData" :businessValidate="businessValidate"></succ-page>
       <gold-file  :show="show.file" @handle-show-file="initShow"></gold-file>
   </div>
 </div>
@@ -78,7 +78,8 @@ export default {
       showClose: true,
       suceesData: {},
       link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
-      linkType: 'href'
+      linkType: 'href',
+      businessValidate: false
   }),
   watch: {
     'show.mask': {
@@ -148,6 +149,9 @@ export default {
           return false;
         }
         if(res.error_code!=0)  return this.$toast(res.message);
+        if(res.data.status === 99) {
+          this.businessValidate = true
+        }
         this.setConfig({id:res.data.id});
         this.initShow();
         this.suceesShow=true;
@@ -161,8 +165,6 @@ export default {
         this.show={mask:false,code:false,file:false,dialog:false};
       },
       async handlerShowType() {
-        // console.log(this.taxMoney)
-        // console.log("22222222")
         let goldWeight = 0
         if(!this.checked){
           return this.$toast('请阅读并同意《黄金兑换协议》');
