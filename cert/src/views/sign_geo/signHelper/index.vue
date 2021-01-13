@@ -17,6 +17,7 @@ import { IdentityCodeValid,isEmpty,IsMobile } from "util/common";
 import { checkId,signInfoByFace, getInfo } from 'api'
 import axios from 'axios'
 import { mapGetters } from 'vuex';
+import { Base64 } from 'js-base64'
 export default {
   data: () => ({
     checked: true,
@@ -31,7 +32,28 @@ export default {
       config: 'sign_config'
     })
   },
+  created() {
+    this.getParams()
+  },
   methods: {
+    getParams () {
+      try {
+        if (!location.hash.split('?')[1]) return
+        let param = location.hash.split('?')[1].toString()
+        let query = Base64.decode(decodeURIComponent(param))
+        var obj = {}
+        var queryArr = query.split("&")
+        queryArr.forEach(function(item){
+            var value = item.split("=")[1]
+            var key = item.split("=")[0]
+            obj[key] = value;
+        })
+        this.callbackUrl = obj.callbackUrl
+      } catch (e) {
+        console.error(e.message)
+        this.$toast(e.message)
+      }
+    },
     // 点击确定按钮后不能直接拿到子组件的值，所以得在拿到值后再调接口
     commitInfo() {
       this.getPersonInfo = true;
@@ -86,7 +108,8 @@ export default {
           cardNo:this.dataInfo.bankCard,
           region: this.config.city,
           positiveIDPhoto:this.frontObj,
-          negativeIDPhoto:this.backObj
+          negativeIDPhoto:this.backObj,
+          callbackUrl:  this.callbackUrl
         })
         window.location.href = data.data.shortUrl
         toast.hide();
