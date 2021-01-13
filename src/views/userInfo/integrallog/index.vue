@@ -103,9 +103,9 @@ export default {
     line-height: 44px;
     text-align: center;
     position: relative;
-    background: #373C48;
+    background: #fff;
     font-size: 18px;
-    color: #fff;
+    color: #1A1A1A;
     position: fixed;
     width: 100%;
     top: 0;

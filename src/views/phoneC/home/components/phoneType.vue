@@ -86,12 +86,12 @@
           </div>
 
           <div class="phoneBnt" v-if="typeIndex!=0" @click="phoneBnt('card')">
-            <span class="left">应付积分{{phoneTaxInfo.total}}</span>
+            <span class="left">应付积分{{phoneTaxInfo.total | toPrice}}</span>
             <span class="line"></span>
             <span class="right">立即兑换</span>
           </div>
           <div class="phoneBnt" v-else-if="phoneCan && typeIndex==0" @click="phoneBnt('dir')">
-            <span class="left">应付积分{{phoneTaxInfo.total}}</span>
+            <span class="left">应付积分{{phoneTaxInfo.total | toPrice}}</span>
             <span class="line"></span>
             <span class="right">立即充值</span>
           </div>
@@ -101,9 +101,10 @@
             <span class="right">立即充值</span>
           </div>
           <div class="detailInfoW" v-if="detailInfoShow">
-            <li><span>售价</span><span>{{phoneTaxInfo.amount}}</span></li>
-            <li><span>平台服务费</span><span>{{phoneTaxInfo.service_fee}}</span></li>
-            <li><span>税费</span><p><span>{{phoneTaxInfo.tax_total}}</span><span>{{phoneTaxInfo.tax_total>0?'':'(免税)'}}</span></p></li>
+            <li><span>售价</span><span>{{phoneTaxInfo.amount | toPrice}}</span></li>
+            <li><span>平台服务费</span><span>{{phoneTaxInfo.service_fee | toPrice}}</span></li>
+            <li><span>税费</span><p><span>{{phoneTaxInfo.tax_total | toPrice}}</span><span>{{phoneTaxInfo.tax_total>0?'':'(免税)'}}</span></p></li>
+            <li v-if="phoneTaxInfo.preferentialFee"><span>优惠费用</span><span style="color:#FF6600">-{{phoneTaxInfo.preferentialFee | toPrice}}</span></li>
           </div>
           <div class="phoneInfoW">
             <div class="left"><span>椰子分余额</span><span class="score">{{userinfo.score}}</span></div>
@@ -144,11 +145,11 @@
       <div class="other-serviceW" v-if="isNormalUser">
         <p class="title">更多服务</p>
         <div class="other-service">
-          <li @click="$router.push({name:'goldHome'})">
+          <li @click="$router.push({name:'goldZyHome'})">
             <img src="@/common/images/phone/gold.png" alt="">
             <p>黄金兑换</p>
           </li>
-          <li @click="$router.push({name:'oilHome'})">
+          <li @click="$router.push({name:'oilHomeC'})">
             <img src="@/common/images/phone/oil.png" alt="">
             <p>加油卡</p>
           </li>
@@ -156,13 +157,13 @@
             <img src="@/common/images/phone/life.png" alt="">
             <p>生活缴费</p>
           </li> -->
-          <li @click="$router.push({name:'lifeHome'})" >
+          <li>
             <a :href="process+'#/layout/channel?id=yeyun'">
               <img src="@/common/images/phone/shop.png" alt="">
               <p>小椰超市</p>
             </a>
           </li>
-          <li @click="$router.push({name:'memberHome'})">
+          <li @click="$router.push({name:'memberHomeC'})">
             <img src="@/common/images/phone/members.png" alt="">
             <p>会员卡券</p>
           </li>
@@ -171,7 +172,7 @@
 </div>
 </template>
 <script >
-import {directPrice,cardPrice, phoneCharge ,phoneTax} from 'api';
+import {directPrice,cardPrice, phoneCharge ,phoneTax, phoneTaxS} from 'api';
 import {mapGetters, mapActions} from 'vuex';
 import { IsMobile, IsChinaMobile } from "util/common";
 import { vipCustom } from '@/mixins';
@@ -270,8 +271,8 @@ export default {
       },
       dirClick(index,price,key){
         if(this.phoneCan==true){
-          console.log(this.noGoods)
-          console.log(key)
+          // console.log(this.noGoods)
+          // console.log(key)
           if(this.noGoods.indexOf(key)!=-1){
             return false;
           }
@@ -354,28 +355,25 @@ export default {
       },
       async phoneTax() {
         let amount = ''
+        let denomination = ''
+        let memo = ''
         if(this.phoneConfig.type==0){
           amount = this.phoneConfig.realDirP;
+          denomination = this.phoneConfig.dirPrice;
+          memo = 'phone';
         }else{
           amount = this.phoneConfig.realCarP;
+          denomination = this.phoneConfig.cardPrice;
+          memo = 'phoneCard'
         }
-        let res = await phoneTax({amount:amount, token: this.getToken})
+        let res = await phoneTaxS({amount:amount, token: this.getToken, memo: memo,denomination: denomination})
         if (res.error_code != 0) return this.$toast(res.message);
         this.phoneTaxInfo = res.data;
-        // if(this.userinfo.score >= this.phoneTaxInfo.total){
-        //   if(this.phoneTaxInfo.monthTotal > 30000 && isEmpty(this.userinfo.idnum)){
-        //     this.$dialog({type:'confirm',content:'您消费额度超过3万，请先实名认证！'},()=>{
-        //       this.$router.push({path:'/realName?back=/phoneC'})
-        //     })
-        //     return false;
-        //   }
-        // }else{
-        //   this.$dialog({content:'您的积分不足！'},()=>{});
-        //   return false;
-        // }
       },
       cleanInput() {
         this.mobile = ''
+        this.dirIndex = 1
+        this.carIndex = 2
       },
       toPhoneFile() {
         this.$emit('hand-phoneFile', true)
@@ -386,8 +384,6 @@ export default {
             marquee = this.$refs.marqueeBox,
             disx = 0, // 位移距离
             bodyWith = this.$refs.marqueeWrap.clientWidth;
-        console.log(width)
-        console.log(bodyWith)
         if (width > bodyWith){
         //设置位移
         setInterval(() => {
@@ -409,6 +405,8 @@ export default {
       getToken: 'getToken',
       userinfo: 'getUserinfo',
       phoneConfig: 'phone/getConfig',
+      platform: 'platform/getPlatform',
+      vendorId: 'platform/getVendorId',
     }),
   },
   created () {
@@ -426,11 +424,20 @@ export default {
     this.getDirPrice();
     this.getCarPrice();
     this.noGoods = ['1']
-    if(this.userinfo.vendorId == '3839c796c9574b05a80c87f0adfb1f21') {
-      this.isNormalUser = false
-    }
   },
   mounted(){
+    if(this.haofang) {
+      this.isNormalUser = false
+      this.type[1].tip = "话费充值"
+    }
+    if(this.huanlejiao) {
+      this.type = [
+        {id:0,name:'话费充值 - 直充',tip:'预计24小时内充值成功',show:true,
+          imgPath: require('../../../../common/images/phone/chonghuafei_normal.png'),
+          imgPathNone: require('../../../../common/images/phone/chonghuafei_none.png'),
+        }
+      ]
+    }
     // 延时滚动
     // setTimeout(() => {
     //     this.runMarquee()
@@ -967,7 +974,8 @@ export default {
   margin: 0 auto;
   padding: 6px 16px;
   width: 299px;
-  height: 108px;
+  // height: 108px;
+  height: auto;
   background: rgba($color:$phone, $alpha: 0.05);
   box-sizing: border-box;
   li {

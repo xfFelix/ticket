@@ -21,11 +21,13 @@
                         <div class="reName flex">
                           <p>{{item.cardNum==0?item.cardBank+'元话费直充':'三网全国通用'+item.cardBank +'元充值卡'}}</p>
                           <p class="status-recharge" v-if="item.status==0">提交成功，待充值</p>
+                          <p class="status-recharge" v-if="item.status==99">待商户确认</p>
                           <p class="status-success" v-if="item.status==1 || item.status==4 || item.status==7">{{typeFlag==0?'充值':'兑换'}}成功</p>
                           <p class="status-failed" v-if="item.status==2">{{typeFlag==0?'充值':'兑换'}}失败</p>
+                          <p class="status-failed" v-if="item.status==88">商户取消订单</p>
                           <p class="status-failed" v-if="item.status==5">已过期</p>
                           <p class="status-failed" v-if="item.status==6">已废弃</p>
-                          <p class="score-back" v-if="item.status==2">积分已退回</p>
+                          <p class="score-back" v-if="item.status==2 || item.status==88">积分已退回</p>
 
 <!--
                             <span>产品名称：{{item.cardNum==0?item.cardBank+'元话费直充':item.cardBank+'元话费充值卡'}}</span>
@@ -46,7 +48,7 @@
                                 <div v-if="typeFlag==0">手机号码：{{item.cardUser}}</div>
                                 <div v-if="typeFlag==1">卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：{{item.number?item.number:'— —'}}</div>
                                 <div v-if="typeFlag==1">卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密：{{item.number?item.password:'— —'}}</div>
-                                <div>合&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计：{{item.totalAmount|toPrice}}(平台服务费:{{(Number(item.totalAmount)-Number(item.cardBank)-Number(item.taxFee))|toPrice}} 税费:{{item.taxFee|toPrice}})</div>
+                                <div>合&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计：{{item.totalAmount|toPrice}}<span>(平台服务费:{{item.serviceFee|toPrice}}</span><span v-if="item.preferentialFee">优惠费用:-{{item.preferentialFee|toPrice}}</span><span>税费:{{item.taxFee|toPrice}})</span></div>
                                 <div class="reInfo-icon" v-if="typeFlag==1">{{item.cardBank}}元</div>
                             </div>
                         </div>
@@ -64,7 +66,11 @@
             </cube-scroll>
             <no-data :data="recodeList"></no-data>
         </div>
-        <Sms-code :show="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder" :showSendCode="show.code"></Sms-code>
+        <Sms-code :show.sync="show.code" v-if="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder" :showSendCode="show.code" @forget="setForget"></Sms-code>
+        <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
+        <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
+        <div slot="btn">联系客服</div>
+      </remindDialog>
         <transition name="fade">
           <bg-mask v-model="show.mask"></bg-mask>
         </transition>
@@ -89,15 +95,19 @@ export default {
         code: '',
         show: {
           mask: false,
-          code: false
+          code: false,
+          dialog: false
         },
         failText:undefined,
         orderNum: '',
-        isNormalUser: true
+        isNormalUser: true,
+        link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
+        linkType: 'href'
     }),
     components: {
         NoData: () => import('components/NoData'),
         SmsCode: ()=> import('@/components/SmsCode'),
+        remindDialog: ()=> import('@/components/remindDialog'),
         BgMask: () => import('@/components/BgMask'),
     },
     computed: {
@@ -122,6 +132,9 @@ export default {
         }),
     },
     methods: {
+      setForget() {
+        this.show = {mask:true,code:false,dialog:true}
+      },
         initData() {
           this.start=0;
           this.recodeList = [];
@@ -180,11 +193,11 @@ export default {
           if(this.userinfo.payValidType === 1) {
             window.location.href = this.orderNum
           }else {
-            this.show={mask:true,code:true}
+            this.show={mask:true,code:true,dialog:false}
           }
         },
         initShow () {
-          this.show={mask:false,code:false};
+          this.show={mask:false,code:false,dialog:false};
         },
         async submitOrder (val) {
           let data = await checkCode({
@@ -326,7 +339,7 @@ export default {
               .reInfo-icon {
                 position: absolute;
                 right: 0;
-                bottom: 5px;
+                bottom: -11px;
                 width: 40px;
                 height: 40px;
                 line-height: 40px;

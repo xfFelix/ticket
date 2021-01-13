@@ -4,7 +4,7 @@
       <i class="cubeic-back" @click="goBack()"></i>
       加油卡充值
       <div class="iconMoreW">
-        <div class="iconMore">
+        <div class="iconMore" v-if="!haofang">
             <span class="iconfont" @click="showDialog=!showDialog">&#xe80c;</span>
             <Head-tab v-if="showDialog"></Head-tab>
         </div>
@@ -26,7 +26,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import {vipCustom} from '@/mixins'
 export default {
+  mixins: [vipCustom],
   components: {
     'Header': () => import('components/Header'),
     HeadTab: () => import('components/HeadTab'),

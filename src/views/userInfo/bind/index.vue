@@ -127,7 +127,7 @@ export default {
       background: linear-gradient(to right, #52e49c, #2fcf84);
       line-height: 45px;
       text-align: center;
-      font-size: 15px;
+      font-size: 16px;
       color: #fff;
       width: 92%;
       border-radius: 30px;

@@ -49,6 +49,7 @@
       <li>平台服务费<span>{{taxInfo.service_fee|toPrice}}</span></li>
       <li>交易手续费<span>{{taxInfo.transactionFee|toPrice}}</span></li>
       <li>税费<span>{{taxInfo.tax_total|toPrice}}</span></li>
+      <li v-if="taxInfo.preferentialFee">优惠费用<span style="color:#FF6600">-{{taxInfo.preferentialFee|toPrice}}</span></li>
       <li>合计<span>{{taxInfo.total|toPrice}}</span></li>
     </ul>
   </div>
@@ -120,7 +121,8 @@ export default {
           this.getTax(val);
         },500)
       }else{
-        this.getTax(0);
+        // this.getTax(0);
+        this.initTaxInfo()
       }
     },
   },
@@ -128,9 +130,13 @@ export default {
     ...mapActions({
       setConfig: 'gold/setConfig'
     }),
+    initTaxInfo() {
+      this.taxInfo = {}
+    },
     selectType(index) {
       this.gtId = index+3;
-      this.getTax(0);
+      this.initTaxInfo()
+      // this.getTax(0);
       this.getPrice();
       this.type=index+3;
       this.$emit('inp-Clean')

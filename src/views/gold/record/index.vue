@@ -47,6 +47,7 @@
                                 <p>平台服务费：{{item.serviceFee|toPrice}}</p>
                                 <p>交易手续费：{{item.transactionFee|toPrice}}</p>
                                 <p>税费：{{item.taxFee|toPrice}}</p>
+                                <p v-if="item.preferentialFee">优惠费用：<span style="color:#FF6600">-{{item.preferentialFee|toPrice}}</span></p>
                                 <p class="total">合计：{{item.totalAmount|toPrice}}</p>
                             </div>
                             <div class="recover"  @click="recovery(item.price,item.id,item.gtype,item.code,item.weight)"
@@ -249,12 +250,12 @@ export default {
             this.$router.push({name:"goldBuyBack"})
           }else {
             let href = window.location.origin
-            // this.$router.push({name:'goldBuyBackGs',query:{id:id,gtype:gtype,token:this.getToke}})
-            if(href == 'https://tmall.cocogc.cn') {
-              window.location.href = href+'/ticket/gold/buyBackGs?id='+id+'&gtype='+gtype+'&token='+this.getToken+'&fromType=cocogc'
-            }else {
-              window.location.href = 'https://t.xiyuma.net/ticket/gold/buyBackGs?id='+id+'&gtype='+gtype+'&token='+this.getToken+'&fromType=cocogc'
-            }
+            this.$router.push({name:'goldBuyBackGs',query:{id:id,gtype:gtype,token:this.getToke}})
+            // if(href == 'https://tmall.cocogc.cn') {
+            //   window.location.href = href+'/ticket/gold/buyBackGs?id='+id+'&gtype='+gtype+'&token='+this.getToken+'&fromType=cocogc'
+            // }else {
+            //   window.location.href = 'https://t.xiyuma.net/ticket/gold/buyBackGs?id='+id+'&gtype='+gtype+'&token='+this.getToken+'&fromType=cocogc'
+            // }
           }
         },
         handleCopy(text, event) {

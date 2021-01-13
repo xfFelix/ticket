@@ -1,22 +1,32 @@
 <template>
   <div class="realName">
-    <Header class="navbar" :show-more="!yingqiudiShow">实名认证</Header>
+    <div class="header-bg">
+      <Header class="navbar" :show-more="!yingqiudiShow">实名认证
+        <i slot="icon" class="icon-gengduo-black"></i>
+      </Header>
+    </div>
+
+
     <div class="name-info-wrap">
       <ul class="name-info">
-        <li v-if="smsValid" style="color:#999;">虚拟号码：{{userinfo.userName}}</li>
+        <!-- <li v-if="smsValid" style="color:#999;">虚拟号码：{{userinfo.userName}}</li> -->
         <li v-if="smsValid"><span class="iconImg tel"></span><input type="text" placeholder="手机号码" v-model="mobile"></li>
-        <li v-if="smsValid">
+        <li v-if="smsValid" >
           <span class="iconImg sms"></span><input type="text" placeholder="短信验证码" v-model="smsCode">
           <button class="sms-code" :disabled="btnDisabled" @click="sendCode">{{time>0 ? time + 's': timeFlag}}</button>
         </li>
-        <li><span class="iconImg name"></span><input type="text" placeholder="姓名" v-model="name"></li>
+
+        <li><span class="iconImg name"></span><input type="text" placeholder="真实姓名" v-model="name"></li>
         <li><span class="iconImg identy"></span><input type="text" placeholder="身份证号码" v-model="cardId">
         </li>
-        <li class="tip">
+        <!-- <li class="tip">
           温馨提示：应税务要求，月累计消费超过3万的用户需要实名认证。
-        </li>
+        </li> -->
       </ul>
-      <p class="certBnt" @click="certBnt()">确定</p>
+
+    </div>
+    <div class="certBntW">
+      <div class="certBnt" @click="certBnt()">认证</div>
     </div>
   </div>
 </template>
@@ -47,10 +57,10 @@ export default {
   },
   methods:{
     certBnt(){
-      if(!isEmpty(this.userinfo.idnum)){
-        this.$dialog({content:'您已经实名认证过了！'},()=>{});
-        return false;
-      }
+      // if(!isEmpty(this.userinfo.idnum)){
+      //   this.$dialog({content:'您已经实名认证过了！'},()=>{});
+      //   return false;
+      // }
       if(!this.name){
         return this.$toast("请输入你的真实姓名!");
       }
@@ -113,25 +123,28 @@ export default {
   },
   mounted(){
       if(!isEmpty(this.userinfo.idnum)){
-        this.$dialog({type:'confirm',content:'您已经实名认证过了！'},()=>{
-          if(this.$route.query.back){
-            if(this.$route.query.back.indexOf('http')>=0){
-              if(this.$route.query.back.indexOf('?')>0){
-                location.href = this.$route.query.back+"&token=" + this.getToken;
-              }else{
-                location.href = this.$route.query.back+"?token=" + this.getToken;
-              }
-            }else{
-              this.$router.push({path:this.$route.query.back})
-            }
-          }else{
-            if(this.userinfo.haiHang){
-              location.href = this.userinfo.haiHang;
-            }else{
-              this.$router.back()
-            }
-          }
-        })
+        // this.$dialog({type:'confirm',content:'您已经实名认证过了！'},()=>{
+        //   if(this.$route.query.back){
+        //     if(this.$route.query.back.indexOf('http')>=0){
+        //       if(this.$route.query.back.indexOf('?')>0){
+        //         location.href = this.$route.query.back+"&token=" + this.getToken;
+        //       }else{
+        //         location.href = this.$route.query.back+"?token=" + this.getToken;
+        //       }
+        //     }else{
+        //       this.$router.push({path:this.$route.query.back})
+        //     }
+        //   }else{
+        //     if(this.userinfo.haiHang){
+        //       location.href = this.userinfo.haiHang;
+        //     }else{
+        //       this.$router.back()
+        //     }
+        //   }
+        // })
+        // this.name = this.userinfo.realName
+        // this.cardId = this.userinfo.idnum
+        this.$router.replace({path:'/realNameF'})
       }
 
 
@@ -152,60 +165,88 @@ export default {
   }
 </script>
 <style lang="scss" scoped>
+@import '~@/common/css/color.scss';
 .realName{
-  .navbar{
-    background: #313340;
-    color: #fff;
-    position: fixed;
+  height: 100vh;
+  position: relative;
+  .header-bg {
     width: 100%;
+    height: 406px;
+    background-image: url('../../../common/images/realName/realName-bg.png');
+    background-size: 100% 100%;
+    .navbar{
+      // background: #313340;
+      background: transparent;
+      color: #fff;
+      // position: fixed;
+      width: 100%;
+      .icon-gengduo-black {
+        position: absolute;
+        top: 9px;
+        right: 16px;
+        width: 24px;
+        height: 24px;
+        background-image: url('../../../common/images/header-moreW.png') !important;
+        background-size: 100% 100%;
+      }
+    }
   }
+
   .name-info-wrap{
-    padding-top: 44px;
+    // padding-top: 44px;
+    padding: 0 16px;
     .name-info{
       font-size: 14px;
-      padding: 30px 13px;
+      padding: 0 16px;
       background: #fff;
-      margin: 0 auto;
-      width: 86%;
-      box-shadow: #cfe2f8 0 0 10px 0;
-      margin-top: 15px;
+      border-radius: 10px;
+      margin-top: -25px;
       li{
-        border-bottom: 1px solid #eee;
-        line-height: 44px;
+        border-bottom: 1px solid#F5F5F5;
+        line-height: 52px;
         display: flex;
-        height: 44px;
+        height: 52px;
         align-items: center;
         padding: 2px 5px;
-        .name,.sms,.identy{
+        &:last-child {
+          border-bottom: none;
+        }
+        .tel,.name,.sms,.identy{
           margin-right: 16px;
           width: 20px;
           height: 20px;
         }
         .tel{
-          width: 17px;
-          height: 23px;
           margin-right: 16px;
-          background-image: url('../../../common/images/login-tel.png');
+          background-image: url('../../../common/images/realName/icon_phone.png');
         }
         .sms{
-          background-image: url('../../../common/images/login-msg.png')
+          background-image: url('../../../common/images/realName/icon_sms.png')
         }
         .identy{
-          background-image: url('../../../common/images/login-identity.png')
+          background-image: url('../../../common/images/realName/icon_shenfenzheng.png')
         }
         .name{
-          background-image: url('../../../common/images/login-name.png');
+          background-image: url('../../../common/images/realName/icon_name.png');
         }
         input{
           width: 100%;
           height: 100%;
           flex: 1;
+          font-size: 16px;
+          color: #1A1A1A;
+          &::placeholder {
+            font-size: 16px;
+            color: #9D9D9D;
+          }
         }
         .sms-code{
           background-color: transparent;
-          border: 1px solid #27bd5a;
-          padding: 1px 10px;
-          color: #27bd5a;
+          border: 1px solid $theme;
+          padding: 0px 16px;
+          height: 30px;
+          line-height: 30px;
+          color: $theme;
           border-radius: 25px;
         }
       }
@@ -215,23 +256,34 @@ export default {
         font-size: 12px;
       }
     }
-    .certBnt{
-      background: linear-gradient(to right, #52e49c, #2fcf84);
-      line-height: 45px;
-      text-align: center;
-      font-size: 15px;
-      color: #fff;
-      width: 92%;
-      border-radius: 30px;
-      margin: 40px auto;
-    }
+
 
   }
+  .certBntW {
+    margin-top: 67px;
+    margin-bottom: 30px;
+    width: 100%;
+    // position: absolute;
+    // bottom: 30px;
+    padding: 0 16px;
+    box-sizing: border-box;
+    .certBnt{
+      background: $theme;
+      line-height: 50px;
+      text-align: center;
+      font-size: 16px;
+      color: #fff;
+      height: 48px;
+      border-radius: 10px;
+      font-weight: bold;
+      }
+  }
+
 }
 </style>
 <style scoped>
 @media screen and (min-width: 600px){
-  .navbar{
+  .navbar, .certBntW{
     max-width: 384px; /*no*/
     left: 50% !important;
     transform: translateX(-50%);

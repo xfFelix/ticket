@@ -27,7 +27,8 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters,mapActions } from 'vuex';
+import { getParam } from "util/common";
 export default {
   data: () => ({
     showDialog: false
@@ -38,9 +39,17 @@ export default {
     })
   },
   methods: {
+    ...mapActions({
+        platform:'platform/setPlatform'
+      }),
     goHome() {
       window.location.href = process.env.VUE_APP_BASE_HOME_URL;
     },
+  },
+  mounted(){
+    if(getParam().vendorId) {
+      this.platform(1)
+    }
   },
   components: {
     HeadTab: () => import('@/components/HeadTab'),

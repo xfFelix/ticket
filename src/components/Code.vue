@@ -49,13 +49,13 @@ export default {
   outline: none;
   color: transparent;
   text-shadow: 0 0 0 transparent;
-  width: 100%;
+  width: 90%;
   /* top: 0; */
   z-index: -1;
   /* caret-color: transparent; */
   opacity: 0;
   letter-spacing: 39px;
-  margin-left: 15px;
+  /* margin-left: 15px; */
 }
 .code-input-main {
   display: flex;

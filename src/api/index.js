@@ -156,8 +156,13 @@ export const buyBackCommitOrder= (data) => fetch({
 })
 
 //会员卡券类型
+// export const getVipList= (params) => fetch({
+//    url: '/mbscard/getProductList',
+//   method: 'GET',
+//   params
+// })
 export const getVipList= (params) => fetch({
-   url: '/mbscard/getProductList',
+   url: '/mbscard/findProductList',
   method: 'GET',
   params
 })
@@ -167,6 +172,13 @@ export const vipCostInfo= (data) => fetch({
   url: '/mbscard/getCostInfo',
   method: 'POST',
   data
+})
+
+//会员卡券详情
+export const vipCardInfo= (params) => fetch({
+  url: '/mbscard/findProduct',
+ method: 'GET',
+ params
 })
 
 //会员卡券提交订单
@@ -184,6 +196,12 @@ export const vipOrderList= (data) => fetch({
   data
 })
 
+//会员卡券订单详情
+export const vipOrderDetail= (data) => fetch({
+  url: '/mbscard/getOrder',
+  method: 'POST',
+  data
+})
 
 export const checkPayPwd = (data) => fetch({
   url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/editPayPwd',
@@ -287,13 +305,13 @@ export const getPriceByLife = data => fetch({
 /****************************  黄金 ******************************/
 //获取金宇黄金价格
 export const jygoldPrice = (data) => fetch({
-  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/prices',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/user/prices':process.env.VUE_APP_INFO_URl + 'gold/prices'}`,
   method: 'POST',
   data
 })
 //获取自营黄金价格
 export const goldPrice = (data) => fetch({
-  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/zyPrices',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/user/zyPrices':process.env.VUE_APP_INFO_URl + 'gold/zyPrices'}`,
   method: 'POST',
   data
 })
@@ -304,70 +322,76 @@ export const goldPrice = (data) => fetch({
 //   data
 // })
 export const goldTax = (data) => fetch({
-  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/zyGoldTax',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/user/zyGoldTax':process.env.VUE_APP_INFO_URl + 'gold/zyGoldTax'}`,
   method: 'POST',
   data
 })
 
-//黄金兑换接口
-// export const goldBuy = (data) => fetch({
-//   url: process.env.VUE_APP_INFO_URl + 'user/gold',
-//   method: 'POST',
-//   data
-// })
+export const goldTaxAll = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'gold/maxGoldExchange',
+  method: 'POST',
+  data
+})
+
 export const goldBuy = (data) => fetch({
-  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/zyGold',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/user/zyGold':process.env.VUE_APP_INFO_URl + 'gold/zyGold'}`,
   method: 'POST',
   data
 })
 
 //黄金购买记录
 export const goldLog = (data) => fetch({
-  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/golds',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/user/golds':process.env.VUE_APP_INFO_URl + 'gold/golds'}`,
   method: 'POST',
   data
 })
 
 //黄金兑换详情
 export const goldInfo = (data) => fetch({
-  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/goldInfo',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/user/goldInfo':process.env.VUE_APP_INFO_URl + 'gold/goldInfo'}`,
   method: 'POST',
   data
 })
 
 //黄金回购
 export const goldbuyback = (data) => fetch({
-  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/goldbuyback',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/user/goldbuyback':process.env.VUE_APP_INFO_URl + 'gold/goldbuyback'}`,
   method: 'POST',
   data
 })
 export const zygoldbuyback = (data) => fetch({
-  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/zyGoldbuyback',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/user/zyGoldbuyback':process.env.VUE_APP_INFO_URl + 'gold/zyGoldbuyback'}`,
   method: 'POST',
   data
 })
 
 //黄金查看卡密
 export const goldCode = (data) => fetch({
-  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/goldCode',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/user/goldCode':process.env.VUE_APP_INFO_URl + 'gold/goldCode'}`,
   method: 'POST',
   data
 })
 
 //黄金查看保存的银行卡信息
 export const goldBankInfo = (data) => fetch({
-  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/findCardInfo',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/user/findCardInfo':process.env.VUE_APP_INFO_URl + 'gold/findCardInfo'}`,
   method: 'POST',
   data
 })
 
 // 查询黄金回购价格
 export const findGoldBuyBackPrice = (data) => fetch({
-  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/findGoldBuyBackPrice',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/user/findGoldBuyBackPrice':process.env.VUE_APP_INFO_URl+'gold/findGoldBuyBackPrice'}`,
   method: 'POST',
   data
 })
 
+// 获取黄金未提货数量
+export const goldUntreated = (data) => fetch({
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'gold/goldUntreated',
+  method: 'POST',
+  data
+})
 
 /****************************  话费 ******************************/
 //直充价格查询
@@ -401,6 +425,13 @@ export const cardPrice = (data) => fetch({
 //话费充值税费计算
 export const phoneTax = (data) => fetch({
   url: process.env.VUE_APP_INFO_URl + 'user/phoneTax',
+  method: 'POST',
+  data
+})
+
+//话费充值+分摊费用税费计算
+export const phoneTaxS = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'user/phoneTaxs',
   method: 'POST',
   data
 })
@@ -519,7 +550,7 @@ export const taxes = (data) => fetch({
  * @param {*} data
  */
 export const checkBankAndName = (data) => fetch({
-  url: `${fromType=='cocotc'?'https://api.cocotc.cn/':process.env.VUE_APP_INFO_URl}` + 'user/checkCardInfo',
+  url: `${fromType=='cocotc'?'https://api.cocotc.cn/user/checkCardInfo':process.env.VUE_APP_INFO_URl + 'gold/checkCardInfo'}`,
   method: 'POST',
   data
 })
@@ -550,3 +581,38 @@ export const getChuanQiCoinList = (data) => fetch({
   data
 })
 
+/****************************  京东E卡 ******************************/
+// 京东e卡产品信息查询
+export const JDECardPriceList = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/JDECardProductCode',
+  method: 'POST',
+  data
+})
+
+// 京东e卡税率查询
+export const JDECardTaxs = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/JDECardTaxs',
+  method: 'POST',
+  data
+})
+
+// 京东e卡下单
+export const JDECardRecharge = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/JDECardRecharge',
+  method: 'POST',
+  data
+})
+
+//京东e卡订单记录
+export const queryJDECardRecharge = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/queryJDECardRecharge',
+  method: 'POST',
+  data
+})
+
+// 查看卡密
+export const JDECardCode = (data) => fetch({
+  url: process.env.VUE_APP_INFO_URl + 'other/JDECardCode',
+  method: 'POST',
+  data
+})

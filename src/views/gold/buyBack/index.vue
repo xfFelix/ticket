@@ -26,7 +26,11 @@
     <p class="arrivel-accound-day">1-3个工作日内到账，请耐心等待</p>
     <div class="backBnt" @click="buyBnt()">提交</div>
 
-    <sms-code :show="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder"></sms-code>
+    <sms-code :show.sync="show.code" v-if="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder" @forget="setForget"></sms-code>
+    <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
+      <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
+      <div slot="btn">联系客服</div>
+    </remindDialog>
     <transition name="fade">
       <bg-mask v-model="show.mask"></bg-mask>
     </transition>
@@ -59,10 +63,13 @@ export default {
     show:{
       mask:false,
       code:false,
-      file:false
+      file:false,
+      dialog: false
     },
     failText:'',
-    fileType: 0
+    fileType: 0,
+    link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
+    linkType: 'href'
   }),
   watch: {
     'show.mask': {
@@ -86,6 +93,9 @@ export default {
     ...mapActions({
       checkPassword: 'checkPassword',
     }),
+    setForget() {
+        this.show = {mask:true,code:false,file:false,dialog:true}
+      },
     async getUserBankInfo () {
       let res= await goldBankInfo({
             token: this.getToken,
@@ -161,13 +171,13 @@ export default {
       }
       let res = await this.checkPassword();
       if (!res) return;
-      this.show={mask:true,code:true,file:false}
+      this.show={mask:true,code:true,file:false,dialog:false}
     },
     handlerShowInfo(){
         this.initShow();
       },
     initShow(){
-      this.show={mask:false,code:false,file:false}
+      this.show={mask:false,code:false,file:false,dialog:false}
     },
     showDig(){
       this.$dialog({title:'回购说明',content: "<p style='margin-top:-12px;text-align: left;'>本服务由深圳市金宇阳光文化发展有限公司提供。</p><p style='text-align: left;margin: 8px 0 -13px 0;'>回购价格=基础金价-3元/克，基础金价为上海黄金交易所Au99.99当日开盘价。</p>"},() => {})
@@ -186,6 +196,7 @@ export default {
   },
   components:{
     SmsCode: ()=> import('@/components/SmsCode'),
+    remindDialog: ()=> import('@/components/remindDialog'),
     BgMask: () => import('@/components/BgMask'),
     goldFile: () => import("./components/goldFile"),
     SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),

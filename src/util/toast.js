@@ -4,7 +4,7 @@ import {Toast, Dialog} from 'cube-ui'
 Vue.use(Toast)
 Vue.use(Dialog)
 
-export function toast(message = 'loading',type='txt', time = 1000, mask=false) {
+export function toast(message = 'loading',type='txt', time = 3000, mask=false) {
   const $toast =  Toast.$create({
     time,
     txt: message,

@@ -15,7 +15,11 @@
     <!-- 加油卡号dialog -->
     <card-number :show="show.card" @close-dialog="initShow" @handler-show-info="handlerShowInfo" @handler-show-type="handlerShowType"></card-number>
     <!-- 短信dialog -->
-    <sms-code :show="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder"></sms-code>
+    <sms-code :show.sync="show.code" v-if="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder" @forget="setForget"></sms-code>
+    <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
+        <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
+        <div slot="btn">联系客服</div>
+      </remindDialog>
     <!-- 选择类型dialog 中石化1，中石油2 -->
     <select-type :show="show.type" @handler-show-info="handlerClick" @init-show="initShow"></select-type>
     <!-- 详情dialog -->
@@ -29,6 +33,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import { getParam } from "util/common";
 export default {
   components: {
     Score: () => import('./components/Score'),
@@ -36,6 +41,7 @@ export default {
     CardNumber: () => import(/* webpackPrefetch: true */ './components/CardNumber'),
     BgMask: () => import(/* webpackPrefetch: true */ 'components/BgMask'),
     SmsCode: () => import(/* webpackPrefetch: true */ './components/SmsCode'),
+    remindDialog: ()=> import('@/components/remindDialog'),
     SelectType: () => import(/* webpackPrefetch: true */ './components/SelectType'),
     RechargeInfo: ()=> import(/* webpackPrefetch: true */ './components/RechargeInfo'),
     SetPassword: () => import(/* webpackPrefetch: true */ 'components/SetPassword'),
@@ -47,9 +53,12 @@ export default {
       card: false,
       code: false,
       type: false,
-      info: false
+      info: false,
+      dialog: false
     },
-    failText: ''
+    failText: '',
+    link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
+    linkType: 'href'
   }),
   watch: {
     'show.mask': {
@@ -62,6 +71,11 @@ export default {
   },
   created() {
     this.initConfig()
+  },
+  mounted(){
+    if(getParam().vendorId) {
+      this.platform(1)
+    }
   },
   computed: {
     ...mapGetters({
@@ -85,6 +99,9 @@ export default {
     }
   },
   methods: {
+    setForget() {
+        this.show = {mask:true,code:false,file:false,card:false, type: false, dialog:true}
+      },
     async submitOrder () {
       const {faceValue, code, cardNum, token, type, rechargeType, mobile} = this.config
       let config = {faceValue, code, cardNum, token, rechargeType, oilCardType: type}
@@ -106,7 +123,7 @@ export default {
       })
     },
     initShow() {
-      this.show = { mask: false, card: false, code: false, type: false, info: false }
+      this.show = { mask: false, card: false, code: false, type: false, info: false, dialog:false }
     },
     handlerClick() {
       if (+this.config.rechargeType === 1) {
@@ -116,18 +133,18 @@ export default {
       }
     },
     handlerShowInfo() {
-      this.show = { mask: true, info: true, type: false, card: false, code: false }
+      this.show = { mask: true, info: true, type: false, card: false, code: false ,dialog:false }
     },
     async handlerShowType() {
       let res = await this.checkPassword()
       if (!res) return
-      this.show = { mask: true, type: true, card: false, code: false, info: false }
+      this.show = { mask: true, type: true, card: false, code: false, info: false, dialog:false }
     },
     handlerShowCard() {
-      this.show = { mask: true, card: true, code: false, type: false, info: false }
+      this.show = { mask: true, card: true, code: false, type: false, info: false, dialog:false }
     },
     handlerShowCode() {
-      this.show = { mask: true, code: true, card: false, type: false, info: false }
+      this.show = { mask: true, code: true, card: false, type: false, info: false, dialog:false }
     },
     goBack() {
       if (this.config.rechargeType === 1) {
@@ -141,7 +158,8 @@ export default {
     },
     ...mapActions({
       initConfig: 'oil/initConfig',
-      checkPassword: 'checkPassword'
+      checkPassword: 'checkPassword',
+      platform:'platform/setPlatform'
     })
   }
 }

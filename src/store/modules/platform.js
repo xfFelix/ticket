@@ -4,10 +4,10 @@ let defaultPlatform = 0
 let defaultVendorId = ''
 let defaultVendorUid = ''
 try{
-  if (localStorage.get('platform')) {
-    defaultPlatform = localStorage.get('platform')
-    defaultVendorId = localStorage.get('vendorId')
-    defaultVendorUid = localStorage.get('vendorUid')
+  if (localStorage.get('platform') || localStorage.get('yeyun_platform')) {
+    defaultPlatform = localStorage.get('platform') || localStorage.get('yeyun_platform')
+    defaultVendorId = localStorage.get('vendorId') || localStorage.get('yeyun_vendorId')
+    defaultVendorUid = localStorage.get('vendorUid') || localStorage.get('yeyun_vendorUid')
   }
 } catch(e) {
   console.error(e)

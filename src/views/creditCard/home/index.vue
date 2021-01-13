@@ -15,7 +15,11 @@
     <transition name="fade">
       <bg-mask v-model="show.mask"></bg-mask>
     </transition>
-    <sms-code :show="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder" ></sms-code>
+    <sms-code :show.sync="show.code" v-if="show.code" :fail-text="failText" @handler-show-info="handlerShowInfo" @submit-order="submitOrder" @forget="setForget"></sms-code>
+    <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
+      <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
+      <div slot="btn">联系客服</div>
+    </remindDialog>
     <!-- 设置支付密码dialog -->
     <set-password :show.sync="showSetPassword"></set-password>
     <!-- 设置手机号 -->
@@ -35,13 +39,16 @@ export default {
         code:false,
         mask:false,
         file:false,
+        dialog: false
       },
       failText:undefined,
       suceesShow:false,
       cardId:undefined,
       taxPrice:undefined,
       totalAmount:0,
-      taxMoney:{}
+      taxMoney:{},
+      link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
+      linkType: 'href'
   }),
   watch: {
     'show.mask': {
@@ -63,6 +70,9 @@ export default {
     ...mapActions({
         checkPassword: 'checkPassword',
     }),
+      setForget() {
+        this.show = {mask:true,code:false,file:false,dialog:true}
+      },
       getCData(val){  //关闭成功页
         this.suceesShow=val;
       },
@@ -114,13 +124,13 @@ export default {
         this.initShow()
       },
       initShow(){
-        this.show={code:false,mask:false, file:false}
+        this.show={code:false,mask:false, file:false,dialog:false}
       },
       smsShow(){
-        this.show={code:true,mask:true, file:false}
+        this.show={code:true,mask:true, file:false, dialog:false}
       },
       fileShow(){
-        this.show={code:false,mask:true, file:true}
+        this.show={code:false,mask:true, file:true, dialog:false}
       },
   },
   mounted(){
@@ -129,6 +139,7 @@ export default {
   components: {
     Header: () => import('@/components/Header'),
     SmsCode: ()=> import('@/components/SmsCode'),
+    remindDialog: ()=> import('@/components/remindDialog'),
     BgMask: () => import('@/components/BgMask'),
     succPage:()=> import('./components/succPage'),
     repayment: () => import("./components/repayment"),

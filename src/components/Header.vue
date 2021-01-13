@@ -45,6 +45,10 @@ export default {
           return this.$router.back()
         }
         return this.$router.push('home')
+      }else if(route.path.includes('/memberCard/home')) {
+        return window.location.href = process.env.VUE_APP_BASE_HOME_URL
+      }else if(route.path.includes('/oil/home')) {
+        return window.location.href = process.env.VUE_APP_BASE_HOME_URL
       }
       this.$router.back()
     }
@@ -63,7 +67,7 @@ header{
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   color: #000;
-  z-index: 5;
+  z-index: 10;
   h1{
     font-size: 16px;
     font-weight: 700;

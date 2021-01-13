@@ -28,7 +28,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      token: 'getToken'
+      token: 'getToken',
+      platform: 'platform/getPlatform',
+      vendorId: 'platform/getVendorId',
     })
   },
   methods: {
@@ -46,6 +48,11 @@ export default {
   },
   mounted(){
     this.getDetail()
+  },
+  created() {
+    if (this.platform && this.vendorId=='3839c796c9574b05a80c87f0adfb1f21') {
+      this.logoIdP = [2,5]
+    }
   }
 }
 </script>

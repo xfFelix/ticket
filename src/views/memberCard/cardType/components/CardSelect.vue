@@ -184,6 +184,7 @@ export default {
       box-sizing: border-box;
       border-radius: 5px;
       font-size: 18px;
+      color: #444444;
     }
     .logoPng {
       width: 22px;

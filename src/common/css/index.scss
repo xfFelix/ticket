@@ -252,7 +252,31 @@ input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus
 	-webkit-transition-delay: 9999s;
 	-webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
 }
-
+.cube-dialog-main {
+  border-radius: 10px;
+  .cube-dialog-title-def {
+    margin: 24px 12px 0px;
+    color: #1A1A1A;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .cube-dialog-content-def {
+    padding: 0 12px;
+    color: #1A1A1A;
+    font-size: 16px;
+    text-align: center;
+  }
+  .cube-dialog-btn {
+    padding: 16px 10px;
+  }
+  .cube-dialog-btn {
+    font-size: 16px;
+  }
+  .cube-dialog-btn_highlight {
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
 @font-face {
   font-family: PingFangSC-Semibold;
   src: url('../fontPingFang/PingFangSC_2.ttf');

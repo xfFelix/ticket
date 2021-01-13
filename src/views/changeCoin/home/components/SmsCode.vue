@@ -26,7 +26,8 @@
 
         <button class="confirm" :style="{'background':btnBgColor}" @click="validateCode" :disabled="btnConfirm" :class="[{'gray-confirm': btnConfirm==true},{'pay-confirm': userinfo.payValidType === 1}]">完成</button>
         <div v-if="userinfo.payValidType === 1" class="forget-password">
-          <a :href="token?(process+'/#/payPassword'+'?token=' + token):(process+'/#/payPassword')">忘记密码？</a>
+          <a @click="forget">忘记密码？</a>
+          <!-- <a :href="token?(process+'/#/payPassword'+'?token=' + token):(process+'/#/payPassword')">忘记密码？</a> -->
         </div>
       </div>
 
@@ -103,10 +104,15 @@ export default {
     show(val){
       if (val) {
         if (this.userinfo.payValidType !== 1) {
-          this.sendCode()
+          // this.sendCode()
         }
       }else{
         this.code='';
+      }
+    },
+    failText(val) {
+      if(val) {
+        this.code = ''
       }
     },
     code(val) {
@@ -174,6 +180,9 @@ export default {
     // },
     validateCode() {
       this.$emit('submit-order',this.code)
+      // setTimeout(()=>{
+      //   this.code = ''
+      // },500)
     },
     async sendCode() {
       clearInterval(this.timeout);
@@ -192,7 +201,16 @@ export default {
     },
     inputClick(e) {
       e.target.focus();
+    },
+    forget() {
+      this.$emit('forget')
     }
+  },
+  mounted() {
+    if(this.userinfo.payValidType !== 1) {
+      this.sendCode()
+    }
+
   }
 }
 </script>

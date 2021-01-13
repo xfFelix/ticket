@@ -2,7 +2,7 @@
 <template>
 <div class="phoneHome">
   <div>
-    <Header class="navbar" :class="[viewTop>0?'whiteBg':'']"  :show-more="!yingqiudiShow" >话费充值
+    <Header class="navbar" :class="[viewTop>0?'whiteBg':'']"  :show-more="!yingqiudiShow && !haofang" >话费充值
       <i slot="icon" class="icon-gengduo-white"></i>
     </Header>
     <phone-type @hand-phoneCan="phoneCanP" @hand-smsShow="smsShow" @hand-phoneFile="phoneFileShow"></phone-type>
@@ -11,7 +11,11 @@
 
 
 
-    <Sms-code :show="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder" ></Sms-code>
+    <Sms-code v-if="show.code" :show.sync="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder" @forget="setForget"></Sms-code>
+    <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
+        <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
+        <div slot="btn">联系客服</div>
+      </remindDialog>
 
     <transition name="fade">
       <bg-mask v-model="show.mask" :isClose="showClose"></bg-mask>
@@ -27,7 +31,7 @@
     </div> -->
   </div>
   <phone-file :show.sync="showPhoneFile" @handle-phonefile="phoneFileShow" ></phone-file>
-  <succ-page :haihangUrl="haihangUrl" v-if="suceesShow" @get-close="getCData"> </succ-page>
+  <succ-page :haihangUrl="haihangUrl" v-if="suceesShow" @get-close="getCData" :businessValidate="businessValidate"> </succ-page>
   <!-- <succ-page  :moneyP="totalAmount" v-if="suceesShow" v-on:getCData="getCData" :getData="suceesData"> </succ-page> -->
 </div>
 
@@ -46,7 +50,8 @@ export default {
         code:false,
         mask:false,
         file:false,
-        info:false
+        info:false,
+        dialog: false
       },
       failText:undefined,
       inpPrice:undefined,
@@ -58,7 +63,10 @@ export default {
       showPhoneFile:false,
       showClose: true,
       suceesData: {},
-      haihangUrl: ''
+      haihangUrl: '',
+      link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
+      linkType: 'href',
+      businessValidate:false
   }),
   watch: {
     'show.mask': {
@@ -80,22 +88,11 @@ export default {
   methods:{
      ...mapActions({
         checkPassword: 'checkPassword',
-        initConfig: 'phone/initConfig',
-        platform:'platform/setPlatform'
+        initConfig: 'phone/initConfig'
       }),
-      // async phoneBnt(name){
-      //   if(name == 'dir'){
-      //     if(this.phoneCan){
-      //       let res = await this.checkPassword();
-      //       if (!res) return false;
-      //       this.phoneTax()
-      //     }
-      //   }else{
-      //     let res = await this.checkPassword();
-      //     if (!res) return false;
-      //     this.phoneTax()
-      //   }
-      // },
+      setForget() {
+        this.show = {mask:true,code:false,file:false,info:false,dialog:true}
+      },
       phoneCanP(val){
         this.phoneCan=val
       },
@@ -105,13 +102,13 @@ export default {
         this.$router.go(0)
       },
       initShow(){
-        this.show={mask:false,code:false,file:false,info:false};
+        this.show={mask:false,code:false,file:false,info:false,dialog:false};
       },
       infoShow(){
-        this.show={mask:true,code:false,file:false,info:true};
+        this.show={mask:true,code:false,file:false,info:true,dialog:false};
       },
       smsShow(){
-        this.show={mask:true,code:true,file:false,info:false};
+        this.show={mask:true,code:true,file:false,info:false,dialog:false};
       },
       async submitOrder(val){  //输入短信下单
         let amount = '';
@@ -128,6 +125,9 @@ export default {
           this.$router.push({path:'/realName?back=/phone'})
         })}
         if(res.error_code!=0)  return this.failText = res.message;
+        if(res.data.status === 99) {
+          this.businessValidate = true
+        }
         this.totalAmount = res.data.totalAmount;
         this.haihangUrl = res.haiHang
         this.initShow();
@@ -172,9 +172,6 @@ export default {
   },
   mounted(){
     window.addEventListener('scroll', this.handleScroll, false)
-    if(getParam().vendorId) {
-      this.platform(1)
-    }
   },
   beforeDestroy() {
     window.removeEventListener('scroll',this.handleScroll);
@@ -183,6 +180,7 @@ export default {
     Header: () => import('@/components/Header'),
     phoneType: ()=> import('./components/phoneType'),
     SmsCode: ()=> import('@/components/SmsCode'),
+    remindDialog: ()=> import('@/components/remindDialog'),
     BgMask: () => import('@/components/BgMask'),
     succPage:()=> import('./components/succPage'),
     // phoneInfo:()=> import('./components/phoneInfo')
@@ -193,6 +191,7 @@ export default {
 <style lang="scss" scoped>
 .phoneHome{
   height: 100%;
+  min-height: 100vh;
   padding-bottom: 16px;
   background: linear-gradient(225deg, #1A63FC 0%, #3296FA 100%);
   .navbar{

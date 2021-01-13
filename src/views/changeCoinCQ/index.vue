@@ -52,7 +52,11 @@
     <transition name="fade">
       <bg-mask v-model="show.mask"></bg-mask>
     </transition>
-    <sms-code :show="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder" ></sms-code>
+    <sms-code :show.sync="show.code" v-if="show.code" :fail-text="failText" @handler-show-info="initShow" @submit-order="submitOrder" @forget="setForget"></sms-code>
+    <remindDialog :show="show.dialog" @handle-show-dialog="initShow" :link="link" :linkType="linkType">
+      <p slot="title">为了您的账号安全，请联系客服进行重置支付密码</p>
+      <div slot="btn">联系客服</div>
+    </remindDialog>
   </div>
 </template>
 
@@ -77,11 +81,14 @@ export default {
     show:{
       code:false,
       mask:false,
+      dialog: false
     },
     rate:10000,
     dis:0.85,
     list: '',
-    active: ''
+    active: '',
+    link:'http://mad.miduoke.net/Web/im.aspx?_=t&accountid=119481',
+    linkType: 'href'
   }),
   computed: {
     ...mapGetters({
@@ -106,6 +113,9 @@ export default {
     ...mapActions({
       checkPassword: 'checkPassword'
     }),
+    setForget() {
+        this.show = {mask:true,code:false,dialog:true}
+      },
     async getList(){
       const {getChuanQiCoinList} = await import('@/api')
       const { code, data } = await getChuanQiCoinList({catKey: ''})
@@ -130,7 +140,7 @@ export default {
       this.taxInfo.coin_total=Math.round(val*this.rate /this.dis);
     },
     initShow(){
-      this.show={code:false,mask:false};
+      this.show={code:false,mask:false,dialog:false};
     },
     async submitOrder(val){
       let res = await buyChuanQiCoin({token:this.token,verify_code:val,amount:this.taxPrice});
@@ -156,13 +166,14 @@ export default {
       }
       let res = await this.checkPassword();
       if (!res) return;
-      this.show = {mask:true,code:true}
+      this.show = {mask:true,code:true,dialog:false}
     }
   },
   components: {
     SmsCode: ()=> import('@/components/SmsCode'),
     BgMask: () => import('@/components/BgMask'),
-    Header: () => import('@/components/Header')
+    Header: () => import('@/components/Header'),
+    remindDialog: ()=> import('@/components/remindDialog'),
     // succPage:()=> import('./components/succPage'),
   },
 }
