@@ -81,7 +81,11 @@
     <div class="other-serviceW" v-if="!haofang">
       <p class="title">更多服务</p>
       <div class="other-service">
-        <li @click="$router.push({name:'goldZyHome'})">
+        <!-- <li @click="$router.push({name:'goldZyHome'})">
+          <img src="@/common/images/jdCard/gold.png" alt="">
+          <p>黄金兑换</p>
+        </li> -->
+        <li>
           <img src="@/common/images/jdCard/gold.png" alt="">
           <p>黄金兑换</p>
         </li>
